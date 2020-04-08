@@ -52,7 +52,9 @@ public class LoginPanel extends JPanel {
 	
 	public static void main(String [] args) {
 		JPanel p = new LoginPanel();
+		JPanel a = new AdminPanel();
+		JPanel s = new StudentPanel();
 		Frame myFrame = new Frame("Hey");
-		myFrame.setPanel(p);
+		myFrame.setPanel(a);
 	}
 }

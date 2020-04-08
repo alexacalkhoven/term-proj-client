@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+@SuppressWarnings("serial")
 public class AdminPanel extends JPanel {
 	private JButton back;
 	private JButton viewAllCourses;

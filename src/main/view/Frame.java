@@ -17,12 +17,12 @@ public class Frame extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		setResizable(false);
-		pack();
 		Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((dimensions.width - getSize().width) / 2, (dimensions.height - getSize().height) / 2);
 	}
 	
 	public void setPanel(JPanel p) {
 		this.setContentPane(p);
+		pack();
 	}
 }
