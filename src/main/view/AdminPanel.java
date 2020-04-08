@@ -24,10 +24,10 @@ public class AdminPanel extends JPanel {
 	private JTable table;
 
 	public AdminPanel() {
+		setLayout(new BorderLayout());
 		setupPanels();
 		setupDisplay();
 		setupButtons();
-
 	}
 
 	private void setupButtons() {

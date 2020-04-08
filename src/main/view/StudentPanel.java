@@ -23,6 +23,7 @@ public class StudentPanel extends JPanel {
 	private JTable table;
 
 	public StudentPanel() {
+		setLayout(new BorderLayout());
 		setupPanels();
 		setupDisplay();
 		setupButtons();
@@ -74,7 +75,6 @@ public class StudentPanel extends JPanel {
 		this.add(title, BorderLayout.NORTH);
 		this.add(display, BorderLayout.CENTER);
 		this.add(buttons, BorderLayout.SOUTH);
-
 	}
 
 }
