@@ -49,7 +49,7 @@ public class AdminPanel extends Panel {
 	private void setupRemoveStudent() {
 		removeStudent = new JButton("Remove Student");
 		removeStudent.addActionListener((ActionEvent e) -> {
-			System.out.println("Remove a Course");
+			System.out.println("Remove a Student");
 		});
 		buttons.add(removeStudent);
 	}
@@ -57,7 +57,7 @@ public class AdminPanel extends Panel {
 	private void setupCreateStudent() {
 		createStudent = new JButton("Create Student");
 		createStudent.addActionListener((ActionEvent e) -> {
-			System.out.println("Remove a Course");
+			System.out.println("Create a Student");
 		});
 		buttons.add(createStudent);
 	}
@@ -65,7 +65,7 @@ public class AdminPanel extends Panel {
 	private void setupCreateOffering() {
 		createCourseOffering = new JButton("Create Course Offering");
 		createCourseOffering.addActionListener((ActionEvent e) -> {
-			System.out.println("Remove a Course");
+			System.out.println("Create Offering");
 		});
 		buttons.add(createCourseOffering);
 	}
