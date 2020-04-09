@@ -81,7 +81,8 @@ public class AdminPanel extends Panel {
 	private void setupCreateCourse() {
 		createCourse = new JButton("Create Course");
 		createCourse.addActionListener((ActionEvent e) -> {
-			System.out.println("Create a Course");
+			String[] labels = {"ID: ", ""};
+			String[] inputs = getInputs(labels);
 		});
 		buttons.add(createCourse);
 	}
