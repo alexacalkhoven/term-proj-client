@@ -67,6 +67,8 @@ public class LoginPanel extends Panel {
 	private void setupAdmin() {
 		loginAdmin = new JButton("Admin");
 		loginAdmin.addActionListener((ActionEvent e) -> {
+			String[] stuff = {"ID: "};
+			String[] inputs = getInputs(stuff);
 			changeView("admin");
 		});
 	}
@@ -77,4 +79,5 @@ public class LoginPanel extends Panel {
 			changeView("student");
 		});
 	}
+
 }
