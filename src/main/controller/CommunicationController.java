@@ -24,8 +24,11 @@ public class CommunicationController {
 	public void makeRequest(String name, Object ob) {
 		try {
 			socketOut.writeObject(new Request(name, ob));
+			Response res = (Response) socketIn.readObject();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e2) {
+			e2.printStackTrace();
 		}
 	}
 
