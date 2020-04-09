@@ -124,7 +124,7 @@ public class AdminPanel extends Panel {
 		buttons = new JPanel();
 		this.add(title, BorderLayout.NORTH);
 		this.add(display, BorderLayout.CENTER);
-		this.add(buttons, BorderLayout.EAST);
+		this.add(buttons, BorderLayout.SOUTH);
 	}
 
 }

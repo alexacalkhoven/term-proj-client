@@ -18,6 +18,7 @@ public class Panel extends JPanel {
 	public void changeView(String s) {
 		panMan.switchTo(s);
 	}
+	
 	public String[] getInputs(String[] names) {
 		String[] stringInputs = new String[names.length];
 		Object[] message = new Object[2*names.length];
@@ -38,7 +39,7 @@ public class Panel extends JPanel {
 			stringInputs[i] = textfields[i].getText();
 		}
 
-		int option = JOptionPane.showConfirmDialog(getRootPane(), message, "Input", JOptionPane.OK_CANCEL_OPTION);
+		JOptionPane.showConfirmDialog(getRootPane(), message, "Input", JOptionPane.OK_CANCEL_OPTION);
 
 		return stringInputs;
 		
