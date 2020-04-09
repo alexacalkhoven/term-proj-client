@@ -3,13 +3,18 @@ package main.view;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import main.controller.PanelController;
+
+
 @SuppressWarnings("serial")
-public class AdminPanel extends JPanel {
+public class AdminPanel extends Panel {
+	
 	private JButton back;
 	private JButton viewAllCourses;
 	private JButton createCourse;
@@ -23,7 +28,8 @@ public class AdminPanel extends JPanel {
 	private JPanel buttons;
 	private JTable table;
 
-	public AdminPanel() {
+	public AdminPanel(PanelController panMan) {
+		super(panMan);
 		setLayout(new BorderLayout());
 		setupPanels();
 		setupDisplay();
@@ -31,30 +37,69 @@ public class AdminPanel extends JPanel {
 	}
 
 	private void setupButtons() {
-		back = new JButton("Back");
-		viewAllCourses = new JButton("View All Courses");
-		createCourse = new JButton("Create Course");
-		removeCourse = new JButton("Remove Course");
-		createCourseOffering = new JButton("Create Course Offering");
-		createStudent = new JButton("Create Student");
-		removeStudent = new JButton("remove Student");
+		setupBack();
+		setupView();
+		setupCreateCourse();
+		setupRemoveCourse();
+		setupCreateOffering();
+		setupCreateStudent();
+		setupRemoveStudent();
+	}
 
-		//back.addActionListener();
-		//viewAllCourses.addActionListener();
-		//createCourse.addActionListener();
-		//removeCourse.addActionListener();
-		//createCourseOffering.addActionListener();
-		//createStudent.addActionListener();
-		//removeStudent.addActionListener();
-		
-
-		buttons.add(back);
-		buttons.add(viewAllCourses);
-		buttons.add(createCourse);
-		buttons.add(removeCourse);
-		buttons.add(createCourseOffering);
-		buttons.add(createStudent);
+	private void setupRemoveStudent() {
+		removeStudent = new JButton("Remove Student");
+		removeStudent.addActionListener((ActionEvent e) -> {
+			System.out.println("Remove a Course");
+		});
 		buttons.add(removeStudent);
+	}
+
+	private void setupCreateStudent() {
+		createStudent = new JButton("Create Student");
+		createStudent.addActionListener((ActionEvent e) -> {
+			System.out.println("Remove a Course");
+		});
+		buttons.add(createStudent);
+	}
+
+	private void setupCreateOffering() {
+		createCourseOffering = new JButton("Create Course Offering");
+		createCourseOffering.addActionListener((ActionEvent e) -> {
+			System.out.println("Remove a Course");
+		});
+		buttons.add(createCourseOffering);
+	}
+
+	private void setupRemoveCourse() {
+		removeCourse = new JButton("Remove Course");
+		removeCourse.addActionListener((ActionEvent e) -> {
+			System.out.println("Remove a Course");
+		});
+		buttons.add(removeCourse);
+	}
+
+	private void setupCreateCourse() {
+		createCourse = new JButton("Create Course");
+		createCourse.addActionListener((ActionEvent e) -> {
+			System.out.println("Create a Course");
+		});
+		buttons.add(createCourse);
+	}
+
+	private void setupView() {
+		viewAllCourses = new JButton("View All Courses");
+		viewAllCourses.addActionListener((ActionEvent e) -> {
+			System.out.println("View");
+		});
+		buttons.add(viewAllCourses);
+	}
+
+	private void setupBack() {
+		back = new JButton("Back");
+		back.addActionListener((ActionEvent e) -> {
+			changeView("login");
+		});
+		buttons.add(back);
 	}
 
 	private void setupDisplay() {
@@ -80,7 +125,6 @@ public class AdminPanel extends JPanel {
 		this.add(title, BorderLayout.NORTH);
 		this.add(display, BorderLayout.CENTER);
 		this.add(buttons, BorderLayout.SOUTH);
-
 	}
 
 }

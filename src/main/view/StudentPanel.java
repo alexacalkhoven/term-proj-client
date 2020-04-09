@@ -2,14 +2,17 @@ package main.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import main.controller.PanelController;
 
 @SuppressWarnings("serial")
-public class StudentPanel extends JPanel {
+public class StudentPanel extends Panel {
+	
 	private JButton viewAllCourses;
 	private JButton searchCourseCatalogue;
 	private JButton viewRegisteredCourses;
@@ -22,7 +25,8 @@ public class StudentPanel extends JPanel {
 	private JPanel buttons;
 	private JTable table;
 
-	public StudentPanel() {
+	public StudentPanel(PanelController panMan) {
+		super(panMan);
 		setLayout(new BorderLayout());
 		setupPanels();
 		setupDisplay();
@@ -30,25 +34,60 @@ public class StudentPanel extends JPanel {
 	}
 
 	private void setupButtons() {
-		viewAllCourses = new JButton("View All Courses");
-		searchCourseCatalogue = new JButton("Search Course Catalogue");
-		viewRegisteredCourses = new JButton("View Registered Courses");
-		registerForCourse = new JButton("Register For Course");
+		setupBack();
+		setupView();
+		setupSearch();
+		setupViewReg();
+		setupRegForCourse();
+		setupDrop();
+	}
+
+
+	private void setupDrop() {
 		dropCourse = new JButton("Drop Course");
-		back = new JButton("Back");
-
-		// viewAllCourses.addActionListener();
-		// searchCourseCatalogue.addActionListener();
-		// viewReigseredCourses.addActionListener();
-		// registerForCourse.addActionListener();
-		// dropCourse.addActionListener();
-		// back.addActionListener();
-
-		buttons.add(viewAllCourses);
-		buttons.add(searchCourseCatalogue);
-		buttons.add(viewRegisteredCourses);
-		buttons.add(registerForCourse);
+		dropCourse.addActionListener((ActionEvent e) -> {
+			System.out.println("Drop");
+		});
 		buttons.add(dropCourse);
+	}
+
+	private void setupRegForCourse() {
+		registerForCourse = new JButton("Register For Course");
+		registerForCourse.addActionListener((ActionEvent e) -> {
+			System.out.println("Register For Course");
+		});
+		buttons.add(registerForCourse);
+	}
+
+	private void setupViewReg() {
+		viewRegisteredCourses = new JButton("View Registered Courses");
+		viewRegisteredCourses.addActionListener((ActionEvent e) -> {
+			System.out.println("View");
+		});
+		buttons.add(viewRegisteredCourses);
+	}
+
+	private void setupSearch() {
+		searchCourseCatalogue = new JButton("Search Course Catalogue");
+		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
+			System.out.println("Search");
+		});
+		buttons.add(searchCourseCatalogue);
+	}
+
+	private void setupView() {
+		viewAllCourses = new JButton("View All Courses");
+		viewAllCourses.addActionListener((ActionEvent e) -> {
+			System.out.println("View");
+		});
+		buttons.add(viewAllCourses);
+	}
+
+	private void setupBack() {
+		back = new JButton("Back");
+		back.addActionListener((ActionEvent e) -> {
+			changeView("login");
+		});
 		buttons.add(back);
 	}
 

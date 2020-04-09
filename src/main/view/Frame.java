@@ -24,5 +24,7 @@ public class Frame extends JFrame{
 	public void setPanel(JPanel p) {
 		this.setContentPane(p);
 		pack();
+		Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((dimensions.width - getSize().width) / 2, (dimensions.height - getSize().height) / 2);
 	}
 }

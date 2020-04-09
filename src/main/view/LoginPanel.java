@@ -6,8 +6,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import main.controller.PanelController;
+
 @SuppressWarnings("serial")
-public class LoginPanel extends JPanel {
+public class LoginPanel extends Panel {
 
 	private static final String TITLE_TEXT = "Welcome! What would you like to log in as?";
 	private JButton loginStudent;
@@ -16,7 +18,8 @@ public class LoginPanel extends JPanel {
 	private JPanel title;
 	private JPanel buttons;
 	
-	public LoginPanel(){
+	public LoginPanel(PanelController panMan){
+		super(panMan);
 		setLayout(new BorderLayout());
 		setupButtons();
 		setupPanels();
@@ -64,14 +67,14 @@ public class LoginPanel extends JPanel {
 	private void setupAdmin() {
 		loginAdmin = new JButton("Admin");
 		loginAdmin.addActionListener((ActionEvent e) -> {
-			System.out.println("Admin");
+			changeView("admin");
 		});
 	}
 
 	private void setupStudent() {
 		loginStudent = new JButton("Student");
 		loginStudent.addActionListener((ActionEvent e) -> {
-			System.out.println("Student");
+			changeView("student");
 		});
 	}
 }
