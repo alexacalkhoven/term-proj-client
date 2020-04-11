@@ -22,4 +22,14 @@ public class StudentFunctController {
 		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.list");
 		return result;
 	}
+	public ArrayList<Course> viewReg(){
+		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.regList");
+		return result;
+	}
+	public void regForCourse(String[] s) {
+		comCon.makeRequest("student.addRegCourse");
+	}
+	public void deleteCourse(String[] s) {
+		comCon.makeRequest("student.deleteCourse");
+	}
 }

@@ -54,7 +54,8 @@ public class StudentPanel extends Panel {
 	private void setupDrop() {
 		dropCourse = new JButton("Drop Course");
 		dropCourse.addActionListener((ActionEvent e) -> {
-			System.out.println("Drop");
+			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
+			stuCon.deleteCourse(userIn);
 		});
 		buttons.add(dropCourse);
 	}
@@ -62,7 +63,8 @@ public class StudentPanel extends Panel {
 	private void setupRegForCourse() {
 		registerForCourse = new JButton("Register For Course");
 		registerForCourse.addActionListener((ActionEvent e) -> {
-			System.out.println("Register For Course");
+			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
+			stuCon.regForCourse(userIn);
 		});
 		buttons.add(registerForCourse);
 	}
@@ -70,7 +72,8 @@ public class StudentPanel extends Panel {
 	private void setupViewReg() {
 		viewRegisteredCourses = new JButton("View Registered Courses");
 		viewRegisteredCourses.addActionListener((ActionEvent e) -> {
-			System.out.println("View");
+			ArrayList<Course> result = stuCon.viewReg();
+			//Display result
 		});
 		buttons.add(viewRegisteredCourses);
 	}
@@ -93,6 +96,7 @@ public class StudentPanel extends Panel {
 		viewAllCourses = new JButton("View All Courses");
 		viewAllCourses.addActionListener((ActionEvent e) -> {
 			ArrayList<Course> result = stuCon.view();
+			//Display result
 		});
 		buttons.add(viewAllCourses);
 	}
