@@ -13,8 +13,8 @@ public class StudentFunctController {
 		this.comCon = comCon;
 	}
 
-	public Course search(String[] s) {
-		Course result = (Course) comCon.makeRequest("course.search", s[0]);
+	public Course search(String name, int num) {
+		Course result = (Course) comCon.makeRequest("course.search", new Object[] { name, num });
 		return result;
 	}
 

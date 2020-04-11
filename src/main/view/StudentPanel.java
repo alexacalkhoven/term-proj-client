@@ -97,14 +97,21 @@ public class StudentPanel extends Panel {
 	private void setupSearch() {
 		searchCourseCatalogue = new JButton("Search Course Catalogue");
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
-			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
-			if (userIn == null) return;
-			
-			Course result = stuCon.search(userIn);
-			if (result == null) {
-				System.out.println("No such course exists :(");
-			} else {
-				System.out.println(result);
+			try {
+				String [] userIn = getInputs(new String [] { "Course name: ", "Course number: " });
+				if (userIn == null) return;
+				
+				int num = Integer.parseInt(userIn[1]);
+				Course result = stuCon.search(userIn[0], num);
+				
+				// TODO: make this be nice and pretty somehow
+				if (result == null) {
+					System.out.println("No such course exists :(");
+				} else {
+					System.out.println(result);
+				}
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
 			}
 		});
 		buttons.add(searchCourseCatalogue);
