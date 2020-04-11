@@ -63,7 +63,7 @@ public class StudentPanel extends Panel {
 	private void setupRegForCourse() {
 		registerForCourse = new JButton("Register For Course");
 		registerForCourse.addActionListener((ActionEvent e) -> {
-			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
+			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: ", "Section number: "});
 			stuCon.regForCourse(userIn);
 		});
 		buttons.add(registerForCourse);
