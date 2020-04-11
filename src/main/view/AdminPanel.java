@@ -4,12 +4,15 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import main.controller.*;
-
+import main.model.Course;
 
 @SuppressWarnings("serial")
 public class AdminPanel extends Panel {
@@ -17,13 +20,14 @@ public class AdminPanel extends Panel {
 	private JButton back;
 	private JButton viewAllCourses;
 	private JButton createCourse;
-	private JButton	removeCourse;
+	private JButton removeCourse;
 	private JButton createCourseOffering;
 	private JButton createStudent;
 	private JButton removeStudent;
 
 	private JPanel title, display, buttons;
 	private JTable table;
+	private DefaultTableModel tableModel;
 
 	public AdminPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
@@ -49,8 +53,9 @@ public class AdminPanel extends Panel {
 		removeStudent.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "ID:" });
-				if (inputs == null) return;
-				
+				if (inputs == null)
+					return;
+
 				int id = Integer.parseInt(inputs[0]);
 				adCon.removeStudent(id);
 			} catch (NumberFormatException ex) {
@@ -65,8 +70,9 @@ public class AdminPanel extends Panel {
 		createStudent.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "Name:", "ID:" });
-				if (inputs == null) return;
-				
+				if (inputs == null)
+					return;
+
 				int id = Integer.parseInt(inputs[1]);
 				adCon.createStudent(inputs[0], id);
 			} catch (NumberFormatException ex) {
@@ -80,17 +86,20 @@ public class AdminPanel extends Panel {
 		createCourseOffering = new JButton("Create Course Offering");
 		createCourseOffering.addActionListener((ActionEvent e) -> {
 			try {
-				String [] inputs1 = getInputs(new String[] { "Course Name: ", "Course Number" });
-				if (inputs1 == null) return;
-				String [] inputs2 = getInputs(new String[] { "Section Number:", "Section Capacity:" });
-				if (inputs2 == null) return;
-				
+				String[] inputs1 = getInputs(new String[] { "Course Name: ", "Course Number" });
+				if (inputs1 == null)
+					return;
+				String[] inputs2 = getInputs(new String[] { "Section Number:", "Section Capacity:" });
+				if (inputs2 == null)
+					return;
+
 				int num = Integer.parseInt(inputs2[0]);
 				int cap = Integer.parseInt(inputs2[1]);
 				int courseNum = Integer.parseInt(inputs1[1]);
 				adCon.addOffering(num, cap, inputs1[0], courseNum);
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
+						JOptionPane.OK_OPTION);
 			}
 		});
 		buttons.add(createCourseOffering);
@@ -101,12 +110,19 @@ public class AdminPanel extends Panel {
 		removeCourse.addActionListener((ActionEvent e) -> {
 			try {
 				String inputs[] = getInputs(new String[] { "Name:", "Number:" });
-				if (inputs == null) return;
-				
+				if (inputs == null)
+					return;
+
 				int num = Integer.parseInt(inputs[1]);
-				adCon.removeCourse(inputs[0], num);
+				boolean result = adCon.removeCourse(inputs[0], num);
+				if(result == false) {
+					System.err.println("Error in removing course.");
+					JOptionPane.showMessageDialog(getRootPane(), "Error in removing course.", "Error",
+							JOptionPane.OK_OPTION);
+				}
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
+						JOptionPane.OK_OPTION);
 			}
 		});
 		buttons.add(removeCourse);
@@ -117,12 +133,14 @@ public class AdminPanel extends Panel {
 		createCourse.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "Name:", "Number:" });
-				if (inputs == null) return;
-				
+				if (inputs == null)
+					return;
+
 				int num = Integer.parseInt(inputs[1]);
 				adCon.createCourse(inputs[0], num);
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
+						JOptionPane.OK_OPTION);
 			}
 		});
 		buttons.add(createCourse);
@@ -131,9 +149,26 @@ public class AdminPanel extends Panel {
 	private void setupView() {
 		viewAllCourses = new JButton("View All Courses");
 		viewAllCourses.addActionListener((ActionEvent e) -> {
-			adCon.viewCourses();
+			ArrayList<Course> results = adCon.viewCourses();
+			if (results == null)
+				return;
+
+			clearTable();
+
+			for (Course c : results) {
+				addTableData(c);
+			}
 		});
 		buttons.add(viewAllCourses);
+	}
+
+	private void clearTable() {
+		tableModel.setRowCount(0);
+	}
+
+	private void addTableData(Course course) {
+		Object[] data = new Object[] { course.getName(), course.getNumber() };
+		tableModel.addRow(data);
 	}
 
 	private void setupBack() {
@@ -145,18 +180,23 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupDisplay() {
-		table = new JTable();
-		table.setColumnSelectionAllowed(false);
-		table.setRowSelectionAllowed(false);
+		String[] columns = { "Course Name", "Course Number" };
 
-		// table.setColumnModel
+		tableModel = new DefaultTableModel(null, columns) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		table = new JTable(tableModel);
+		table.setColumnSelectionAllowed(false);
+		table.setRowSelectionAllowed(true);
+		table.removeEditor();
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane);
-
-		// table.setTableHeader();
-
 	}
 
 	private void setupPanels() {

@@ -1,5 +1,9 @@
 package main.controller;
 
+import java.util.ArrayList;
+
+import main.model.Course;
+
 public class AdminFunctController {
 	CommunicationController comCon;
 	
@@ -7,8 +11,9 @@ public class AdminFunctController {
 		this.comCon = comCon;
 	}
 	
-	public void viewCourses() {
-		comCon.makeRequest("course.viewAll");
+	public ArrayList<Course> viewCourses() {
+		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.get");
+		return result;
 	}
 	
 	public void removeStudent(int id) {
@@ -19,8 +24,8 @@ public class AdminFunctController {
 		comCon.makeRequest("student.create", new Object[] { name, id });
 	}
 	
-	public void removeCourse(String name, int id) {
-		comCon.makeRequest("course.remove", new Object[] { name, id });
+	public boolean removeCourse(String name, int id) {
+		return (boolean) comCon.makeRequest("course.remove", new Object[] { name, id });
 	}
 
 	public void createCourse(String name, int id) {
