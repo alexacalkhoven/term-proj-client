@@ -55,7 +55,7 @@ public class StudentPanel extends Panel {
 		dropCourse = new JButton("Drop Course");
 		dropCourse.addActionListener((ActionEvent e) -> {
 			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
-			stuCon.deleteCourse(userIn);
+			stuCon.dropCourse(userIn);
 		});
 		buttons.add(dropCourse);
 	}

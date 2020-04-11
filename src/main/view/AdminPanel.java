@@ -75,7 +75,16 @@ public class AdminPanel extends Panel {
 	private void setupCreateOffering() {
 		createCourseOffering = new JButton("Create Course Offering");
 		createCourseOffering.addActionListener((ActionEvent e) -> {
-			System.out.println("Create Offering");
+			try {
+				String [] inputs1 = getInputs(new String[] {"Course Name: ", "Course Number"});
+				String [] inputs2 = getInputs(new String[] {"Section Number:", "Section Capacity:"});
+				int num = Integer.parseInt(inputs2[0]);
+				int cap = Integer.parseInt(inputs2[1]);
+				int courseNum = Integer.parseInt(inputs1[1]);
+				adCon.addOffering(num, cap, inputs1[0], courseNum);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+			}
 		});
 		buttons.add(createCourseOffering);
 	}
@@ -97,8 +106,14 @@ public class AdminPanel extends Panel {
 	private void setupCreateCourse() {
 		createCourse = new JButton("Create Course");
 		createCourse.addActionListener((ActionEvent e) -> {
-			String[] labels = {"ID: ", ""};
-			String[] inputs = getInputs(labels);
+			try {
+				String[] labels = {"Name: ", "Number: "};
+				String[] inputs = getInputs(labels);
+				int num = Integer.parseInt(inputs[1]);
+				adCon.createCourse(inputs[0], num);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+			}
 		});
 		buttons.add(createCourse);
 	}
@@ -106,7 +121,7 @@ public class AdminPanel extends Panel {
 	private void setupView() {
 		viewAllCourses = new JButton("View All Courses");
 		viewAllCourses.addActionListener((ActionEvent e) -> {
-			System.out.println("View");
+			adCon.viewCourses();
 		});
 		buttons.add(viewAllCourses);
 	}
