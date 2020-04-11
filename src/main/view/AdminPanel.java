@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import main.controller.*;
@@ -49,7 +50,13 @@ public class AdminPanel extends Panel {
 	private void setupRemoveStudent() {
 		removeStudent = new JButton("Remove Student");
 		removeStudent.addActionListener((ActionEvent e) -> {
-			
+			try {
+				String[] inputs = getInputs(new String[] { "ID" });
+				int id = Integer.parseInt(inputs[0]);
+				adCon.removeStudent(id);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Error, must enter a number");
+			}
 		});
 		buttons.add(removeStudent);
 	}
@@ -57,7 +64,13 @@ public class AdminPanel extends Panel {
 	private void setupCreateStudent() {
 		createStudent = new JButton("Create Student");
 		createStudent.addActionListener((ActionEvent e) -> {
-			System.out.println("Create a Student");
+			try {
+				String[] inputs = getInputs(new String[] { "Name", "ID" });
+				int id = Integer.parseInt(inputs[1]);
+				adCon.createStudent(inputs[0], id);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showConfirmDialog(getRootPane(), "Error, must enter a number");
+			}
 		});
 		buttons.add(createStudent);
 	}
@@ -73,7 +86,7 @@ public class AdminPanel extends Panel {
 	private void setupRemoveCourse() {
 		removeCourse = new JButton("Remove Course");
 		removeCourse.addActionListener((ActionEvent e) -> {
-			System.out.println("Remove a Course");
+//			adCon.removeCourse();
 		});
 		buttons.add(removeCourse);
 	}

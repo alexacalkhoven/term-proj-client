@@ -1,5 +1,7 @@
 package main.controller;
 
+import main.model.Course;
+
 //WRITE FUNCTIONS FOR ADMIN BUTTONS HERE
 public class AdminFunctController {
 
@@ -9,4 +11,15 @@ public class AdminFunctController {
 		this.comCon = comCon;
 	}
 	
+	public void removeStudent(int id) {
+		comCon.makeRequest("student.remove", id);
+	}
+	
+	public void createStudent(String name, int id) {
+		comCon.makeRequest("student.create", new Object[] { name, id });
+	}
+	
+	public void removeCourse(String name, int id) {
+		comCon.makeRequest("course.remove", new Object[] { name, id });
+	}
 }

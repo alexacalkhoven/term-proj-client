@@ -11,14 +11,6 @@ public class Course implements Serializable {
 	private ArrayList<Course> preReq;
 	private ArrayList<CourseOffering> offeringList;
 
-	public Course(String name, int num) {
-		setName(name);
-		setNumber(num);
-
-		preReq = new ArrayList<Course>();
-		offeringList = new ArrayList<CourseOffering>();
-	}
-
 	public CourseOffering getCourseOffering(int section) {
 		for (CourseOffering o : offeringList) {
 			if (o.getSecNum() == section)

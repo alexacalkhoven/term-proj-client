@@ -75,9 +75,9 @@ public class StudentPanel extends Panel {
 	private void setupSearch() {
 		searchCourseCatalogue = new JButton("Search Course Catalogue");
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
-			String [] userIn = getInputs(new String [] {"Search for: "});
-			String result = (String) panMan.startRequest("searchCourse", userIn[0]);
-			System.out.println(result);
+//			String [] userIn = getInputs(new String [] {"Search for: "});
+//			String result = (String) panMan.startRequest("searchCourse", userIn[0]);
+//			System.out.println(result);
 		});
 		buttons.add(searchCourseCatalogue);
 	}

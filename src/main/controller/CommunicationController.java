@@ -25,7 +25,13 @@ public class CommunicationController {
 		try {
 			socketOut.writeObject(new Request(name, ob));
 			socketOut.reset();
+			
 			Response res = (Response) socketIn.readObject();
+			
+			if (res.getError() != null) {
+				System.err.println("Request error for '" + res.getCommand() + "': " + res.getError());
+			}
+			
 			return res.getData();		
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -34,5 +40,8 @@ public class CommunicationController {
 		}
 		return null;
 	}
-
+	
+	public Object makeRequest(String name) {
+		return makeRequest(name, null);
+	}
 }
