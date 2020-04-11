@@ -22,8 +22,4 @@ public class PanelController {
 		theFrame.setPanel(thePanels.get(key));
 		theFrame.pack();
 	}
-	
-	public Object startRequest(String name, Object data) {
-		return comCon.makeRequest(name, data);
-	}
 }
