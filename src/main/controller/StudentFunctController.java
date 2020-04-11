@@ -19,11 +19,11 @@ public class StudentFunctController {
 		return result;
 	}
 	public ArrayList<Course> view(){
-		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.list");
+		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.get");
 		return result;
 	}
 	public ArrayList<Course> viewReg(){
-		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.regList");
+		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("student.regList");
 		return result;
 	}
 	public void regForCourse(String[] s) {
