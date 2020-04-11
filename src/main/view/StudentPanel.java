@@ -3,7 +3,6 @@ package main.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -70,7 +69,9 @@ public class StudentPanel extends Panel {
 	private void setupSearch() {
 		searchCourseCatalogue = new JButton("Search Course Catalogue");
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
-			System.out.println("Search");
+			String [] userIn = getInputs(new String [] {"Search for: "});
+			String result = (String) panMan.startRequest("searchCourse", userIn[0]);
+			System.out.println(result);
 		});
 		buttons.add(searchCourseCatalogue);
 	}

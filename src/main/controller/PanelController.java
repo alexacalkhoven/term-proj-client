@@ -6,10 +6,12 @@ import main.view.*;
 
 public class PanelController {
 
+	CommunicationController comCon;
 	Frame theFrame;
 	HashMap<String, JPanel> thePanels;
 	
-	public PanelController(){
+	public PanelController(CommunicationController comCon){
+		this.comCon = comCon;
 		theFrame = new Frame("Test");
 		thePanels = new HashMap<String, JPanel>();
 		thePanels.put("login", new LoginPanel(this));
@@ -21,5 +23,9 @@ public class PanelController {
 	public void switchTo(String key) {
 		theFrame.setPanel(thePanels.get(key));
 		theFrame.pack();
+	}
+	
+	public Object startRequest(String name, Object data) {
+		return comCon.makeRequest(name, data);
 	}
 }

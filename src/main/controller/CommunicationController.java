@@ -21,15 +21,18 @@ public class CommunicationController {
 		}
 	}
 
-	public void makeRequest(String name, Object ob) {
+	public Object makeRequest(String name, Object ob) {
 		try {
 			socketOut.writeObject(new Request(name, ob));
+			socketOut.reset();
 			Response res = (Response) socketIn.readObject();
+			return res.getData();		
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e2) {
 			e2.printStackTrace();
 		}
+		return null;
 	}
 
 }

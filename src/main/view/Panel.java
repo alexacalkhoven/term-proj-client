@@ -9,7 +9,7 @@ import main.controller.PanelController;
 @SuppressWarnings("serial")
 public class Panel extends JPanel {
 
-	private PanelController panMan;
+	protected PanelController panMan;
 	
 	public Panel(PanelController panMan) {
 		this.panMan = panMan;
@@ -31,15 +31,16 @@ public class Panel extends JPanel {
 		for(int i = 0; i<names.length; i+=2) {
 			message[i] = names[i];
 		}
+		
 		for(int i = 0; i<textfields.length; i+=2) {
 			message[i+1] = textfields[i];
-			
 		}
+		
+		JOptionPane.showConfirmDialog(getRootPane(), message, "Input", JOptionPane.OK_CANCEL_OPTION);
+		
 		for(int i = 0; i<textfields.length; i++) {
 			stringInputs[i] = textfields[i].getText();
 		}
-
-		JOptionPane.showConfirmDialog(getRootPane(), message, "Input", JOptionPane.OK_CANCEL_OPTION);
 
 		return stringInputs;
 		

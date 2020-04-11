@@ -7,8 +7,8 @@ public class Client {
 	private CommunicationController comController;
 	
 	public Client() {
-		panMan = new PanelController();
 		comController = new CommunicationController();
+		panMan = new PanelController(comController);	
 	}
 	
 	public static void main(String[] args) {
