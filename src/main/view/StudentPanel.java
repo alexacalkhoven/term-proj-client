@@ -7,11 +7,16 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import main.controller.AdminFunctController;
+import main.controller.CommunicationController;
 import main.controller.PanelController;
+import main.controller.StudentFunctController;
 
 @SuppressWarnings("serial")
 public class StudentPanel extends Panel {
 	
+	private StudentFunctController stuCon;
 	private JButton viewAllCourses;
 	private JButton searchCourseCatalogue;
 	private JButton viewRegisteredCourses;
@@ -24,8 +29,9 @@ public class StudentPanel extends Panel {
 	private JPanel buttons;
 	private JTable table;
 
-	public StudentPanel(PanelController panMan) {
+	public StudentPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
+		stuCon = new StudentFunctController(comCon);
 		setLayout(new BorderLayout());
 		setupPanels();
 		setupDisplay();

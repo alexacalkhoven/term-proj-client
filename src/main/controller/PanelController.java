@@ -6,17 +6,15 @@ import main.view.*;
 
 public class PanelController {
 
-	CommunicationController comCon;
 	Frame theFrame;
 	HashMap<String, JPanel> thePanels;
 	
 	public PanelController(CommunicationController comCon){
-		this.comCon = comCon;
 		theFrame = new Frame("Test");
 		thePanels = new HashMap<String, JPanel>();
 		thePanels.put("login", new LoginPanel(this));
-		thePanels.put("student", new StudentPanel(this));
-		thePanels.put("admin", new AdminPanel(this));
+		thePanels.put("student", new StudentPanel(this, comCon));
+		thePanels.put("admin", new AdminPanel(this, comCon));
 		switchTo("login");
 	}
 	

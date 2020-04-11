@@ -4,17 +4,16 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import main.controller.PanelController;
+import main.controller.*;
 
 
 @SuppressWarnings("serial")
 public class AdminPanel extends Panel {
 	
+	private AdminFunctController adCon;
 	private JButton back;
 	private JButton viewAllCourses;
 	private JButton createCourse;
@@ -28,8 +27,9 @@ public class AdminPanel extends Panel {
 	private JPanel buttons;
 	private JTable table;
 
-	public AdminPanel(PanelController panMan) {
+	public AdminPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
+		adCon = new AdminFunctController(comCon);
 		setLayout(new BorderLayout());
 		setupPanels();
 		setupDisplay();
@@ -49,7 +49,7 @@ public class AdminPanel extends Panel {
 	private void setupRemoveStudent() {
 		removeStudent = new JButton("Remove Student");
 		removeStudent.addActionListener((ActionEvent e) -> {
-			System.out.println("Remove a Student");
+			
 		});
 		buttons.add(removeStudent);
 	}

@@ -24,6 +24,7 @@ public class Panel extends JPanel {
 		Object[] message = new Object[2*names.length];
 		JTextField[] textfields = new JTextField[names.length];
 		
+		//four for loops :)
 		for(int i = 0; i<names.length; i++) {
 			textfields[i] = new JTextField();
 		}
