@@ -150,6 +150,7 @@ public class AdminPanel extends Panel {
 		viewAllCourses = new JButton("View All Courses");
 		viewAllCourses.addActionListener((ActionEvent e) -> {
 			ArrayList<Course> results = adCon.viewCourses();
+			
 			if (results == null)
 				return;
 
