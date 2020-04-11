@@ -2,24 +2,29 @@ package main.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import main.controller.CommunicationController;
+import main.controller.LoginFunctController;
 import main.controller.PanelController;
 
 @SuppressWarnings("serial")
 public class LoginPanel extends Panel {
-
-	private static final String TITLE_TEXT = "Welcome! What would you like to log in as?";
+	private final String TITLE_TEXT = "Welcome! What would you like to log in as?";
 	private JButton loginStudent;
 	private JButton loginAdmin;
 	private JButton quit;
 	private JPanel title;
 	private JPanel buttons;
+	private LoginFunctController loginCon;
 	
-	public LoginPanel(PanelController panMan){
+	public LoginPanel(PanelController panMan, CommunicationController comCon){
 		super(panMan);
+		loginCon = new LoginFunctController(comCon);
 		setLayout(new BorderLayout());
 		setupButtons();
 		setupPanels();
@@ -74,9 +79,16 @@ public class LoginPanel extends Panel {
 	private void setupStudent() {
 		loginStudent = new JButton("Student");
 		loginStudent.addActionListener((ActionEvent e) -> {
-			String[] labels = {"ID: "};
-			String[] inputs = getInputs(labels);
-			changeView("student");
+			try {
+				String[] labels = {"ID: "};
+				String[] inputs = getInputs(labels);
+				int id = Integer.parseInt(inputs[0]);
+				
+				loginCon.loginStudent(id);
+				changeView("student");
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Student ID must be a number", "Error", JOptionPane.OK_OPTION);
+			}
 		});
 	}
 

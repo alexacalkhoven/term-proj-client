@@ -1,10 +1,6 @@
 package main.controller;
 
-import main.model.Course;
-
-//WRITE FUNCTIONS FOR ADMIN BUTTONS HERE
 public class AdminFunctController {
-
 	CommunicationController comCon;
 	
 	public AdminFunctController(CommunicationController comCon) {

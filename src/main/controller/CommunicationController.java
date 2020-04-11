@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.swing.JOptionPane;
+
 public class CommunicationController {
 
 	private Socket aSocket;
@@ -17,7 +19,8 @@ public class CommunicationController {
 			socketIn = new ObjectInputStream(aSocket.getInputStream());
 			socketOut = new ObjectOutputStream(aSocket.getOutputStream());
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Could not connect to the server", "Error", JOptionPane.OK_OPTION);
+			System.exit(0);
 		}
 	}
 

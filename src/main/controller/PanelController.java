@@ -12,7 +12,7 @@ public class PanelController {
 	public PanelController(CommunicationController comCon){
 		theFrame = new Frame("Test");
 		thePanels = new HashMap<String, JPanel>();
-		thePanels.put("login", new LoginPanel(this));
+		thePanels.put("login", new LoginPanel(this, comCon));
 		thePanels.put("student", new StudentPanel(this, comCon));
 		thePanels.put("admin", new AdminPanel(this, comCon));
 		switchTo("login");

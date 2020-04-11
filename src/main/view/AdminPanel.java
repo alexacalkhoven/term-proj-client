@@ -13,7 +13,6 @@ import main.controller.*;
 
 @SuppressWarnings("serial")
 public class AdminPanel extends Panel {
-	
 	private AdminFunctController adCon;
 	private JButton back;
 	private JButton viewAllCourses;
@@ -23,9 +22,7 @@ public class AdminPanel extends Panel {
 	private JButton createStudent;
 	private JButton removeStudent;
 
-	private JPanel title;
-	private JPanel display;
-	private JPanel buttons;
+	private JPanel title, display, buttons;
 	private JTable table;
 
 	public AdminPanel(PanelController panMan, CommunicationController comCon) {
@@ -51,11 +48,11 @@ public class AdminPanel extends Panel {
 		removeStudent = new JButton("Remove Student");
 		removeStudent.addActionListener((ActionEvent e) -> {
 			try {
-				String[] inputs = getInputs(new String[] { "ID" });
+				String[] inputs = getInputs(new String[] { "ID:" });
 				int id = Integer.parseInt(inputs[0]);
 				adCon.removeStudent(id);
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Error, must enter a number");
+				JOptionPane.showMessageDialog(getRootPane(), "ID must be a number", "Error", JOptionPane.OK_OPTION);
 			}
 		});
 		buttons.add(removeStudent);
@@ -65,7 +62,7 @@ public class AdminPanel extends Panel {
 		createStudent = new JButton("Create Student");
 		createStudent.addActionListener((ActionEvent e) -> {
 			try {
-				String[] inputs = getInputs(new String[] { "Name", "ID" });
+				String[] inputs = getInputs(new String[] { "Name:", "ID:" });
 				int id = Integer.parseInt(inputs[1]);
 				adCon.createStudent(inputs[0], id);
 			} catch (NumberFormatException ex) {
@@ -86,7 +83,13 @@ public class AdminPanel extends Panel {
 	private void setupRemoveCourse() {
 		removeCourse = new JButton("Remove Course");
 		removeCourse.addActionListener((ActionEvent e) -> {
-//			adCon.removeCourse();
+			try {
+				String inputs[] = getInputs(new String[] { "Name:", "Number:" });
+				int num = Integer.parseInt(inputs[1]);
+				adCon.removeCourse(inputs[0], num);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+			}
 		});
 		buttons.add(removeCourse);
 	}
@@ -140,5 +143,4 @@ public class AdminPanel extends Panel {
 		this.add(display, BorderLayout.CENTER);
 		this.add(buttons, BorderLayout.SOUTH);
 	}
-
 }
