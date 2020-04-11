@@ -84,8 +84,9 @@ public class LoginPanel extends Panel {
 				String[] inputs = getInputs(labels);
 				int id = Integer.parseInt(inputs[0]);
 				
-				loginCon.loginStudent(id);
-				changeView("student");
+				if (loginCon.loginStudent(id)) {
+					changeView("student");
+				}
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Student ID must be a number", "Error", JOptionPane.OK_OPTION);
 			}

@@ -1,5 +1,9 @@
 package main.controller;
 
+import javax.swing.JOptionPane;
+
+import main.model.Student;
+
 public class LoginFunctController {
 	private CommunicationController comCon;
 	
@@ -7,7 +11,15 @@ public class LoginFunctController {
 		this.comCon = comCon;
 	}
 	
-	public void loginStudent(int id) {
-		comCon.makeRequest("student.login", id);
+	public boolean loginStudent(int id) {
+		Student student = (Student)comCon.makeRequest("student.login", id);
+		
+		if (student == null) {
+			JOptionPane.showMessageDialog(null, "That student does not exist", "Error", JOptionPane.OK_OPTION);
+			return false;
+		}
+		
+		System.out.println("Logged in as: " + student.getId() + " - " + student.getName());
+		return true;
 	}
 }
