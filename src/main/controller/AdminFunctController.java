@@ -28,6 +28,6 @@ public class AdminFunctController {
 	}
 
 	public void addOffering(int num, int cap, String courseName, int courseNum) {
-		comCon.makeRequest("course.addOffering", new Object[] {num, cap, courseName, courseNum});
+		comCon.makeRequest("course.addOffering", new Object[] { num, cap, courseName, courseNum });
 	}
 }

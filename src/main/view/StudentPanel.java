@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -54,8 +55,15 @@ public class StudentPanel extends Panel {
 	private void setupDrop() {
 		dropCourse = new JButton("Drop Course");
 		dropCourse.addActionListener((ActionEvent e) -> {
-			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
-			stuCon.dropCourse(userIn);
+			try {
+				String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
+				if (userIn == null) return;
+				
+				int num = Integer.parseInt(userIn[1]);
+				stuCon.dropCourse(userIn[0], num);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+			}
 		});
 		buttons.add(dropCourse);
 	}
@@ -63,8 +71,16 @@ public class StudentPanel extends Panel {
 	private void setupRegForCourse() {
 		registerForCourse = new JButton("Register For Course");
 		registerForCourse.addActionListener((ActionEvent e) -> {
-			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: ", "Section number: "});
-			stuCon.regForCourse(userIn);
+			try {
+				String [] userIn = getInputs(new String [] { "Course name: ", "Course number: ", "Section number: " });
+				if (userIn == null) return;
+				
+				int number = Integer.parseInt(userIn[1]);
+				int section = Integer.parseInt(userIn[2]);
+				stuCon.regForCourse(userIn[0], number, section);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Course/section number must be a number", "Error", JOptionPane.OK_OPTION);
+			}
 		});
 		buttons.add(registerForCourse);
 	}
@@ -82,6 +98,8 @@ public class StudentPanel extends Panel {
 		searchCourseCatalogue = new JButton("Search Course Catalogue");
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
 			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
+			if (userIn == null) return;
+			
 			Course result = stuCon.search(userIn);
 			if (result == null) {
 				System.out.println("No such course exists :(");

@@ -37,7 +37,11 @@ public class Panel extends JPanel {
 			message[i+1] = textfields[j];
 		}
 		
-		JOptionPane.showConfirmDialog(getRootPane(), message, "Input", JOptionPane.OK_CANCEL_OPTION);
+		int ret = JOptionPane.showConfirmDialog(getRootPane(), message, "Input", JOptionPane.OK_CANCEL_OPTION);
+		
+		if (ret == JOptionPane.CANCEL_OPTION) {
+			return null;
+		}
 		
 		for(int i = 0; i<textfields.length; i++) {
 			stringInputs[i] = textfields[i].getText();

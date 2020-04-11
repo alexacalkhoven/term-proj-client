@@ -49,6 +49,8 @@ public class AdminPanel extends Panel {
 		removeStudent.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "ID:" });
+				if (inputs == null) return;
+				
 				int id = Integer.parseInt(inputs[0]);
 				adCon.removeStudent(id);
 			} catch (NumberFormatException ex) {
@@ -63,6 +65,8 @@ public class AdminPanel extends Panel {
 		createStudent.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "Name:", "ID:" });
+				if (inputs == null) return;
+				
 				int id = Integer.parseInt(inputs[1]);
 				adCon.createStudent(inputs[0], id);
 			} catch (NumberFormatException ex) {
@@ -76,8 +80,11 @@ public class AdminPanel extends Panel {
 		createCourseOffering = new JButton("Create Course Offering");
 		createCourseOffering.addActionListener((ActionEvent e) -> {
 			try {
-				String [] inputs1 = getInputs(new String[] {"Course Name: ", "Course Number"});
-				String [] inputs2 = getInputs(new String[] {"Section Number:", "Section Capacity:"});
+				String [] inputs1 = getInputs(new String[] { "Course Name: ", "Course Number" });
+				if (inputs1 == null) return;
+				String [] inputs2 = getInputs(new String[] { "Section Number:", "Section Capacity:" });
+				if (inputs2 == null) return;
+				
 				int num = Integer.parseInt(inputs2[0]);
 				int cap = Integer.parseInt(inputs2[1]);
 				int courseNum = Integer.parseInt(inputs1[1]);
@@ -94,6 +101,8 @@ public class AdminPanel extends Panel {
 		removeCourse.addActionListener((ActionEvent e) -> {
 			try {
 				String inputs[] = getInputs(new String[] { "Name:", "Number:" });
+				if (inputs == null) return;
+				
 				int num = Integer.parseInt(inputs[1]);
 				adCon.removeCourse(inputs[0], num);
 			} catch (NumberFormatException ex) {
@@ -107,8 +116,9 @@ public class AdminPanel extends Panel {
 		createCourse = new JButton("Create Course");
 		createCourse.addActionListener((ActionEvent e) -> {
 			try {
-				String[] labels = {"Name: ", "Number: "};
-				String[] inputs = getInputs(labels);
+				String[] inputs = getInputs(new String[] { "Name:", "Number:" });
+				if (inputs == null) return;
+				
 				int num = Integer.parseInt(inputs[1]);
 				adCon.createCourse(inputs[0], num);
 			} catch (NumberFormatException ex) {

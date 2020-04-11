@@ -28,11 +28,11 @@ public class StudentFunctController {
 		return result;
 	}
 
-	public void regForCourse(String[] s) {
-		comCon.makeRequest("student.addRegCourse", s);
+	public void regForCourse(String name, int number, int section) {
+		comCon.makeRequest("student.addRegCourse", new Object[] { name, number, section });
 	}
 
-	public void dropCourse(String[] s) {
-		comCon.makeRequest("student.dropCourse", s);
+	public void dropCourse(String name, int number) {
+		comCon.makeRequest("student.dropCourse", new Object[] { name, number });
 	}
 }
