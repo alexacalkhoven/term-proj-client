@@ -9,8 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-import main.controller.AdminFunctController;
 import main.controller.CommunicationController;
 import main.controller.PanelController;
 import main.controller.StudentFunctController;
@@ -18,7 +18,6 @@ import main.model.Course;
 
 @SuppressWarnings("serial")
 public class StudentPanel extends Panel {
-	
 	private StudentFunctController stuCon;
 	private JButton viewAllCourses;
 	private JButton searchCourseCatalogue;
@@ -31,6 +30,7 @@ public class StudentPanel extends Panel {
 	private JPanel display;
 	private JPanel buttons;
 	private JTable table;
+	private DefaultTableModel tableModel;
 
 	public StudentPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
@@ -83,11 +83,11 @@ public class StudentPanel extends Panel {
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
 			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
 			Course result = stuCon.search(userIn);
-			if(result == null) {
+			if (result == null) {
 				System.out.println("No such course exists :(");
+			} else {
+				System.out.println(result);
 			}
-			else
-			System.out.println(result);
 		});
 		buttons.add(searchCourseCatalogue);
 	}
@@ -95,8 +95,14 @@ public class StudentPanel extends Panel {
 	private void setupView() {
 		viewAllCourses = new JButton("View All Courses");
 		viewAllCourses.addActionListener((ActionEvent e) -> {
-			ArrayList<Course> result = stuCon.view();
-			//Display result
+			ArrayList<Course> results = stuCon.view();
+			if (results == null) return;
+			
+			clearTable();
+			
+			for (Course c : results) {
+				addTableData(c);
+			}
 		});
 		buttons.add(viewAllCourses);
 	}
@@ -110,18 +116,23 @@ public class StudentPanel extends Panel {
 	}
 
 	private void setupDisplay() {
-		table = new JTable();
+		String[] columns = { "Course Name", "Course Number" };
+		
+		tableModel = new DefaultTableModel(null, columns) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		table = new JTable(tableModel);
 		table.setColumnSelectionAllowed(false);
-		table.setRowSelectionAllowed(false);
-
-		// table.setColumnModel
+		table.setRowSelectionAllowed(true);
+		table.removeEditor();
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane);
-
-		// table.setTableHeader();
-
 	}
 
 	private void setupPanels() {
@@ -134,4 +145,12 @@ public class StudentPanel extends Panel {
 		this.add(buttons, BorderLayout.SOUTH);
 	}
 
+	private void clearTable() {
+		tableModel.setRowCount(0);
+	}
+	
+	private void addTableData(Course course) {
+		Object[] data = new Object[] { course.getName(), course.getNumber() };
+		tableModel.addRow(data);
+	}
 }
