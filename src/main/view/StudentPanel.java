@@ -3,6 +3,8 @@ package main.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,6 +14,7 @@ import main.controller.AdminFunctController;
 import main.controller.CommunicationController;
 import main.controller.PanelController;
 import main.controller.StudentFunctController;
+import main.model.Course;
 
 @SuppressWarnings("serial")
 public class StudentPanel extends Panel {
@@ -75,9 +78,13 @@ public class StudentPanel extends Panel {
 	private void setupSearch() {
 		searchCourseCatalogue = new JButton("Search Course Catalogue");
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
-//			String [] userIn = getInputs(new String [] {"Search for: "});
-//			String result = (String) panMan.startRequest("searchCourse", userIn[0]);
-//			System.out.println(result);
+			String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
+			Course result = stuCon.search(userIn);
+			if(result == null) {
+				System.out.println("No such course exists :(");
+			}
+			else
+			System.out.println(result);
 		});
 		buttons.add(searchCourseCatalogue);
 	}
@@ -85,7 +92,7 @@ public class StudentPanel extends Panel {
 	private void setupView() {
 		viewAllCourses = new JButton("View All Courses");
 		viewAllCourses.addActionListener((ActionEvent e) -> {
-			System.out.println("View");
+			ArrayList<Course> result = stuCon.view();
 		});
 		buttons.add(viewAllCourses);
 	}

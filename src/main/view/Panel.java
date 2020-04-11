@@ -29,12 +29,12 @@ public class Panel extends JPanel {
 			textfields[i] = new JTextField();
 		}
 		
-		for(int i = 0; i<names.length; i+=2) {
-			message[i] = names[i];
+		for(int i = 0, j = 0; i<message.length; i+=2, j++) {
+			message[i] = names[j];
 		}
 		
-		for(int i = 0; i<textfields.length; i+=2) {
-			message[i+1] = textfields[i];
+		for(int i = 0, j = 0; i<message.length; i+=2, j++) {
+			message[i+1] = textfields[j];
 		}
 		
 		JOptionPane.showConfirmDialog(getRootPane(), message, "Input", JOptionPane.OK_CANCEL_OPTION);
