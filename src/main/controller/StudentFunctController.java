@@ -15,7 +15,7 @@ public class StudentFunctController {
 
 	public Course search(String[] s) {
 
-		Course result = (Course) comCon.makeRequest("searchCourse", s[0]);
+		Course result = (Course) comCon.makeRequest("course.search", s[0]);
 		return result;
 	}
 	public ArrayList<Course> view(){
