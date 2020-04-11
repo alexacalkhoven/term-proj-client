@@ -12,6 +12,7 @@ public class AdminFunctController {
 	}
 	
 	public ArrayList<Course> viewCourses() {
+		@SuppressWarnings("unchecked")
 		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.get");
 		return result;
 	}
