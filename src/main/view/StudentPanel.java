@@ -46,7 +46,7 @@ public class StudentPanel extends Panel {
 		setupBack();
 		setupView();
 		setupSearch();
-		setupViewReg();
+		//setupViewReg();
 		setupRegForCourse();
 		setupDrop();
 	}
@@ -85,11 +85,11 @@ public class StudentPanel extends Panel {
 		buttons.add(registerForCourse);
 	}
 
+	//Delete this function??
 	private void setupViewReg() {
 		viewRegisteredCourses = new JButton("View Registered Courses");
 		viewRegisteredCourses.addActionListener((ActionEvent e) -> {
 			ArrayList<Course> result = stuCon.viewReg();
-			//Display result
 		});
 		buttons.add(viewRegisteredCourses);
 	}
@@ -119,10 +119,15 @@ public class StudentPanel extends Panel {
 			clearTable();
 			
 			for (Course c : results) {
-				addTableData(c);
+				addTableData(c, checkEnrollment(c));
 			}
 		});
 		buttons.add(viewAllCourses);
+	}
+
+	private char checkEnrollment(Course c) {
+		char result = stuCon.checkIfEnrolled(c);
+		return result;
 	}
 
 	private void setupBack() {
@@ -134,7 +139,7 @@ public class StudentPanel extends Panel {
 	}
 
 	private void setupDisplay() {
-		String[] columns = { "Course Name", "Course Number" };
+		String[] columns = { "Course Name", "Course Number", "Enrolled?" };
 		
 		tableModel = new DefaultTableModel(null, columns) {
 			@Override
@@ -167,8 +172,8 @@ public class StudentPanel extends Panel {
 		tableModel.setRowCount(0);
 	}
 	
-	private void addTableData(Course course) {
-		Object[] data = new Object[] { course.getName(), course.getNumber() };
+	private void addTableData(Course course, char enrolled) {
+		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled};
 		tableModel.addRow(data);
 	}
 }
