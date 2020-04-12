@@ -100,16 +100,21 @@ public class StudentPanel extends Panel {
 			try {
 				String [] userIn = getInputs(new String [] { "Course name: ", "Course number: " });
 				if (userIn == null) return;
-				
+
 				int num = Integer.parseInt(userIn[1]);
+				
 				Course result = stuCon.search(userIn[0], num);
 				
-				// TODO: make this be nice and pretty somehow
+				String resultText;
+				
 				if (result == null) {
-					System.out.println("No such course exists :(");
+					resultText = "Course not found.";
 				} else {
-					System.out.println(result);
+					resultText = result.toString();
 				}
+
+				JOptionPane.showMessageDialog(getRootPane(), resultText, resultText, JOptionPane.PLAIN_MESSAGE);
+				
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
 			}
