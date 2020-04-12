@@ -194,7 +194,8 @@ public class StudentPanel extends Panel {
 	}
 	
 	private void addTableData(Course course, char enrolled) {
-		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
+        //add "enrolled" as the third object in the below array when ready
+        Object[] data = new Object[] { course.getName(), course.getNumber()};
 		tableModel.addRow(data);
 	}
 }
