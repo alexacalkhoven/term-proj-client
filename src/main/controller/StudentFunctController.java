@@ -3,6 +3,7 @@ package main.controller;
 import java.util.ArrayList;
 
 import main.model.Course;
+import main.model.Registration;
 
 //WRITE FUNCTIONS FOR STUDENT BUTTONS HERE
 public class StudentFunctController {
@@ -23,9 +24,8 @@ public class StudentFunctController {
 		return result;
 	}
 
-	public ArrayList<Course> viewReg() {
-		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("student.regList");
-		return result;
+	public ArrayList<Registration> getRegistrationList() {
+		return (ArrayList<Registration>) comCon.makeRequest("student.regList");
 	}
 
 	public void regForCourse(String name, int number, int section) {

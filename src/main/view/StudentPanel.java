@@ -16,6 +16,7 @@ import main.controller.CommunicationController;
 import main.controller.PanelController;
 import main.controller.StudentFunctController;
 import main.model.Course;
+import main.model.Registration;
 
 @SuppressWarnings("serial")
 public class StudentPanel extends Panel {
@@ -89,7 +90,7 @@ public class StudentPanel extends Panel {
 	private void setupViewReg() {
 		viewRegisteredCourses = new JButton("View Registered Courses");
 		viewRegisteredCourses.addActionListener((ActionEvent e) -> {
-			ArrayList<Course> result = stuCon.viewReg();
+			
 		});
 		buttons.add(viewRegisteredCourses);
 	}
@@ -125,21 +126,29 @@ public class StudentPanel extends Panel {
 	private void setupView() {
 		viewAllCourses = new JButton("View All Courses");
 		viewAllCourses.addActionListener((ActionEvent e) -> {
-			ArrayList<Course> results = stuCon.view();
-			if (results == null) return;
+			ArrayList<Course> courses = stuCon.view();
+			ArrayList<Registration> regs = stuCon.getRegistrationList();
+			
+			if (courses == null) return;
 			
 			clearTable();
 			
-			for (Course c : results) {
-				addTableData(c, checkEnrollment(c));
+			for (Course c : courses) {
+				addTableData(c, checkEnrollment(c, regs));
 			}
 		});
 		buttons.add(viewAllCourses);
 	}
 
-	private char checkEnrollment(Course c) {
-		char result = stuCon.checkIfEnrolled(c);
-		return result;
+	private char checkEnrollment(Course c, ArrayList<Registration> regs) {
+		for (Registration reg : regs) {
+			Course regCourse = reg.getOffering().getCourse();
+			if (regCourse.getName().equalsIgnoreCase(c.getName()) && regCourse.getNumber() == regCourse.getNumber()) {
+				return 'Y';
+			}
+		}
+		
+		return 'N';
 	}
 
 	private void setupBack() {
@@ -185,7 +194,7 @@ public class StudentPanel extends Panel {
 	}
 	
 	private void addTableData(Course course, char enrolled) {
-		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled};
+		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
 		tableModel.addRow(data);
 	}
 }
