@@ -18,6 +18,8 @@ public class CommunicationController {
 			aSocket = new Socket(host, port);
 			socketIn = new ObjectInputStream(aSocket.getInputStream());
 			socketOut = new ObjectOutputStream(aSocket.getOutputStream());
+			
+			System.out.println("Connected to server at " + host + ":" + port);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Could not connect to the server", "Error", JOptionPane.OK_OPTION);
 			System.exit(0);
