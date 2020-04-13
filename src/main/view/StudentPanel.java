@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import main.controller.CommunicationController;
@@ -141,6 +142,8 @@ public class StudentPanel extends Panel {
 	}
 
 	private char checkEnrollment(Course c, ArrayList<Registration> regs) {
+		if (c == null || regs == null) return 'N';
+		
 		for (Registration reg : regs) {
 			Course regCourse = reg.getOffering().getCourse();
 			if (regCourse.getName().equalsIgnoreCase(c.getName()) && regCourse.getNumber() == regCourse.getNumber()) {
@@ -172,7 +175,7 @@ public class StudentPanel extends Panel {
 		table = new JTable(tableModel);
 		table.setColumnSelectionAllowed(false);
 		table.setRowSelectionAllowed(true);
-		table.removeEditor();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(350, 175));
@@ -194,8 +197,7 @@ public class StudentPanel extends Panel {
 	}
 	
 	private void addTableData(Course course, char enrolled) {
-        //add "enrolled" as the third object in the below array when ready
-        Object[] data = new Object[] { course.getName(), course.getNumber()};
+        Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
 		tableModel.addRow(data);
 	}
 }

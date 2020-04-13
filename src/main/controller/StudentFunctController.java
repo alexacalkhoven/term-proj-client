@@ -35,9 +35,4 @@ public class StudentFunctController {
 	public void dropCourse(String name, int number) {
 		comCon.makeRequest("student.dropCourse", new Object[] { name, number });
 	}
-
-	public char checkIfEnrolled(Course c) {
-		char result = (char) comCon.makeRequest("student.checkEnroll", new Object[] {c});
-		return result;
-	}
 }

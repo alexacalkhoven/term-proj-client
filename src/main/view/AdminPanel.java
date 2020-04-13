@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import main.controller.*;
 import main.model.Course;
@@ -193,7 +194,7 @@ public class AdminPanel extends Panel {
 		table = new JTable(tableModel);
 		table.setColumnSelectionAllowed(false);
 		table.setRowSelectionAllowed(true);
-		table.removeEditor();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(350, 175));

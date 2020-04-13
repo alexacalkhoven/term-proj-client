@@ -1,14 +1,15 @@
 package main.view;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import main.controller.PanelController;
 
-@SuppressWarnings("serial")
-public class Panel extends JPanel {
-
+public abstract class Panel extends JPanel {
+	private static final long serialVersionUID = 1L;
+	
 	protected PanelController panMan;
 	
 	public Panel(PanelController panMan) {
@@ -17,6 +18,10 @@ public class Panel extends JPanel {
 	
 	public void changeView(String s) {
 		panMan.switchTo(s);
+	}
+	
+	public void onViewChanged(JFrame frame) {
+		
 	}
 	
 	public String[] getInputs(String[] names) {
@@ -39,7 +44,7 @@ public class Panel extends JPanel {
 		
 		int ret = JOptionPane.showConfirmDialog(getRootPane(), message, "Input", JOptionPane.OK_CANCEL_OPTION);
 		
-		if (ret == JOptionPane.CANCEL_OPTION) {
+		if (ret == JOptionPane.CANCEL_OPTION || ret == JOptionPane.CLOSED_OPTION) {
 			return null;
 		}
 		

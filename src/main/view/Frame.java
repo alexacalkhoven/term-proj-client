@@ -7,9 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 //shows the various views
-@SuppressWarnings("serial")
-public class Frame extends JFrame{
-	
+public class Frame extends JFrame {
+	private static final long serialVersionUID = 1L;
+
 	public Frame(String s) {
 		super(s);
 		setTitle("Course Registration System");
@@ -17,13 +17,15 @@ public class Frame extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		setResizable(false);
-		Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation((dimensions.width - getSize().width) / 2, (dimensions.height - getSize().height) / 2);
+		center();
 	}
 	
 	public void setPanel(JPanel p) {
-		this.setContentPane(p);
+		setContentPane(p);
 		pack();
+	}
+	
+	public void center() {
 		Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((dimensions.width - getSize().width) / 2, (dimensions.height - getSize().height) / 2);
 	}

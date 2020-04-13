@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -29,6 +30,11 @@ public class LoginPanel extends Panel {
 		setupButtons();
 		setupPanels();
 	}
+	
+	@Override
+	public void onViewChanged(JFrame frame) {
+		frame.setSize(350, 100);
+	}
 
 	private void setupButtons() {
 		setupStudent();
@@ -53,7 +59,7 @@ public class LoginPanel extends Panel {
 		JTextField titleText = new JTextField(TITLE_TEXT);
 		titleText.setEditable(false);
 		title.add(titleText);
-		this.add(title, BorderLayout.NORTH);
+		add(title, BorderLayout.NORTH);
 	}
 
 	private void addButtons() {
