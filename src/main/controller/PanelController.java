@@ -1,8 +1,12 @@
 package main.controller;
 
 import java.util.HashMap;
-import javax.swing.JPanel;
-import main.view.*;
+
+import main.view.AdminPanel;
+import main.view.Frame;
+import main.view.LoginPanel;
+import main.view.Panel;
+import main.view.StudentPanel;
 
 public class PanelController {
 

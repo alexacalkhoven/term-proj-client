@@ -7,7 +7,6 @@ import main.model.Registration;
 
 //WRITE FUNCTIONS FOR STUDENT BUTTONS HERE
 public class StudentFunctController {
-
 	CommunicationController comCon;
 
 	public StudentFunctController(CommunicationController comCon) {
@@ -19,11 +18,13 @@ public class StudentFunctController {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<Course> view() {
 		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.get");
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<Registration> getRegistrationList() {
 		return (ArrayList<Registration>) comCon.makeRequest("student.regList");
 	}

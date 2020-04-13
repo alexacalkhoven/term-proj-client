@@ -13,9 +13,9 @@ public class CommunicationController {
 	private ObjectInputStream socketIn;
 	private ObjectOutputStream socketOut;
 
-	public CommunicationController() {
+	public CommunicationController(String host, int port) {
 		try {
-			aSocket = new Socket("localhost", 4200);
+			aSocket = new Socket(host, port);
 			socketIn = new ObjectInputStream(aSocket.getInputStream());
 			socketOut = new ObjectOutputStream(aSocket.getOutputStream());
 		} catch (IOException e) {

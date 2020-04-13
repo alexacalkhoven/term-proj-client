@@ -15,8 +15,9 @@ import javax.swing.table.DefaultTableModel;
 import main.controller.*;
 import main.model.Course;
 
-@SuppressWarnings("serial")
 public class AdminPanel extends Panel {
+	private static final long serialVersionUID = 1L;
+	
 	private AdminFunctController adCon;
 	private JButton back;
 	private JButton viewAllCourses;
@@ -185,6 +186,8 @@ public class AdminPanel extends Panel {
 		String[] columns = { "Course Name", "Course Number" };
 
 		tableModel = new DefaultTableModel(null, columns) {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;

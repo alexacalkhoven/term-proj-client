@@ -19,12 +19,12 @@ import main.controller.StudentFunctController;
 import main.model.Course;
 import main.model.Registration;
 
-@SuppressWarnings("serial")
 public class StudentPanel extends Panel {
+	private static final long serialVersionUID = 1L;
+	
 	private StudentFunctController stuCon;
 	private JButton viewAllCourses;
 	private JButton searchCourseCatalogue;
-	private JButton viewRegisteredCourses;
 	private JButton registerForCourse;
 	private JButton dropCourse;
 	private JButton back;
@@ -85,15 +85,6 @@ public class StudentPanel extends Panel {
 			}
 		});
 		buttons.add(registerForCourse);
-	}
-
-	//Delete this function??
-	private void setupViewReg() {
-		viewRegisteredCourses = new JButton("View Registered Courses");
-		viewRegisteredCourses.addActionListener((ActionEvent e) -> {
-			
-		});
-		buttons.add(viewRegisteredCourses);
 	}
 
 	private void setupSearch() {
@@ -166,6 +157,8 @@ public class StudentPanel extends Panel {
 		String[] columns = { "Course Name", "Course Number", "Enrolled?" };
 		
 		tableModel = new DefaultTableModel(null, columns) {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
