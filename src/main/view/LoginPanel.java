@@ -13,6 +13,13 @@ import main.controller.CommunicationController;
 import main.controller.LoginFunctController;
 import main.controller.PanelController;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 @SuppressWarnings("serial")
 public class LoginPanel extends Panel {
 	private final String TITLE_TEXT = "Welcome! What would you like to log in as?";

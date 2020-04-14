@@ -1,5 +1,6 @@
 # term-proj-client
 ENSF 409 Term Project Client
+Group: Alexa Calkhoven, Radu Schirliu, Jordan Kwan
 
 ## Building
 The project requires no external libraries to build

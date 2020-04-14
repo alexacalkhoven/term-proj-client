@@ -3,6 +3,13 @@ package main.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class CourseOffering implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

@@ -8,6 +8,13 @@ import main.view.LoginPanel;
 import main.view.Panel;
 import main.view.StudentPanel;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class PanelController {
 
 	Frame theFrame;

@@ -2,6 +2,13 @@ package main;
 
 import main.controller.*;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 @SuppressWarnings("unused")
 public class Client {
 	private PanelController panMan;

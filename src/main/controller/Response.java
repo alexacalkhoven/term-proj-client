@@ -2,6 +2,13 @@ package main.controller;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class Response implements Serializable{
 
 	private static final long serialVersionUID = 1L;

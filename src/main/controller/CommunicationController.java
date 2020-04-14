@@ -7,6 +7,13 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class CommunicationController {
 
 	private Socket aSocket;

@@ -5,7 +5,13 @@ import java.util.ArrayList;
 import main.model.Course;
 import main.model.Registration;
 
-//WRITE FUNCTIONS FOR STUDENT BUTTONS HERE
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class StudentFunctController {
 	CommunicationController comCon;
 

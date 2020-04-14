@@ -15,6 +15,13 @@ import javax.swing.table.DefaultTableModel;
 import main.controller.*;
 import main.model.Course;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class AdminPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 	

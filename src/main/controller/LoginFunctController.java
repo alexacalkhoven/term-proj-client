@@ -4,6 +4,13 @@ import javax.swing.JOptionPane;
 
 import main.model.Student;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class LoginFunctController {
 	private CommunicationController comCon;
 	

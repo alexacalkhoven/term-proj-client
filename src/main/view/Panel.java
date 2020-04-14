@@ -7,6 +7,13 @@ import javax.swing.JTextField;
 
 import main.controller.PanelController;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public abstract class Panel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	

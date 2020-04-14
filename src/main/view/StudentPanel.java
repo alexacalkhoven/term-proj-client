@@ -19,6 +19,13 @@ import main.controller.StudentFunctController;
 import main.model.Course;
 import main.model.Registration;
 
+/**
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class StudentPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 	
