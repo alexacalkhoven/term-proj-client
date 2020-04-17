@@ -47,6 +47,14 @@ public class Course implements Serializable {
 	public int getNumber() {
 		return number;
 	}
+	
+	public ArrayList<CourseOffering> getOfferingList() {
+		return offeringList;
+	}
+	
+	public ArrayList<Course> getPreReq() {
+		return preReq;
+	}
 
 	public void setNumber(int courseNum) {
 		this.number = courseNum;

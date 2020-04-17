@@ -2,6 +2,7 @@ package main.controller;
 
 import java.util.ArrayList;
 import main.model.Course;
+import main.model.CourseOffering;
 
 /**
  * 
@@ -47,5 +48,22 @@ public class AdminFunctController {
 
 	public void addOffering(int courseId, int num, int cap) {
 		comCon.makeRequest("course.addOffering", new Object[] { courseId, num, cap });
+	}
+
+	public Object search(String name, int num) {
+		Course result = (Course) comCon.makeRequest("course.search", new Object[] { name, num });
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<CourseOffering> getOfferings(Integer id) {
+		ArrayList<CourseOffering> result = (ArrayList<CourseOffering>) comCon.makeRequest("course.getOfferings", id);
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Course> getPrereqs(Integer courseId) {
+		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.getPreReqs", courseId);
+		return result;
 	}
 }

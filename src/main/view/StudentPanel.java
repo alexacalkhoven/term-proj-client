@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -56,6 +57,7 @@ public class StudentPanel extends Panel {
 
 	public StudentPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
+		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		stuCon = new StudentFunctController(comCon);
 		setLayout(new BorderLayout());
 		setupToolbar();
@@ -272,8 +274,6 @@ public class StudentPanel extends Panel {
 		// how to make this not occur on select and release?
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
-				// do some actions here, for example
-				// print first column value from selected row
 				if (table.getSelectedRow() >= 0) {
 					String name = table.getValueAt(table.getSelectedRow(), 0).toString();
 					int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
