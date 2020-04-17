@@ -80,6 +80,25 @@ public class StudentPanel extends Panel {
 		setupDrop();
 	}
 
+	private void updateTables() {
+		updateCourses();
+		updateRegs();
+	}
+	
+	//THIS SEEMINGLY DOESNT WORK LOL
+	private void updateRegs() {
+		ArrayList<CourseOffering> offeringList = stuCon.getOfferingList();
+
+		if (offeringList == null)
+			return;
+
+		clearOfferingTable();
+
+		for (CourseOffering o : offeringList) {
+			addOfferingTableData(o);
+		}
+	}
+	
 	private void updateCourses() {
 		ArrayList<Course> results = stuCon.viewCourses();
 		ArrayList<Registration> reg = stuCon.getRegistrationList();
@@ -121,7 +140,7 @@ public class StudentPanel extends Panel {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
 			}
-			updateCourses();
+			updateTables();
 		});
 		toolBar.add(dropCourse);
 	}
@@ -144,7 +163,7 @@ public class StudentPanel extends Panel {
 			} catch (IndexOutOfBoundsException err) {
 				JOptionPane.showMessageDialog(getRootPane(), "No offerings available.", "Error", JOptionPane.OK_OPTION);
 			}
-			updateCourses();
+			updateTables();
 		});
 		toolBar.add(registerForCourse);
 	}
