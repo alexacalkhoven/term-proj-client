@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Registration implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private int registrationId;
 	private Student student;
 	private CourseOffering offering;
 	private char grade;
@@ -41,6 +42,14 @@ public class Registration implements Serializable {
 
 	public void removeRegistration() {
 		offering.removeRegistration(this);
+	}
+	
+	public int getRegistrationId() {
+		return registrationId;
+	}
+
+	public void setRegistrationId(int registrationId) {
+		this.registrationId = registrationId;
 	}
 
 	public Student getStudent() {

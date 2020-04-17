@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class CourseOffering implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private int offeringId;
 	private int secNum;
 	private int secCap;
 	private int studentAmount;
@@ -30,6 +31,14 @@ public class CourseOffering implements Serializable {
 	// so
 	// LONG
 	// ooeoehoeo :^)
+	
+	public int getOfferingId() {
+		return offeringId;
+	}
+
+	public void setOfferingId(int offeringId) {
+		this.offeringId = offeringId;
+	}
 
 	public void addRegistration(Registration registration) {
 		registrationList.add(registration);
