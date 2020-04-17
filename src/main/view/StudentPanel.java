@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -62,9 +63,11 @@ public class StudentPanel extends Panel {
 		setupButtons();
 		setupPanels();
 		setupDisplay();
+	}
+	@Override
+	public void onViewChanged(JFrame frame) {
 		updateCourses();
 	}
-
 	private void setupToolbar() {
 		toolBar = new JToolBar();
 		toolBar.setFloatable(false);
