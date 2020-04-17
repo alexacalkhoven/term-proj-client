@@ -115,8 +115,8 @@ public class StudentPanel extends Panel {
 					return;
 				}
 
-				int courseId = stuCon.getCourseIdFromRow(row);
-				stuCon.dropCourse(courseId);
+				int offeringId = stuCon.getOfferingIdFromRow(row);
+				stuCon.dropCourse(offeringId);
 				updateCourses();
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
