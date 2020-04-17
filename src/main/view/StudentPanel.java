@@ -38,7 +38,6 @@ public class StudentPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
 	private StudentFunctController stuCon;
-	private JButton viewAllCourses;
 	private JButton searchCourseCatalogue;
 	private JButton registerForCourse;
 	private JButton dropCourse;
