@@ -81,13 +81,21 @@ public class StudentPanel extends Panel {
 	}
 
 	private void updateTables() {
+		updateOfferings();
 		updateCourses();
-		updateRegs();
 	}
 	
-	//THIS SEEMINGLY DOESNT WORK LOL
-	private void updateRegs() {
-		ArrayList<CourseOffering> offeringList = stuCon.getOfferingList();
+	// THIS SEEMINGLY DOES WORK LOL
+	private void updateOfferings() {
+		int row = table.getSelectedRow();
+		
+		if (row < 0) {
+			clearOfferingTable();
+			return;
+		}
+		
+		int courseId = stuCon.getCourseIdFromRow(row);
+		ArrayList<CourseOffering> offeringList = stuCon.getOfferings(courseId);
 
 		if (offeringList == null)
 			return;
@@ -105,7 +113,7 @@ public class StudentPanel extends Panel {
 
 		if (results == null)
 			return;
-
+		
 		clearTable();
 
 		for (Course c : results) {
@@ -135,7 +143,6 @@ public class StudentPanel extends Panel {
 
 				int offeringId = stuCon.getOfferingIdFromRow(row);
 				stuCon.dropCourse(offeringId);
-				updateCourses();
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
@@ -274,10 +281,10 @@ public class StudentPanel extends Panel {
 			public void valueChanged(ListSelectionEvent event) {
 				// do some actions here, for example
 				// print first column value from selected row
-				if (table.getSelectedRow() >= 0) {
-					String name = table.getValueAt(table.getSelectedRow(), 0).toString();
-					int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
-					displaySections(stuCon.search(name, num));
+				int row = table.getSelectedRow();
+				
+				if (row >= 0) {
+					displaySections(stuCon.getCourseIdFromRow(row));
 				}
 			}
 		});
@@ -287,22 +294,17 @@ public class StudentPanel extends Panel {
 		display.add(scrollPane, BorderLayout.WEST);
 	}
 
-	private void displaySections(Course c) {
-		System.out.println(c);
-		System.out.println(c.getCourseId());
-		ArrayList<CourseOffering> offeringList = stuCon.getOfferings(c.getCourseId());
+	private void displaySections(int courseId) {
+		ArrayList<CourseOffering> offeringList = stuCon.getOfferings(courseId);
 
-		// keep an updated array of the offerings in the student funct controller
-		stuCon.setOfferingList(offeringList);
-
+		clearOfferingTable();
+		
 		if (offeringList.size() == 0) {
-			clearOfferingTable();
 			Object[] data = new Object[] { "No Sections" };
 			offeringTableModel.addRow(data);
 			return;
 		}
 
-		clearOfferingTable();
 		for (int i = 0; i < offeringList.size(); i++) {
 			addOfferingTableData(offeringList.get(i));
 		}
