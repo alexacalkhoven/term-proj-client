@@ -31,7 +31,6 @@ public class AdminPanel extends Panel {
 	
 	private AdminFunctController adCon;
 	private JButton back;
-	private JButton viewAllCourses;
 	private JButton createCourse;
 	private JButton removeCourse;
 	private JButton createCourseOffering;
@@ -51,6 +50,7 @@ public class AdminPanel extends Panel {
 		setupButtons();
 		setupPanels();
 		setupDisplay();
+		updateCourses();
 	}
 
 	private void setupToolbar() {
@@ -61,7 +61,6 @@ public class AdminPanel extends Panel {
 	
 	private void setupButtons() {
 		setupBack();
-		setupView();
 		setupCreateCourse();
 		setupRemoveCourse();
 		setupCreateOffering();
@@ -112,17 +111,22 @@ public class AdminPanel extends Panel {
 		createCourseOffering = new JButton(makeUniform("Create Course Offering"));
 		createCourseOffering.addActionListener((ActionEvent e) -> {
 			try {
-				String[] inputs1 = getInputs(new String[] { "Course Name: ", "Course Number" });
-				if (inputs1 == null)
+				int row = table.getSelectedRow();
+				
+				if (row < 0) {
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
 					return;
-				String[] inputs2 = getInputs(new String[] { "Section Number:", "Section Capacity:" });
-				if (inputs2 == null)
+				}
+				
+				String[] inputs = getInputs(new String[] { "Section Number:", "Section Capacity:" });
+				
+				if (inputs == null)
 					return;
 
-				int num = Integer.parseInt(inputs2[0]);
-				int cap = Integer.parseInt(inputs2[1]);
-				int courseNum = Integer.parseInt(inputs1[1]);
-				adCon.addOffering(num, cap, inputs1[0], courseNum);
+				int courseId = adCon.getCourseIdFromRow(row);
+				int num = Integer.parseInt(inputs[0]);
+				int cap = Integer.parseInt(inputs[1]);
+				adCon.addOffering(courseId, num, cap);
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
@@ -135,17 +139,16 @@ public class AdminPanel extends Panel {
 		removeCourse = new JButton(makeUniform("Remove Course"));
 		removeCourse.addActionListener((ActionEvent e) -> {
 			try {
-				String inputs[] = getInputs(new String[] { "Name:", "Number:" });
-				if (inputs == null)
+				int row = table.getSelectedRow();
+				
+				if (row < 0) {
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
 					return;
-
-				int num = Integer.parseInt(inputs[1]);
-				boolean result = adCon.removeCourse(inputs[0], num);
-				if(result == false) {
-					System.err.println("Error in removing course.");
-					JOptionPane.showMessageDialog(getRootPane(), "Error in removing course.", "Error",
-							JOptionPane.OK_OPTION);
 				}
+				
+				int courseId = adCon.getCourseIdFromRow(row);
+				adCon.removeCourse(courseId);
+				updateCourses();
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
@@ -164,6 +167,7 @@ public class AdminPanel extends Panel {
 
 				int num = Integer.parseInt(inputs[1]);
 				adCon.createCourse(inputs[0], num);
+				updateCourses();
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
@@ -171,22 +175,18 @@ public class AdminPanel extends Panel {
 		});
 		toolBar.add(createCourse);
 	}
+	
+	private void updateCourses() {
+		ArrayList<Course> results = adCon.viewCourses();
+		
+		if (results == null)
+			return;
 
-	private void setupView() {
-		viewAllCourses = new JButton(makeUniform("View All Courses"));
-		viewAllCourses.addActionListener((ActionEvent e) -> {
-			ArrayList<Course> results = adCon.viewCourses();
-			
-			if (results == null)
-				return;
+		clearTable();
 
-			clearTable();
-
-			for (Course c : results) {
-				addTableData(c);
-			}
-		});
-		toolBar.add(viewAllCourses);
+		for (Course c : results) {
+			addTableData(c);
+		}
 	}
 
 	private void clearTable() {
