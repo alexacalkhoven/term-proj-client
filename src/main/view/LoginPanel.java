@@ -95,6 +95,11 @@ public class LoginPanel extends Panel {
 			try {
 				String[] labels = {"ID: "};
 				String[] inputs = getInputs(labels);
+				
+				if(inputs == null) {
+					return;
+				}
+				
 				int id = Integer.parseInt(inputs[0]);
 				
 				if (loginCon.loginStudent(id)) {

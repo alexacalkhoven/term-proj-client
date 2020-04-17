@@ -273,9 +273,11 @@ public class StudentPanel extends Panel {
 	        public void valueChanged(ListSelectionEvent event) {
 	            // do some actions here, for example
 	            // print first column value from selected row
-	        	String name = table.getValueAt(table.getSelectedRow(), 0).toString();
-	        	int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
-	        	displaySections(stuCon.search(name, num));
+	        	if(table.getSelectedRow() >= 0) {
+	        		String name = table.getValueAt(table.getSelectedRow(), 0).toString();
+		        	int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
+		        	displaySections(stuCon.search(name, num));
+	        	}
 	        }
 	    });
 
@@ -285,7 +287,16 @@ public class StudentPanel extends Panel {
 	}
 	
 	private void displaySections(Course c) {
+		System.out.println(c);
+		System.out.println(c.getCourseId());
 		ArrayList<CourseOffering> offeringList = stuCon.getOfferings(c.getCourseId());
+		
+		if(offeringList.size() == 0) {
+			clearOfferingTable();
+			Object[] data = new Object[] {"No Sections"};
+			offeringTableModel.addRow(data);
+			return;
+		}
 		
 		for(int i = 0; i < offeringList.size(); i++) {
 			addOfferingTableData(offeringList.get(i));
@@ -309,6 +320,10 @@ public class StudentPanel extends Panel {
 	private void clearTable() {
 		tableModel.setRowCount(0);
 	}
+	
+	private void clearOfferingTable() {
+		offeringTableModel.setRowCount(0);
+	}
 
 	private void addTableData(Course course, char enrolled) {
 		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
@@ -316,7 +331,8 @@ public class StudentPanel extends Panel {
 	}
 	
 	private void addOfferingTableData(CourseOffering o) {
+		clearOfferingTable();
 		Object[] data = new Object[] {o.getSecNum(), o.getSecCap(), o.getStudentAmount()};
-		tableModel.addRow(data);
+		offeringTableModel.addRow(data);
 	}
 }

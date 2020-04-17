@@ -38,7 +38,7 @@ public class StudentFunctController {
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<CourseOffering> getOfferings(int id) {
-		ArrayList<CourseOffering> result = (ArrayList<CourseOffering>) comCon.makeRequest("course.getOfferings");
+		ArrayList<CourseOffering> result = (ArrayList<CourseOffering>) comCon.makeRequest("course.getOfferings", id);
 		return result;
 	}
 
