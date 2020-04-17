@@ -3,6 +3,7 @@ package main.controller;
 import java.util.ArrayList;
 
 import main.model.Course;
+import main.model.CourseOffering;
 import main.model.Registration;
 
 /**
@@ -21,6 +22,12 @@ public class StudentFunctController {
 
 	public Course search(String name, int num) {
 		Course result = (Course) comCon.makeRequest("course.search", new Object[] { name, num });
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<CourseOffering> getOfferings(int id) {
+		ArrayList<CourseOffering> result = (ArrayList<CourseOffering>) comCon.makeRequest("course.getOfferings");
 		return result;
 	}
 

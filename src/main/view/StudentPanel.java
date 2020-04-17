@@ -13,12 +13,15 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import main.controller.CommunicationController;
 import main.controller.PanelController;
 import main.controller.StudentFunctController;
 import main.model.Course;
+import main.model.CourseOffering;
 import main.model.Registration;
 
 /**
@@ -224,10 +227,29 @@ public class StudentPanel extends Panel {
 		table.setColumnSelectionAllowed(false);
 		table.setRowSelectionAllowed(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		//how to make this not occur on select and release?
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            // do some actions here, for example
+	            // print first column value from selected row
+	        	String name = table.getValueAt(table.getSelectedRow(), 0).toString();
+	        	int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
+	        	displaySections(stuCon.search(name, num));
+	        }
+	    });
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane, BorderLayout.WEST);
+	}
+	
+	private void displaySections(Course c) {
+		ArrayList<CourseOffering> offeringList = stuCon.getOfferings(c.getCourseId());
+		
+		for(int i = 0; i < offeringList.size(); i++) {
+			addOfferingTableData(offeringList.get(i));
+		}
 	}
 
 	private void setupPanels() {
@@ -248,6 +270,11 @@ public class StudentPanel extends Panel {
 
 	private void addTableData(Course course, char enrolled) {
 		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
+		tableModel.addRow(data);
+	}
+	
+	private void addOfferingTableData(CourseOffering o) {
+		Object[] data = new Object[] {o.getSecNum(), o.getSecCap(), o.getStudentAmount()};
 		tableModel.addRow(data);
 	}
 }
