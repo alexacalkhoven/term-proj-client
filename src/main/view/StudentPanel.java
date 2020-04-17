@@ -108,7 +108,7 @@ public class StudentPanel extends Panel {
 
 		dropCourse.addActionListener((ActionEvent e) -> {
 			try {
-				int row = table.getSelectedRow();
+				int row = offeringTable.getSelectedRow();
 
 				if (row < 0) {
 					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
