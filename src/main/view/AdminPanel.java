@@ -3,6 +3,8 @@ package main.view;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -36,7 +38,8 @@ public class AdminPanel extends Panel {
 	private JButton createCourseOffering;
 	private JButton createStudent;
 	private JButton removeStudent;
-
+	
+	private GridBagConstraints c;
 	private JToolBar toolBar;
 	private JPanel title, display, buttons;
 	private JTable table;
@@ -67,14 +70,18 @@ public class AdminPanel extends Panel {
 		setupCreateStudent();
 		setupRemoveStudent();
 	}
-
-	//this doth not werk. want to make all strings the same width
-	private String makeUniform(String label) {
-		return String.format("%1$"+ BUTTON_FIELD_SIZE + "s", label);
+	
+	private void setButtonSize(JButton b) {
+		Dimension d = new Dimension(175, 25);
+		b.setPreferredSize(d);
+		b.setMinimumSize(d);
+		b.setMaximumSize(d);
 	}
 	
 	private void setupRemoveStudent() {
-		removeStudent = new JButton(makeUniform("Remove Student"));
+		removeStudent = new JButton("Remove Student");
+		setButtonSize(removeStudent);
+		
 		removeStudent.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "ID:" });
@@ -91,7 +98,9 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupCreateStudent() {
-		createStudent = new JButton(makeUniform("Create Student"));
+		createStudent = new JButton("Create Student");
+		setButtonSize(createStudent);
+		
 		createStudent.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "Name:", "ID:" });
@@ -108,7 +117,9 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupCreateOffering() {
-		createCourseOffering = new JButton(makeUniform("Create Course Offering"));
+		createCourseOffering = new JButton("Create Course Offering");
+		setButtonSize(createCourseOffering);
+		
 		createCourseOffering.addActionListener((ActionEvent e) -> {
 			try {
 				int row = table.getSelectedRow();
@@ -136,7 +147,9 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupRemoveCourse() {
-		removeCourse = new JButton(makeUniform("Remove Course"));
+		removeCourse = new JButton("Remove Course");
+		setButtonSize(removeCourse);
+		
 		removeCourse.addActionListener((ActionEvent e) -> {
 			try {
 				int row = table.getSelectedRow();
@@ -158,7 +171,9 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupCreateCourse() {
-		createCourse = new JButton(makeUniform("Create Course"));
+		createCourse = new JButton("Create Course");
+		setButtonSize(createCourse);
+		
 		createCourse.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "Name:", "Number:" });
@@ -199,7 +214,9 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupBack() {
-		back = new JButton(makeUniform("Back"));
+		back = new JButton("Back");
+		setButtonSize(back);
+		
 		back.addActionListener((ActionEvent e) -> {
 			changeView("login");
 		});
@@ -232,8 +249,10 @@ public class AdminPanel extends Panel {
 		title = new JPanel();
 		display = new JPanel();
 		display.setPreferredSize(new Dimension(400, 200));
-		buttons = new JPanel();
-		buttons.add(toolBar);
+		buttons = new JPanel(new GridBagLayout());
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		buttons.add(toolBar, c);
 		this.add(title, BorderLayout.NORTH);
 		this.add(display, BorderLayout.CENTER);
 		this.add(buttons, BorderLayout.EAST);

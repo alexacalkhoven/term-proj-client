@@ -2,6 +2,8 @@ package main.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -40,7 +42,8 @@ public class StudentPanel extends Panel {
 	private JButton registerForCourse;
 	private JButton dropCourse;
 	private JButton back;
-
+	
+	private GridBagConstraints c;
 	private JToolBar toolBar;
 	private JPanel title;
 	private JPanel display;
@@ -62,7 +65,7 @@ public class StudentPanel extends Panel {
 	}
 
 	private void setupToolbar() {
-		toolBar = new JToolBar("Buttons");
+		toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 		toolBar.setOrientation(SwingConstants.VERTICAL);
 	}
@@ -92,8 +95,17 @@ public class StudentPanel extends Panel {
 		tableModel.addRow(data);
 	}
 
+	private void setButtonSize(JButton b) {
+		Dimension d = new Dimension(175, 25);
+		b.setPreferredSize(d);
+		b.setMinimumSize(d);
+		b.setMaximumSize(d);
+	}
+	
 	private void setupDrop() {
 		dropCourse = new JButton("Drop Course");
+		setButtonSize(dropCourse);
+
 		dropCourse.addActionListener((ActionEvent e) -> {
 			try {
 				int row = table.getSelectedRow();
@@ -116,6 +128,8 @@ public class StudentPanel extends Panel {
 
 	private void setupRegForCourse() {
 		registerForCourse = new JButton("Register For Course");
+		setButtonSize(registerForCourse);
+		
 		registerForCourse.addActionListener((ActionEvent e) -> {
 			try {
 				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: ", "Section number: " });
@@ -135,6 +149,8 @@ public class StudentPanel extends Panel {
 
 	private void setupSearch() {
 		searchCourseCatalogue = new JButton("Search Course Catalogue");
+		setButtonSize(searchCourseCatalogue);
+		
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
 			try {
 				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: " });
@@ -165,6 +181,8 @@ public class StudentPanel extends Panel {
 
 	private void setupView() {
 		viewAllCourses = new JButton("View All Courses");
+		setButtonSize(viewAllCourses);
+		
 		viewAllCourses.addActionListener((ActionEvent e) -> {
 			ArrayList<Course> courses = stuCon.view();
 			ArrayList<Registration> regs = stuCon.getRegistrationList();
@@ -197,6 +215,8 @@ public class StudentPanel extends Panel {
 
 	private void setupBack() {
 		back = new JButton("Back");
+		setButtonSize(back);
+		
 		back.addActionListener((ActionEvent e) -> {
 			changeView("login");
 		});
@@ -277,8 +297,10 @@ public class StudentPanel extends Panel {
 		display = new JPanel();
 		display.setLayout(new BorderLayout());
 		// display.setPreferredSize(new Dimension(400, 200));
-		buttons = new JPanel();
-		buttons.add(toolBar);
+		buttons = new JPanel(new GridBagLayout());
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		buttons.add(toolBar, c);
 		this.add(title, BorderLayout.NORTH);
 		this.add(display, BorderLayout.CENTER);
 		this.add(buttons, BorderLayout.EAST);
