@@ -2,6 +2,8 @@ package main.controller;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import main.model.Course;
 import main.model.CourseOffering;
 import main.model.Registration;
@@ -16,6 +18,7 @@ import main.model.Registration;
 public class StudentFunctController {
 	CommunicationController comCon;
 	private ArrayList<Course> courseList;
+	private ArrayList<CourseOffering> offeringList;
 	
 	public ArrayList<Course> viewCourses() {
 		@SuppressWarnings("unchecked")
@@ -53,11 +56,26 @@ public class StudentFunctController {
 		return (ArrayList<Registration>) comCon.makeRequest("student.regList");
 	}
 
-	public void regForCourse(String name, int number, int section) {
-		comCon.makeRequest("student.addRegCourse", new Object[] { name, number, section });
+	public void regForCourse(Integer offeringId){
+		comCon.makeRequest("student.addRegCourse", offeringId);
 	}
 
 	public void dropCourse(Integer number) {
 		comCon.makeRequest("student.dropCourse", number);
+	}
+	
+	public ArrayList<CourseOffering> getOfferingList() {
+		return offeringList;
+	}
+	
+	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
+		this.offeringList = offeringList;
+	}
+	
+	public int getOfferingIdFromRow(int row)  throws IndexOutOfBoundsException{
+		if(offeringList.size() == 0) {
+			throw new IndexOutOfBoundsException("No Offerings!");
+		}
+		return offeringList.get(row).getOfferingId();
 	}
 }

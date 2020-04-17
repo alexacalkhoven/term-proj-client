@@ -42,7 +42,7 @@ public class StudentPanel extends Panel {
 	private JButton registerForCourse;
 	private JButton dropCourse;
 	private JButton back;
-	
+
 	private GridBagConstraints c;
 	private JToolBar toolBar;
 	private JPanel title;
@@ -78,21 +78,19 @@ public class StudentPanel extends Panel {
 		setupRegForCourse();
 		setupDrop();
 	}
+
 	private void updateCourses() {
 		ArrayList<Course> results = stuCon.viewCourses();
-		
+		ArrayList<Registration> reg = stuCon.getRegistrationList();
+
 		if (results == null)
 			return;
 
 		clearTable();
 
 		for (Course c : results) {
-			addTableData(c);
+			addTableData(c, checkEnrollment(c, reg));
 		}
-	}
-	private void addTableData(Course course) {
-		Object[] data = new Object[] { course.getName(), course.getNumber() };
-		tableModel.addRow(data);
 	}
 
 	private void setButtonSize(JButton b) {
@@ -101,7 +99,7 @@ public class StudentPanel extends Panel {
 		b.setMinimumSize(d);
 		b.setMaximumSize(d);
 	}
-	
+
 	private void setupDrop() {
 		dropCourse = new JButton("Drop Course");
 		setButtonSize(dropCourse);
@@ -109,12 +107,12 @@ public class StudentPanel extends Panel {
 		dropCourse.addActionListener((ActionEvent e) -> {
 			try {
 				int row = table.getSelectedRow();
-				
+
 				if (row < 0) {
 					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
 					return;
 				}
-				
+
 				int courseId = stuCon.getCourseIdFromRow(row);
 				stuCon.dropCourse(courseId);
 				updateCourses();
@@ -129,20 +127,22 @@ public class StudentPanel extends Panel {
 	private void setupRegForCourse() {
 		registerForCourse = new JButton("Register For Course");
 		setButtonSize(registerForCourse);
-		
-		registerForCourse.addActionListener((ActionEvent e) -> {
-			try {
-				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: ", "Section number: " });
-				if (userIn == null)
-					return;
 
-				int number = Integer.parseInt(userIn[1]);
-				int section = Integer.parseInt(userIn[2]);
-				stuCon.regForCourse(userIn[0], number, section);
-			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Course/section number must be a number", "Error",
-						JOptionPane.OK_OPTION);
+		registerForCourse.addActionListener((ActionEvent e) -> {
+			int row = offeringTable.getSelectedRow();
+
+			if (row < 0) {
+				JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+				return;
 			}
+
+			try {
+				int offeringId = stuCon.getOfferingIdFromRow(row);
+				stuCon.regForCourse(offeringId);
+			} catch (IndexOutOfBoundsException err) {
+				JOptionPane.showMessageDialog(getRootPane(), "No offerings available.", "Error", JOptionPane.OK_OPTION);
+			}
+			
 		});
 		toolBar.add(registerForCourse);
 	}
@@ -150,7 +150,7 @@ public class StudentPanel extends Panel {
 	private void setupSearch() {
 		searchCourseCatalogue = new JButton("Search Course Catalogue");
 		setButtonSize(searchCourseCatalogue);
-		
+
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
 			try {
 				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: " });
@@ -182,7 +182,7 @@ public class StudentPanel extends Panel {
 	private void setupView() {
 		viewAllCourses = new JButton("View All Courses");
 		setButtonSize(viewAllCourses);
-		
+
 		viewAllCourses.addActionListener((ActionEvent e) -> {
 			ArrayList<Course> courses = stuCon.view();
 			ArrayList<Registration> regs = stuCon.getRegistrationList();
@@ -205,7 +205,7 @@ public class StudentPanel extends Panel {
 
 		for (Registration reg : regs) {
 			Course regCourse = reg.getOffering().getCourse();
-			if (regCourse.getName().equalsIgnoreCase(c.getName()) && regCourse.getNumber() == regCourse.getNumber()) {
+			if (c.getCourseId() == regCourse.getCourseId()) {
 				return 'Y';
 			}
 		}
@@ -216,7 +216,7 @@ public class StudentPanel extends Panel {
 	private void setupBack() {
 		back = new JButton("Back");
 		setButtonSize(back);
-		
+
 		back.addActionListener((ActionEvent e) -> {
 			changeView("login");
 		});
@@ -226,11 +226,11 @@ public class StudentPanel extends Panel {
 	private void setupDisplay() {
 		setupCourseTable();
 		setupOfferingTable();
-		
+
 	}
 
 	private void setupOfferingTable() {
-		String[] columns = { "Section Number", "Section Capacity", "Current Enrollments"};
+		String[] columns = { "Section Number", "Section Capacity", "Current Enrollments" };
 
 		offeringTableModel = new DefaultTableModel(null, columns) {
 			private static final long serialVersionUID = 1L;
@@ -267,38 +267,41 @@ public class StudentPanel extends Panel {
 		table.setColumnSelectionAllowed(false);
 		table.setRowSelectionAllowed(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		//how to make this not occur on select and release?
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-	        public void valueChanged(ListSelectionEvent event) {
-	            // do some actions here, for example
-	            // print first column value from selected row
-	        	if(table.getSelectedRow() >= 0) {
-	        		String name = table.getValueAt(table.getSelectedRow(), 0).toString();
-		        	int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
-		        	displaySections(stuCon.search(name, num));
-	        	}
-	        }
-	    });
+
+		// how to make this not occur on select and release?
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				// do some actions here, for example
+				// print first column value from selected row
+				if (table.getSelectedRow() >= 0) {
+					String name = table.getValueAt(table.getSelectedRow(), 0).toString();
+					int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
+					displaySections(stuCon.search(name, num));
+				}
+			}
+		});
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane, BorderLayout.WEST);
 	}
-	
+
 	private void displaySections(Course c) {
 		System.out.println(c);
 		System.out.println(c.getCourseId());
 		ArrayList<CourseOffering> offeringList = stuCon.getOfferings(c.getCourseId());
-		
-		if(offeringList.size() == 0) {
+
+		// keep an updated array of the offerings in the student funct controller
+		stuCon.setOfferingList(offeringList);
+
+		if (offeringList.size() == 0) {
 			clearOfferingTable();
-			Object[] data = new Object[] {"No Sections"};
+			Object[] data = new Object[] { "No Sections" };
 			offeringTableModel.addRow(data);
 			return;
 		}
-		
-		for(int i = 0; i < offeringList.size(); i++) {
+
+		for (int i = 0; i < offeringList.size(); i++) {
 			addOfferingTableData(offeringList.get(i));
 		}
 	}
@@ -320,7 +323,7 @@ public class StudentPanel extends Panel {
 	private void clearTable() {
 		tableModel.setRowCount(0);
 	}
-	
+
 	private void clearOfferingTable() {
 		offeringTableModel.setRowCount(0);
 	}
@@ -329,10 +332,10 @@ public class StudentPanel extends Panel {
 		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
 		tableModel.addRow(data);
 	}
-	
+
 	private void addOfferingTableData(CourseOffering o) {
 		clearOfferingTable();
-		Object[] data = new Object[] {o.getSecNum(), o.getSecCap(), o.getStudentAmount()};
+		Object[] data = new Object[] { o.getSecNum(), o.getSecCap(), o.getStudentAmount() };
 		offeringTableModel.addRow(data);
 	}
 }
