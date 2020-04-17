@@ -6,11 +6,14 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import main.controller.*;
 import main.model.Course;
@@ -24,6 +27,7 @@ import main.model.Course;
  */
 public class AdminPanel extends Panel {
 	private static final long serialVersionUID = 1L;
+	private static final int BUTTON_FIELD_SIZE = 32;
 	
 	private AdminFunctController adCon;
 	private JButton back;
@@ -34,6 +38,7 @@ public class AdminPanel extends Panel {
 	private JButton createStudent;
 	private JButton removeStudent;
 
+	private JToolBar toolBar;
 	private JPanel title, display, buttons;
 	private JTable table;
 	private DefaultTableModel tableModel;
@@ -42,11 +47,18 @@ public class AdminPanel extends Panel {
 		super(panMan);
 		adCon = new AdminFunctController(comCon);
 		setLayout(new BorderLayout());
+		setupToolbar();
+		setupButtons();
 		setupPanels();
 		setupDisplay();
-		setupButtons();
 	}
 
+	private void setupToolbar() {
+		toolBar = new JToolBar("Buttons");
+		toolBar.setFloatable(false);
+		toolBar.setOrientation(SwingConstants.VERTICAL);
+	}
+	
 	private void setupButtons() {
 		setupBack();
 		setupView();
@@ -57,8 +69,13 @@ public class AdminPanel extends Panel {
 		setupRemoveStudent();
 	}
 
+	//this doth not werk. want to make all strings the same width
+	private String makeUniform(String label) {
+		return String.format("%1$"+ BUTTON_FIELD_SIZE + "s", label);
+	}
+	
 	private void setupRemoveStudent() {
-		removeStudent = new JButton("Remove Student");
+		removeStudent = new JButton(makeUniform("Remove Student"));
 		removeStudent.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "ID:" });
@@ -71,11 +88,11 @@ public class AdminPanel extends Panel {
 				JOptionPane.showMessageDialog(getRootPane(), "ID must be a number", "Error", JOptionPane.OK_OPTION);
 			}
 		});
-		buttons.add(removeStudent);
+		toolBar.add(removeStudent);
 	}
 
 	private void setupCreateStudent() {
-		createStudent = new JButton("Create Student");
+		createStudent = new JButton(makeUniform("Create Student"));
 		createStudent.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "Name:", "ID:" });
@@ -88,11 +105,11 @@ public class AdminPanel extends Panel {
 				JOptionPane.showConfirmDialog(getRootPane(), "Error, must enter a number");
 			}
 		});
-		buttons.add(createStudent);
+		toolBar.add(createStudent);
 	}
 
 	private void setupCreateOffering() {
-		createCourseOffering = new JButton("Create Course Offering");
+		createCourseOffering = new JButton(makeUniform("Create Course Offering"));
 		createCourseOffering.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs1 = getInputs(new String[] { "Course Name: ", "Course Number" });
@@ -111,11 +128,11 @@ public class AdminPanel extends Panel {
 						JOptionPane.OK_OPTION);
 			}
 		});
-		buttons.add(createCourseOffering);
+		toolBar.add(createCourseOffering);
 	}
 
 	private void setupRemoveCourse() {
-		removeCourse = new JButton("Remove Course");
+		removeCourse = new JButton(makeUniform("Remove Course"));
 		removeCourse.addActionListener((ActionEvent e) -> {
 			try {
 				String inputs[] = getInputs(new String[] { "Name:", "Number:" });
@@ -134,11 +151,11 @@ public class AdminPanel extends Panel {
 						JOptionPane.OK_OPTION);
 			}
 		});
-		buttons.add(removeCourse);
+		toolBar.add(removeCourse);
 	}
 
 	private void setupCreateCourse() {
-		createCourse = new JButton("Create Course");
+		createCourse = new JButton(makeUniform("Create Course"));
 		createCourse.addActionListener((ActionEvent e) -> {
 			try {
 				String[] inputs = getInputs(new String[] { "Name:", "Number:" });
@@ -152,11 +169,11 @@ public class AdminPanel extends Panel {
 						JOptionPane.OK_OPTION);
 			}
 		});
-		buttons.add(createCourse);
+		toolBar.add(createCourse);
 	}
 
 	private void setupView() {
-		viewAllCourses = new JButton("View All Courses");
+		viewAllCourses = new JButton(makeUniform("View All Courses"));
 		viewAllCourses.addActionListener((ActionEvent e) -> {
 			ArrayList<Course> results = adCon.viewCourses();
 			
@@ -169,7 +186,7 @@ public class AdminPanel extends Panel {
 				addTableData(c);
 			}
 		});
-		buttons.add(viewAllCourses);
+		toolBar.add(viewAllCourses);
 	}
 
 	private void clearTable() {
@@ -182,11 +199,11 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupBack() {
-		back = new JButton("Back");
+		back = new JButton(makeUniform("Back"));
 		back.addActionListener((ActionEvent e) -> {
 			changeView("login");
 		});
-		buttons.add(back);
+		toolBar.add(back);
 	}
 
 	private void setupDisplay() {
@@ -216,8 +233,9 @@ public class AdminPanel extends Panel {
 		display = new JPanel();
 		display.setPreferredSize(new Dimension(400, 200));
 		buttons = new JPanel();
+		buttons.add(toolBar);
 		this.add(title, BorderLayout.NORTH);
 		this.add(display, BorderLayout.CENTER);
-		this.add(buttons, BorderLayout.SOUTH);
+		this.add(buttons, BorderLayout.EAST);
 	}
 }

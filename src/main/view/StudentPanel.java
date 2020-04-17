@@ -10,7 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import main.controller.CommunicationController;
@@ -28,7 +30,7 @@ import main.model.Registration;
  */
 public class StudentPanel extends Panel {
 	private static final long serialVersionUID = 1L;
-	
+
 	private StudentFunctController stuCon;
 	private JButton viewAllCourses;
 	private JButton searchCourseCatalogue;
@@ -36,77 +38,92 @@ public class StudentPanel extends Panel {
 	private JButton dropCourse;
 	private JButton back;
 
+	private JToolBar toolBar;
 	private JPanel title;
 	private JPanel display;
 	private JPanel buttons;
 	private JTable table;
 	private DefaultTableModel tableModel;
 
+	private JTable offeringTable;
+	private DefaultTableModel offeringTableModel;
+
 	public StudentPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
 		stuCon = new StudentFunctController(comCon);
 		setLayout(new BorderLayout());
+		setupToolbar();
+		setupButtons();
 		setupPanels();
 		setupDisplay();
-		setupButtons();
+	}
+
+	private void setupToolbar() {
+		toolBar = new JToolBar("Buttons");
+		toolBar.setFloatable(false);
+		toolBar.setOrientation(SwingConstants.VERTICAL);
 	}
 
 	private void setupButtons() {
 		setupBack();
 		setupView();
 		setupSearch();
-		//setupViewReg();
+		// setupViewReg();
 		setupRegForCourse();
 		setupDrop();
 	}
-
 
 	private void setupDrop() {
 		dropCourse = new JButton("Drop Course");
 		dropCourse.addActionListener((ActionEvent e) -> {
 			try {
-				String [] userIn = getInputs(new String [] {"Course name: ", "Course number: "});
-				if (userIn == null) return;
-				
+				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: " });
+				if (userIn == null)
+					return;
+
 				int num = Integer.parseInt(userIn[1]);
 				stuCon.dropCourse(userIn[0], num);
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
+						JOptionPane.OK_OPTION);
 			}
 		});
-		buttons.add(dropCourse);
+		toolBar.add(dropCourse);
 	}
 
 	private void setupRegForCourse() {
 		registerForCourse = new JButton("Register For Course");
 		registerForCourse.addActionListener((ActionEvent e) -> {
 			try {
-				String [] userIn = getInputs(new String [] { "Course name: ", "Course number: ", "Section number: " });
-				if (userIn == null) return;
-				
+				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: ", "Section number: " });
+				if (userIn == null)
+					return;
+
 				int number = Integer.parseInt(userIn[1]);
 				int section = Integer.parseInt(userIn[2]);
 				stuCon.regForCourse(userIn[0], number, section);
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Course/section number must be a number", "Error", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(getRootPane(), "Course/section number must be a number", "Error",
+						JOptionPane.OK_OPTION);
 			}
 		});
-		buttons.add(registerForCourse);
+		toolBar.add(registerForCourse);
 	}
 
 	private void setupSearch() {
 		searchCourseCatalogue = new JButton("Search Course Catalogue");
 		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
 			try {
-				String [] userIn = getInputs(new String [] { "Course name: ", "Course number: " });
-				if (userIn == null) return;
+				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: " });
+				if (userIn == null)
+					return;
 
 				int num = Integer.parseInt(userIn[1]);
-				
+
 				Course result = stuCon.search(userIn[0], num);
-				
+
 				String resultText;
-				
+
 				if (result == null) {
 					resultText = "Course not found.";
 				} else {
@@ -114,12 +131,13 @@ public class StudentPanel extends Panel {
 				}
 
 				JOptionPane.showMessageDialog(getRootPane(), resultText, resultText, JOptionPane.PLAIN_MESSAGE);
-				
+
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
+						JOptionPane.OK_OPTION);
 			}
 		});
-		buttons.add(searchCourseCatalogue);
+		toolBar.add(searchCourseCatalogue);
 	}
 
 	private void setupView() {
@@ -127,28 +145,30 @@ public class StudentPanel extends Panel {
 		viewAllCourses.addActionListener((ActionEvent e) -> {
 			ArrayList<Course> courses = stuCon.view();
 			ArrayList<Registration> regs = stuCon.getRegistrationList();
-			
-			if (courses == null) return;
-			
+
+			if (courses == null)
+				return;
+
 			clearTable();
-			
+
 			for (Course c : courses) {
 				addTableData(c, checkEnrollment(c, regs));
 			}
 		});
-		buttons.add(viewAllCourses);
+		toolBar.add(viewAllCourses);
 	}
 
 	private char checkEnrollment(Course c, ArrayList<Registration> regs) {
-		if (c == null || regs == null) return 'N';
-		
+		if (c == null || regs == null)
+			return 'N';
+
 		for (Registration reg : regs) {
 			Course regCourse = reg.getOffering().getCourse();
 			if (regCourse.getName().equalsIgnoreCase(c.getName()) && regCourse.getNumber() == regCourse.getNumber()) {
 				return 'Y';
 			}
 		}
-		
+
 		return 'N';
 	}
 
@@ -157,12 +177,40 @@ public class StudentPanel extends Panel {
 		back.addActionListener((ActionEvent e) -> {
 			changeView("login");
 		});
-		buttons.add(back);
+		toolBar.add(back);
 	}
 
 	private void setupDisplay() {
-		String[] columns = { "Course Name", "Course Number", "Enrolled?" };
+		setupCourseTable();
+		setupOfferingTable();
 		
+	}
+
+	private void setupOfferingTable() {
+		String[] columns = { "Section Number", "Section Capacity", "Current Enrollments"};
+
+		offeringTableModel = new DefaultTableModel(null, columns) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		offeringTable = new JTable(offeringTableModel);
+		offeringTable.setColumnSelectionAllowed(false);
+		offeringTable.setRowSelectionAllowed(true);
+		offeringTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		JScrollPane scrollPane = new JScrollPane(offeringTable);
+		scrollPane.setPreferredSize(new Dimension(350, 175));
+		display.add(scrollPane, BorderLayout.EAST);
+	}
+
+	private void setupCourseTable() {
+		String[] columns = { "Course Name", "Course Number", "Enrolled?" };
+
 		tableModel = new DefaultTableModel(null, columns) {
 			private static final long serialVersionUID = 1L;
 
@@ -171,7 +219,7 @@ public class StudentPanel extends Panel {
 				return false;
 			}
 		};
-		
+
 		table = new JTable(tableModel);
 		table.setColumnSelectionAllowed(false);
 		table.setRowSelectionAllowed(true);
@@ -179,25 +227,27 @@ public class StudentPanel extends Panel {
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(350, 175));
-		display.add(scrollPane);
+		display.add(scrollPane, BorderLayout.WEST);
 	}
 
 	private void setupPanels() {
 		title = new JPanel();
 		display = new JPanel();
-		display.setPreferredSize(new Dimension(400, 200));
+		display.setLayout(new BorderLayout());
+		// display.setPreferredSize(new Dimension(400, 200));
 		buttons = new JPanel();
+		buttons.add(toolBar);
 		this.add(title, BorderLayout.NORTH);
 		this.add(display, BorderLayout.CENTER);
-		this.add(buttons, BorderLayout.SOUTH);
+		this.add(buttons, BorderLayout.EAST);
 	}
 
 	private void clearTable() {
 		tableModel.setRowCount(0);
 	}
-	
+
 	private void addTableData(Course course, char enrolled) {
-        Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
+		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
 		tableModel.addRow(data);
 	}
 }
