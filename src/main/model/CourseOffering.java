@@ -26,11 +26,6 @@ public class CourseOffering implements Serializable {
 		setSecNum(secNum);
 		setSecCap(secCap);
 	}
-
-	// ;)))))
-	// so
-	// LONG
-	// ooeoehoeo :^)
 	
 	public int getOfferingId() {
 		return offeringId;

@@ -15,17 +15,18 @@ import main.model.Registration;
  * @author Jordan Kwan
  *
  */
+@SuppressWarnings("unchecked")
 public class StudentFunctController {
-	CommunicationController comCon;
+	private CommunicationController comCon;
 	private ArrayList<Course> courseList;
 	private ArrayList<CourseOffering> offeringList;
 	
 	public ArrayList<Course> viewCourses() {
-		@SuppressWarnings("unchecked")
 		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.get");
 		courseList = result;
 		return result;
 	}
+	
 	public int getCourseIdFromRow(int row) {
 		return courseList.get(row).getCourseId();
 	}
@@ -39,19 +40,18 @@ public class StudentFunctController {
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public ArrayList<CourseOffering> getOfferings(int id) {
 		ArrayList<CourseOffering> result = (ArrayList<CourseOffering>) comCon.makeRequest("course.getOfferings", id);
+		offeringList = result;
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ArrayList<Course> view() {
 		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.get");
+		courseList = result;
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ArrayList<Registration> getRegistrationList() {
 		return (ArrayList<Registration>) comCon.makeRequest("student.regList");
 	}
@@ -62,14 +62,6 @@ public class StudentFunctController {
 
 	public void dropCourse(Integer number) {
 		comCon.makeRequest("student.dropCourse", number);
-	}
-	
-	public ArrayList<CourseOffering> getOfferingList() {
-		return offeringList;
-	}
-	
-	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
-		this.offeringList = offeringList;
 	}
 	
 	public int getOfferingIdFromRow(int row)  throws IndexOutOfBoundsException{
