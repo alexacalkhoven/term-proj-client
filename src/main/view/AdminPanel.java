@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -53,6 +54,10 @@ public class AdminPanel extends Panel {
 		setupButtons();
 		setupPanels();
 		setupDisplay();
+		
+	}
+	@Override
+	public void onViewChanged(JFrame frame) {
 		updateCourses();
 	}
 
