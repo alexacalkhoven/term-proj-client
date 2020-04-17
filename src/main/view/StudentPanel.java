@@ -181,18 +181,18 @@ public class StudentPanel extends Panel {
 		toolBar.add(searchCourseCatalogue);
 	}
 
-	private char checkEnrollment(Course c, ArrayList<Registration> regs) {
+	private int checkEnrollment(Course c, ArrayList<Registration> regs) {
 		if (c == null || regs == null)
-			return 'N';
+			return -1;
 
 		for (Registration reg : regs) {
 			Course regCourse = reg.getOffering().getCourse();
 			if (c.getCourseId() == regCourse.getCourseId()) {
-				return 'Y';
+				return reg.getOffering().getSecNum();
 			}
 		}
 
-		return 'N';
+		return -1;
 	}
 
 	private void setupBack() {
@@ -311,8 +311,15 @@ public class StudentPanel extends Panel {
 		offeringTableModel.setRowCount(0);
 	}
 
-	private void addTableData(Course course, char enrolled) {
-		Object[] data = new Object[] { course.getName(), course.getNumber(), enrolled };
+	private void addTableData(Course course, int secNum) {
+		String enrollCol = "";
+		if(secNum == -1) {
+			enrollCol += "N";	
+		}
+		else {
+			enrollCol += "Y - section " + secNum;
+		}
+		Object[] data = new Object[] { course.getName(), course.getNumber(), enrollCol };
 		tableModel.addRow(data);
 	}
 
