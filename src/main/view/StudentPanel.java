@@ -62,6 +62,7 @@ public class StudentPanel extends Panel {
 		setupButtons();
 		setupPanels();
 		setupDisplay();
+		updateCourses();
 	}
 
 	private void setupToolbar() {
@@ -118,6 +119,7 @@ public class StudentPanel extends Panel {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
 			}
+			updateCourses();
 		});
 		toolBar.add(dropCourse);
 	}
@@ -140,7 +142,7 @@ public class StudentPanel extends Panel {
 			} catch (IndexOutOfBoundsException err) {
 				JOptionPane.showMessageDialog(getRootPane(), "No offerings available.", "Error", JOptionPane.OK_OPTION);
 			}
-
+			updateCourses();
 		});
 		toolBar.add(registerForCourse);
 	}
