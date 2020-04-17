@@ -15,6 +15,17 @@ import main.model.Registration;
  */
 public class StudentFunctController {
 	CommunicationController comCon;
+	private ArrayList<Course> courseList;
+	
+	public ArrayList<Course> viewCourses() {
+		@SuppressWarnings("unchecked")
+		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.get");
+		courseList = result;
+		return result;
+	}
+	public int getCourseIdFromRow(int row) {
+		return courseList.get(row).getCourseId();
+	}
 
 	public StudentFunctController(CommunicationController comCon) {
 		this.comCon = comCon;
@@ -46,7 +57,7 @@ public class StudentFunctController {
 		comCon.makeRequest("student.addRegCourse", new Object[] { name, number, section });
 	}
 
-	public void dropCourse(String name, int number) {
-		comCon.makeRequest("student.dropCourse", new Object[] { name, number });
+	public void dropCourse(Integer number) {
+		comCon.makeRequest("student.dropCourse", number);
 	}
 }

@@ -75,17 +75,37 @@ public class StudentPanel extends Panel {
 		setupRegForCourse();
 		setupDrop();
 	}
+	private void updateCourses() {
+		ArrayList<Course> results = stuCon.viewCourses();
+		
+		if (results == null)
+			return;
+
+		clearTable();
+
+		for (Course c : results) {
+			addTableData(c);
+		}
+	}
+	private void addTableData(Course course) {
+		Object[] data = new Object[] { course.getName(), course.getNumber() };
+		tableModel.addRow(data);
+	}
 
 	private void setupDrop() {
 		dropCourse = new JButton("Drop Course");
 		dropCourse.addActionListener((ActionEvent e) -> {
 			try {
-				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: " });
-				if (userIn == null)
+				int row = table.getSelectedRow();
+				
+				if (row < 0) {
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
 					return;
-
-				int num = Integer.parseInt(userIn[1]);
-				stuCon.dropCourse(userIn[0], num);
+				}
+				
+				int courseId = stuCon.getCourseIdFromRow(row);
+				stuCon.dropCourse(courseId);
+				updateCourses();
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
