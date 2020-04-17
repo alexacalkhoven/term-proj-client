@@ -72,9 +72,7 @@ public class StudentPanel extends Panel {
 
 	private void setupButtons() {
 		setupBack();
-		setupView();
 		setupSearch();
-		// setupViewReg();
 		setupRegForCourse();
 		setupDrop();
 	}
@@ -142,7 +140,7 @@ public class StudentPanel extends Panel {
 			} catch (IndexOutOfBoundsException err) {
 				JOptionPane.showMessageDialog(getRootPane(), "No offerings available.", "Error", JOptionPane.OK_OPTION);
 			}
-			
+
 		});
 		toolBar.add(registerForCourse);
 	}
@@ -177,26 +175,6 @@ public class StudentPanel extends Panel {
 			}
 		});
 		toolBar.add(searchCourseCatalogue);
-	}
-
-	private void setupView() {
-		viewAllCourses = new JButton("View All Courses");
-		setButtonSize(viewAllCourses);
-
-		viewAllCourses.addActionListener((ActionEvent e) -> {
-			ArrayList<Course> courses = stuCon.view();
-			ArrayList<Registration> regs = stuCon.getRegistrationList();
-
-			if (courses == null)
-				return;
-
-			clearTable();
-
-			for (Course c : courses) {
-				addTableData(c, checkEnrollment(c, regs));
-			}
-		});
-		toolBar.add(viewAllCourses);
 	}
 
 	private char checkEnrollment(Course c, ArrayList<Registration> regs) {
@@ -301,6 +279,7 @@ public class StudentPanel extends Panel {
 			return;
 		}
 
+		clearOfferingTable();
 		for (int i = 0; i < offeringList.size(); i++) {
 			addOfferingTableData(offeringList.get(i));
 		}
@@ -334,7 +313,6 @@ public class StudentPanel extends Panel {
 	}
 
 	private void addOfferingTableData(CourseOffering o) {
-		clearOfferingTable();
 		Object[] data = new Object[] { o.getSecNum(), o.getSecCap(), o.getStudentAmount() };
 		offeringTableModel.addRow(data);
 	}
