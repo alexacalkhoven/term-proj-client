@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -27,6 +28,7 @@ import main.controller.StudentFunctController;
 import main.model.Course;
 import main.model.CourseOffering;
 import main.model.Registration;
+import main.model.Student;
 
 /**
  * 
@@ -46,6 +48,7 @@ public class StudentPanel extends Panel {
 	private JPanel buttons;
 	private JTable table;
 	private DefaultTableModel tableModel;
+	private JTextField field;
 
 	private JTable offeringTable;
 	private DefaultTableModel offeringTableModel;
@@ -60,6 +63,15 @@ public class StudentPanel extends Panel {
 		setupPanels();
 		setupCourseTable();
 		setupOfferingTable();
+		field = new JTextField(200);
+	}
+	/**
+	 * gets student name
+	 */
+	public String getName() {
+		Student s = stuCon.getStudent();
+		String string = s.getName();
+		return string;
 	}
 /**
  * When the view is changed, call updateCourses()
@@ -91,6 +103,9 @@ public class StudentPanel extends Panel {
 	private void updateTables() {
 		updateOfferings();
 		updateCourses();
+
+		
+		
 	}
 /**
  * updates the offerings
@@ -131,6 +146,7 @@ public class StudentPanel extends Panel {
 		for (Course c : results) {
 			addTableData(c, checkEnrollment(c, reg));
 		}
+
 	}
 /**
  * makes a button

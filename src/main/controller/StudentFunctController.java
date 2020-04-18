@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import main.model.Course;
 import main.model.CourseOffering;
 import main.model.Registration;
+import main.model.Student;
 
 /**
  * 
@@ -44,6 +45,11 @@ public class StudentFunctController {
 	 * @param num the number of the course
 	 * @return returns the target course
 	 */
+	
+	public Student getStudent() {
+		Student result = (Student) comCon.makeRequest("student.getStudent");
+		return result;
+	}
 	public Course search(String name, int num) {
 		Course result = (Course) comCon.makeRequest("course.search", new Object[] { name, num });
 		return result;
