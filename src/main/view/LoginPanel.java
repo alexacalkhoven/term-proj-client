@@ -38,7 +38,7 @@ public class LoginPanel extends Panel {
 		setupPanels();
 	}
 	/**
-	 * when teh view is changed, the frame size is set to 350,100
+	 * when the view is changed, the frame size is set to 350,100
 	 */
 	@Override
 	public void onViewChanged(JFrame frame) {

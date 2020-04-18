@@ -1,9 +1,13 @@
 package main.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import main.controller.AdminFunctController;
@@ -27,12 +31,12 @@ public class AdminPanel extends Panel {
 
 	public AdminPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
-		adCon = new AdminFunctController(comCon);
-		
+		adCon = new AdminFunctController(comCon);	
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new BorderLayout());
 		setupPanels();
 	}
+	
 	/**
 	 * when the view is changed, the coursePanel and studentPanel are updated
 	 */
@@ -40,7 +44,9 @@ public class AdminPanel extends Panel {
 	public void onViewChanged(JFrame frame) {
 		coursePanel.onViewChanged(frame);
 		studentPanel.onViewChanged(frame);
+		setupHeader();
 	}
+	
 	/**
 	 * sets up the panels
 	 */
@@ -54,5 +60,15 @@ public class AdminPanel extends Panel {
 		tabs.addTab("Students", studentPanel);
 		
 		add(tabs, BorderLayout.CENTER);
+	}
+	
+	private void setupHeader() {
+		JPanel header = new JPanel(new GridLayout(1, 0));
+		header.setBorder(new EmptyBorder(10, 0, 10, 0));
+		JTextField titleText = new JTextField("Welcome, Admin!");
+		titleText.setMaximumSize(new Dimension(Integer.MAX_VALUE, titleText.getPreferredSize().height));
+		titleText.setEditable(false);
+		header.add(titleText);
+		add(header, BorderLayout.NORTH);
 	}
 }

@@ -78,9 +78,9 @@ public class AdminStudentPanel extends Panel {
 	}
 
 	private void setupButtons() {
-		setupBack();
 		setupCreateStudent();
 		setupRemoveStudent();
+		setupBack();
 	}
 
 	private void setupBack() {
