@@ -2,6 +2,7 @@ package main.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -48,7 +49,7 @@ public class StudentPanel extends Panel {
 	private JPanel buttons;
 	private JTable table;
 	private DefaultTableModel tableModel;
-
+	private JTextField field;
 
 	private JTable offeringTable;
 	private DefaultTableModel offeringTableModel;
@@ -63,6 +64,7 @@ public class StudentPanel extends Panel {
 		setupPanels();
 		setupCourseTable();
 		setupOfferingTable();
+		field = new JTextField(2);
 	}
 	/**
 	 * gets student name
@@ -78,6 +80,11 @@ public class StudentPanel extends Panel {
 	@Override
 	public void onViewChanged(JFrame frame) {
 		updateCourses();
+		Font font1 = new Font("SansSerif", Font.BOLD, 20);
+		field.setText("Welcome, " + getName()+ "!");
+		add(field, BorderLayout.NORTH);
+		field.setHorizontalAlignment(JTextField.CENTER);
+		field.setFont(font1);
 	}
 /**
  * Sets up the toolbar
