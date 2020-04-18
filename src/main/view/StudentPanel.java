@@ -48,7 +48,7 @@ public class StudentPanel extends Panel {
 	private JPanel buttons;
 	private JTable table;
 	private DefaultTableModel tableModel;
-	private JTextField field;
+
 
 	private JTable offeringTable;
 	private DefaultTableModel offeringTableModel;
@@ -63,7 +63,6 @@ public class StudentPanel extends Panel {
 		setupPanels();
 		setupCourseTable();
 		setupOfferingTable();
-		field = new JTextField(200);
 	}
 	/**
 	 * gets student name
