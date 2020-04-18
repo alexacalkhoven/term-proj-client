@@ -140,4 +140,25 @@ public class AdminFunctController {
 		Student result = (Student) comCon.makeRequest("student.search", id);
 		return result;
 	}
+
+	public int getOfferingId(int courseId, int secNum) {
+		Integer result = (Integer) comCon.makeRequest("course.getOfferingId", new Object [] {courseId, secNum});
+		return result;
+	}
+
+	public void removeOffering(int offeringId) {
+		comCon.makeRequest("course.removeOffering", offeringId);
+	}
+
+	public Course searchCourseById(int courseId) {
+		return (Course) comCon.makeRequest("course.searchById", courseId);
+	}
+
+	public void addPreReq(int parentCourseId, int childCourseId) {
+		comCon.makeRequest("course.addPreReq", new Object [] {parentCourseId, childCourseId});
+	}
+
+	public void removePreReq(Integer parentCourseId, Integer childCourseId) {
+		comCon.makeRequest("course.removePreReq", new Object [] {parentCourseId, childCourseId});
+	}
 }

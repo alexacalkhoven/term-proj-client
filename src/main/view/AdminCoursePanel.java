@@ -67,11 +67,16 @@ public class AdminCoursePanel extends Panel {
 	 * sets up the buttons
 	 */
 	private void setupButtons() {
-		setupBack();
 		setupCreateCourse();
 		setupRemoveCourse();
 		setupCreateOffering();
+		setupRemoveOffering();
+		setupAddPreReq();
+		setupRemovePreReq();
+		setupBack();
 	}
+
+
 	/**
 	 * makes a button
 	 * @param name the name of the button
@@ -89,6 +94,96 @@ public class AdminCoursePanel extends Panel {
 		
 		return btn;
 	}
+	
+	//THROWS AN ERROR! Not sure why
+	private void setupRemovePreReq() {
+		makeButton("Remove Pre-Requisite", (ActionEvent e) -> {
+			try {
+				int row = table.getSelectedRow();
+				
+				if (row < 0) {
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					return;
+				}
+
+				String[] inputs = getInputs(new String[] { "Course ID of pre-req to remove: " });
+
+				if (inputs == null)
+					return;
+
+				int parentCourseId = adCon.getCourseIdFromRow(row);
+				int childCourseId = Integer.parseInt(inputs[0]);
+
+				adCon.removePreReq(parentCourseId, childCourseId);
+				updateTextArea(adCon.searchCourseById(parentCourseId));
+				
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
+						JOptionPane.OK_OPTION);
+			}
+		});
+	}
+	
+	private void setupAddPreReq() {
+		makeButton("Add Pre-Requisite", (ActionEvent e) -> {
+			try {
+				int row = table.getSelectedRow();
+				
+				if (row < 0) {
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					return;
+				}
+
+				String[] inputs = getInputs(new String[] { "Course ID of Pre-Req: " });
+
+				if (inputs == null)
+					return;
+
+				int parentCourseId = adCon.getCourseIdFromRow(row);
+				int childCourseId = Integer.parseInt(inputs[0]);
+
+				adCon.addPreReq(parentCourseId, childCourseId);
+				updateTextArea(adCon.searchCourseById(parentCourseId));
+				
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
+						JOptionPane.OK_OPTION);
+			}
+		});
+	}
+	
+	private void setupRemoveOffering() {
+		makeButton("Remove Offering", (ActionEvent e) -> {
+			try {
+				int row = table.getSelectedRow();
+				
+				if (row < 0) {
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					return;
+				}
+
+				String[] inputs = getInputs(new String[] { "Section Number:" });
+
+				if (inputs == null)
+					return;
+
+				int courseId = adCon.getCourseIdFromRow(row);
+				int secNum = Integer.parseInt(inputs[0]);
+				
+				int offeringId = adCon.getOfferingId(courseId, secNum);
+				adCon.removeOffering(offeringId);
+				updateCourses();
+				updateTextArea(adCon.searchCourseById(courseId));
+				
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(getRootPane(), "Section number must be a number", "Error",
+						JOptionPane.OK_OPTION);
+			}
+			courseInfo.setText("Offering deleted.");
+		});
+	}
+	
+	
 	/**
 	 * sets up the back button
 	 */
@@ -119,6 +214,8 @@ public class AdminCoursePanel extends Panel {
 				int num = Integer.parseInt(inputs[0]);
 				int cap = Integer.parseInt(inputs[1]);
 				adCon.addOffering(courseId, num, cap);
+				updateTextArea(adCon.searchCourseById(courseId));
+				
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
@@ -196,6 +293,7 @@ public class AdminCoursePanel extends Panel {
 		Object[] data = new Object[] { course.getName(), course.getNumber() };
 		tableModel.addRow(data);
 	}
+	
 	/**
 	 * sets up the text area
 	 */
@@ -206,6 +304,7 @@ public class AdminCoursePanel extends Panel {
 		courseInfo.setEditable(false);
 		display.add(infoScrollPane);
 	}
+	
 	/**
 	 * sets up the table
 	 */
@@ -238,6 +337,7 @@ public class AdminCoursePanel extends Panel {
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane);
 	}
+	
 	/**
 	 * updates the text area
 	 * @param c the course
@@ -267,7 +367,7 @@ public class AdminCoursePanel extends Panel {
 			info += "None.\n";
 		} else {
 			for (int i = 0; i < preReqs.size(); i++) {
-				info += preReqs.get(i).toString();
+				info += preReqs.get(i).getFullName() + "\n";
 			}
 		}
 
