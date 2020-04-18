@@ -35,15 +35,15 @@ public class CourseOffering implements Serializable {
 		this.offeringId = offeringId;
 	}
 
-	public void addRegistration(Registration registration) {
-		registrationList.add(registration);
-		setStudentAmount(getStudentAmount() + 1);
-	}
-
-	public void removeRegistration(Registration registration) {
-		registrationList.remove(registration);
-		setStudentAmount(getStudentAmount() - 1);
-	}
+//	public void addRegistration(Registration registration) {
+//		registrationList.add(registration);
+//		setStudentAmount(getStudentAmount() + 1);
+//	}
+//
+//	public void removeRegistration(Registration registration) {
+//		registrationList.remove(registration);
+//		setStudentAmount(getStudentAmount() - 1);
+//	}
 
 	public int getSecNum() {
 		return secNum;

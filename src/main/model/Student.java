@@ -23,31 +23,31 @@ public class Student implements Serializable {
 		setId(id);
 	}
 
-	public void addRegistration(Registration registration) {
-		registrationList.add(registration);
-	}
-
-	public boolean isRegistered(Course course) {
-		for (Registration reg : registrationList) {
-			if (reg.getOffering().getCourse().equals(course))
-				return true;
-		}
-
-		return false;
-	}
-
-	public void removeRegistration(Course course) {
-		for (Registration reg : registrationList) {
-			if (reg.getOffering().getCourse().equals(course)) {
-				System.out.println("Dropped course: " + course.getFullName());
-				reg.removeRegistration();
-				registrationList.remove(reg);
-				return;
-			}
-		}
-
-		System.err.println("Error, student not registered for " + course.getFullName());
-	}
+//	public void addRegistration(Registration registration) {
+//		registrationList.add(registration);
+//	}
+//
+//	public boolean isRegistered(Course course) {
+//		for (Registration reg : registrationList) {
+//			if (reg.getOffering().getCourse().equals(course))
+//				return true;
+//		}
+//
+//		return false;
+//	}
+//
+//	public void removeRegistration(Course course) {
+//		for (Registration reg : registrationList) {
+//			if (reg.getOffering().getCourse().equals(course)) {
+//				System.out.println("Dropped course: " + course.getFullName());
+//				reg.removeRegistration();
+//				registrationList.remove(reg);
+//				return;
+//			}
+//		}
+//
+//		System.err.println("Error, student not registered for " + course.getFullName());
+//	}
 
 	public String getName() {
 		return name;
