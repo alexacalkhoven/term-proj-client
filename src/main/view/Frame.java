@@ -25,12 +25,17 @@ public class Frame extends JFrame {
 		setResizable(false);
 		center();
 	}
-	
+	/**
+	 * Sets the panel and 
+	 * @param p the JPanel
+	 */
 	public void setPanel(JPanel p) {
 		setContentPane(p);
 		pack();
 	}
-	
+	/**
+	 * Centers the GUI
+	 */
 	public void center() {
 		Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((dimensions.width - getSize().width) / 2, (dimensions.height - getSize().height) / 2);
