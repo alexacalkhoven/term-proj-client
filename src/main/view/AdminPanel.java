@@ -176,6 +176,7 @@ public class AdminPanel extends Panel {
 				JOptionPane.showMessageDialog(getRootPane(), "Course number must be a number", "Error",
 						JOptionPane.OK_OPTION);
 			}
+			courseInfo.setText("Course deleted.");
 		});
 		toolBar.add(removeCourse);
 	}
