@@ -33,13 +33,17 @@ public class AdminPanel extends Panel {
 		setLayout(new BorderLayout());
 		setupPanels();
 	}
-
+	/**
+	 * when the view is changed, the coursePanel and studentPanel are updated
+	 */
 	@Override
 	public void onViewChanged(JFrame frame) {
 		coursePanel.onViewChanged(frame);
 		studentPanel.onViewChanged(frame);
 	}
-
+	/**
+	 * sets up the panels
+	 */
 	private void setupPanels() {
 		tabs = new JTabbedPane();
 		

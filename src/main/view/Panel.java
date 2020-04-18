@@ -22,7 +22,10 @@ public abstract class Panel extends JPanel {
 	public Panel(PanelController panMan) {
 		this.panMan = panMan;
 	}
-	
+	/**
+	 * changes the view of the panel
+	 * @param s the desired panel
+	 */
 	public void changeView(String s) {
 		panMan.switchTo(s);
 	}
@@ -30,7 +33,11 @@ public abstract class Panel extends JPanel {
 	public void onViewChanged(JFrame frame) {
 		
 	}
-	
+	/**
+	 * gets inputs 
+	 * @param names the names of the inputs
+	 * @return the user inputs
+	 */
 	public String[] getInputs(String[] names) {
 		String[] stringInputs = new String[names.length];
 		Object[] message = new Object[2*names.length];

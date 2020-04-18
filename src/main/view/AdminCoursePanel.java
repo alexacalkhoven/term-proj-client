@@ -54,21 +54,30 @@ public class AdminCoursePanel extends Panel {
 	public void onViewChanged(JFrame frame) {
 		updateCourses();
 	}
-	
+	/**
+	 * sets up the tool bar
+	 */
 	private void setupToolBar() {
 		toolBar = new JToolBar("Buttons");
 		toolBar.setFloatable(false);
 		toolBar.setOrientation(SwingConstants.VERTICAL);
 		add(toolBar, BorderLayout.EAST);
 	}
-
+	/**
+	 * sets up the buttons
+	 */
 	private void setupButtons() {
 		setupBack();
 		setupCreateCourse();
 		setupRemoveCourse();
 		setupCreateOffering();
 	}
-	
+	/**
+	 * makes a button
+	 * @param name the name of the button
+	 * @param listener the listener for the button
+	 * @return returns a JButton
+	 */
 	private JButton makeButton(String name, ActionListener listener) {
 		JButton btn = new JButton(name);
 		Dimension d = new Dimension(175, 25);
@@ -80,13 +89,17 @@ public class AdminCoursePanel extends Panel {
 		
 		return btn;
 	}
-	
+	/**
+	 * sets up the back button
+	 */
 	private void setupBack() {
 		makeButton("Back", (ActionEvent e) -> {
 			changeView("login");
 		});
 	}
-
+	/**
+	 * sets up the Create Offering button
+	 */
 	private void setupCreateOffering() {
 		makeButton("Create Course Offering", (ActionEvent e) -> {
 			try {
@@ -112,7 +125,9 @@ public class AdminCoursePanel extends Panel {
 			}
 		});
 	}
-
+	/**
+	 * sets up the Remove Course button
+	 */
 	private void setupRemoveCourse() {
 		makeButton("Remove Course", (ActionEvent e) -> {
 			try {
@@ -133,7 +148,9 @@ public class AdminCoursePanel extends Panel {
 			courseInfo.setText("Course deleted.");
 		});
 	}
-
+	/**
+	 * sets up the CreateCourse button
+	 */
 	private void setupCreateCourse() {
 		makeButton("Create Course", (ActionEvent e) -> {
 			try {
@@ -150,7 +167,9 @@ public class AdminCoursePanel extends Panel {
 			}
 		});
 	}
-
+	/**
+	 * updates the displayed courses
+	 */
 	private void updateCourses() {
 		ArrayList<Course> results = adCon.viewCourses();
 
@@ -163,16 +182,23 @@ public class AdminCoursePanel extends Panel {
 			addTableData(c);
 		}
 	}
-
+	/**
+	 * clears the table
+	 */
 	private void clearTable() {
 		tableModel.setRowCount(0);
 	}
-
+	/**
+	 * adds data to the table
+	 * @param course the course to be added
+	 */
 	private void addTableData(Course course) {
 		Object[] data = new Object[] { course.getName(), course.getNumber() };
 		tableModel.addRow(data);
 	}
-
+	/**
+	 * sets up the text area
+	 */
 	private void setupTextArea() {
 		courseInfo = new JTextPane();
 		infoScrollPane = new JScrollPane(courseInfo);
@@ -180,7 +206,9 @@ public class AdminCoursePanel extends Panel {
 		courseInfo.setEditable(false);
 		display.add(infoScrollPane);
 	}
-
+	/**
+	 * sets up the table
+	 */
 	private void setupTable() {
 		String[] columns = { "Course Name", "Course Number" };
 
@@ -210,7 +238,10 @@ public class AdminCoursePanel extends Panel {
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane);
 	}
-
+	/**
+	 * updates the text area
+	 * @param c the course
+	 */
 	private void updateTextArea(Course c) {
 		String info = "Course Info: \n\n";
 		info += "Name: " + c.getFullName() + "\n";

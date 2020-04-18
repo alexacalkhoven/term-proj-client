@@ -61,31 +61,41 @@ public class StudentPanel extends Panel {
 		setupCourseTable();
 		setupOfferingTable();
 	}
-
+/**
+ * When the view is changed, call updateCourses()
+ */
 	@Override
 	public void onViewChanged(JFrame frame) {
 		updateCourses();
 	}
-
+/**
+ * Sets up the toolbar
+ */
 	private void setupToolbar() {
 		toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 		toolBar.setOrientation(SwingConstants.VERTICAL);
 	}
-
+/**
+ * sets up the buttons
+ */
 	private void setupButtons() {
 		setupBack();
 		setupSearch();
 		setupRegForCourse();
 		setupDrop();
 	}
-
+/**
+ * updates the tables
+ */
 	private void updateTables() {
 		updateOfferings();
 		updateCourses();
 	}
+/**
+ * updates the offerings
+ */
 
-	// THIS SEEMINGLY DOES WORK LOL
 	private void updateOfferings() {
 		int row = table.getSelectedRow();
 
@@ -106,7 +116,9 @@ public class StudentPanel extends Panel {
 			addOfferingTableData(o);
 		}
 	}
-
+/**
+ * updates the courses
+ */
 	private void updateCourses() {
 		ArrayList<Course> results = stuCon.viewCourses();
 		ArrayList<Registration> reg = stuCon.getRegistrationList();
@@ -120,7 +132,12 @@ public class StudentPanel extends Panel {
 			addTableData(c, checkEnrollment(c, reg));
 		}
 	}
-	
+/**
+ * makes a button
+ * @param name the name of the button
+ * @param listener the listener of the button
+ * @return returns a JButton	
+ *  */
 	private JButton makeButton(String name, ActionListener listener) {
 		JButton btn = new JButton(name);
 		Dimension d = new Dimension(175, 25);
@@ -132,13 +149,17 @@ public class StudentPanel extends Panel {
 		
 		return btn;
 	}
-
+/**
+ * sets up the back button
+ */
 	private void setupBack() {
 		makeButton("Back", (ActionEvent e) -> {
 			changeView("login");
 		});
 	}
-	
+/**
+ * sets up the drop button
+ */
 	private void setupDrop() {
 		makeButton("Drop Course", (ActionEvent e) -> {
 			try {
@@ -158,7 +179,9 @@ public class StudentPanel extends Panel {
 			updateTables();
 		});
 	}
-
+/**
+ * sets up the register for course button
+ */
 	private void setupRegForCourse() {
 		makeButton("Register For Course", (ActionEvent e) -> {
 			int row = offeringTable.getSelectedRow();
@@ -178,7 +201,9 @@ public class StudentPanel extends Panel {
 			updateTables();
 		});
 	}
-
+/**
+ * sets up the search button
+ */
 	private void setupSearch() {
 		makeButton("Search Course Catalogue", (ActionEvent e) -> {
 			try {
@@ -204,7 +229,12 @@ public class StudentPanel extends Panel {
 			}
 		});
 	}
-
+/**
+ * checks for enrollment
+ * @param c the course
+ * @param regs an arraylist of registrations
+ * @return returns -1 if it fails, otherwise it returns the section number
+ */
 	private int checkEnrollment(Course c, ArrayList<Registration> regs) {
 		if (c == null || regs == null)
 			return -1;
@@ -218,7 +248,9 @@ public class StudentPanel extends Panel {
 
 		return -1;
 	}
-
+/**
+ * sets up the offering table
+ */
 	private void setupOfferingTable() {
 		String[] columns = { "Section Number", "Section Capacity", "Current Enrollments" };
 
@@ -240,7 +272,9 @@ public class StudentPanel extends Panel {
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane, BorderLayout.EAST);
 	}
-
+/**
+ * sets up the course table
+ */
 	private void setupCourseTable() {
 		String[] columns = { "Course Name", "Course Number", "Enrolled?" };
 
@@ -273,7 +307,10 @@ public class StudentPanel extends Panel {
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane, BorderLayout.WEST);
 	}
-
+/**
+ * displays the sections
+ * @param courseId the courseId
+ */
 	private void displaySections(int courseId) {
 		ArrayList<CourseOffering> offeringList = stuCon.getOfferings(courseId);
 
@@ -289,7 +326,9 @@ public class StudentPanel extends Panel {
 			addOfferingTableData(offeringList.get(i));
 		}
 	}
-
+/**
+ * sets up the panels
+ */
 	private void setupPanels() {
 		title = new JPanel();
 		display = new JPanel();
@@ -303,15 +342,23 @@ public class StudentPanel extends Panel {
 		add(display, BorderLayout.CENTER);
 		add(buttons, BorderLayout.EAST);
 	}
-
+/**
+ * clears the table
+ */
 	private void clearTable() {
 		tableModel.setRowCount(0);
 	}
-
+/**
+ * clears the offering table
+ */
 	private void clearOfferingTable() {
 		offeringTableModel.setRowCount(0);
 	}
-
+/**
+ * adds data to the table
+ * @param course the course
+ * @param secNum the section number
+ */
 	private void addTableData(Course course, int secNum) {
 		String enrollCol = "n";
 		
@@ -322,7 +369,10 @@ public class StudentPanel extends Panel {
 		Object[] data = new Object[] { course.getName(), course.getNumber(), enrollCol };
 		tableModel.addRow(data);
 	}
-
+/**
+ * adds data to the offering table
+ * @param o the course offering
+ */
 	private void addOfferingTableData(CourseOffering o) {
 		Object[] data = new Object[] { o.getSecNum(), o.getSecCap(), o.getStudentAmount() };
 		offeringTableModel.addRow(data);
