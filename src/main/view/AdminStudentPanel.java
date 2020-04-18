@@ -108,22 +108,24 @@ public class AdminStudentPanel extends Panel {
 	private void setupRemoveStudent() {
 		makeButton("Remove Student", (ActionEvent e) -> {
 			try {
-				String[] inputs = getInputs(new String[] { "ID:" });
-				if (inputs == null)
-					return;
+				int row = table.getSelectedRow();
 
-				int id = Integer.parseInt(inputs[0]);
+				if (row < 0) {
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					return;
+				}
+
+				int id = adCon.getStudentIdFromRow(row);
 				adCon.removeStudent(id);
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "ID must be a number", "Error", JOptionPane.OK_OPTION);
 			}
 			updateStudentTable();
+			studentInfo.setText("Student removed.");
 		});
 	}
 
 	private void updateStudentTable() {
-		// TODO: alexa pls fix!!!!
-
 		ArrayList<Student> students = adCon.getStudentList();
 
 		if (students == null)

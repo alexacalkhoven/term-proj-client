@@ -17,9 +17,19 @@ import main.model.Student;
 public class AdminFunctController {
 	private CommunicationController comCon;
 	private ArrayList<Course> courseList;
+	private ArrayList<Student> studentList;
 	
 	public AdminFunctController(CommunicationController comCon) {
 		this.comCon = comCon;
+	}
+	
+	/**
+	 * gets the courseId from the highlighted row
+	 * @param row the row that is highlighted
+	 * @return returns the course id
+	 */
+	public int getStudentIdFromRow(int row) {
+		return studentList.get(row).getId();
 	}
 	
 	/**
@@ -117,6 +127,7 @@ public class AdminFunctController {
 	
 	public ArrayList<Student> getStudentList() {
 		ArrayList<Student> result = (ArrayList<Student>) comCon.makeRequest("student.getAll");
+		studentList = result;
 		return result;
 	}
 	
