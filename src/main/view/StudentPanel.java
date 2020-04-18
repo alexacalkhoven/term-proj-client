@@ -382,7 +382,7 @@ public class StudentPanel extends Panel {
  * @param secNum the section number
  */
 	private void addTableData(Course course, int secNum) {
-		String enrollCol = "n";
+		String enrollCol = "N";
 		
 		if (secNum >=  0) {
 			enrollCol = "Y - section " + secNum;
