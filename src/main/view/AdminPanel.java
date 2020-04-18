@@ -1,6 +1,5 @@
 package main.view;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -9,11 +8,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -24,7 +24,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import main.controller.*;
+
+import main.controller.AdminFunctController;
+import main.controller.CommunicationController;
+import main.controller.PanelController;
 import main.model.Course;
 import main.model.CourseOffering;
 
@@ -39,19 +42,13 @@ public class AdminPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
 	private AdminFunctController adCon;
-	private JButton back;
-	private JButton createCourse;
-	private JButton removeCourse;
-	private JButton createCourseOffering;
-	private JButton createStudent;
-	private JButton removeStudent;
-
-	private GridBagConstraints c;
-	private JToolBar toolBar;
-	private JPanel title, display, buttons;
+	private JTabbedPane tabs;
+	private JPanel coursePanel, studentPanel;
 	private JTextPane courseInfo;
-	private JTable table;
-	private DefaultTableModel tableModel;
+	private JToolBar toolBar;
+	private JPanel display;
+	private JTable courseTable;
+	private DefaultTableModel courseTableModel;
 
 	public AdminPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
@@ -62,7 +59,6 @@ public class AdminPanel extends Panel {
 		setupButtons();
 		setupPanels();
 		setupDisplay();
-
 	}
 
 	@Override
@@ -93,7 +89,7 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupRemoveStudent() {
-		removeStudent = new JButton("Remove Student");
+		JButton removeStudent = new JButton("Remove Student");
 		setButtonSize(removeStudent);
 
 		removeStudent.addActionListener((ActionEvent e) -> {
@@ -112,7 +108,7 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupCreateStudent() {
-		createStudent = new JButton("Create Student");
+		JButton createStudent = new JButton("Create Student");
 		setButtonSize(createStudent);
 
 		createStudent.addActionListener((ActionEvent e) -> {
@@ -131,13 +127,13 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupCreateOffering() {
-		createCourseOffering = new JButton("Create Course Offering");
+		JButton createCourseOffering = new JButton("Create Course Offering");
 		setButtonSize(createCourseOffering);
 
 		createCourseOffering.addActionListener((ActionEvent e) -> {
 			try {
-				int row = table.getSelectedRow();
-
+				int row = courseTable.getSelectedRow();
+				
 				if (row < 0) {
 					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
 					return;
@@ -161,12 +157,12 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupRemoveCourse() {
-		removeCourse = new JButton("Remove Course");
+		JButton removeCourse = new JButton("Remove Course");
 		setButtonSize(removeCourse);
 
 		removeCourse.addActionListener((ActionEvent e) -> {
 			try {
-				int row = table.getSelectedRow();
+				int row = courseTable.getSelectedRow();
 
 				if (row < 0) {
 					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
@@ -185,7 +181,7 @@ public class AdminPanel extends Panel {
 	}
 
 	private void setupCreateCourse() {
-		createCourse = new JButton("Create Course");
+		JButton createCourse = new JButton("Create Course");
 		setButtonSize(createCourse);
 
 		createCourse.addActionListener((ActionEvent e) -> {
@@ -219,21 +215,22 @@ public class AdminPanel extends Panel {
 	}
 
 	private void clearTable() {
-		tableModel.setRowCount(0);
+		courseTableModel.setRowCount(0);
 	}
 
 	private void addTableData(Course course) {
 		Object[] data = new Object[] { course.getName(), course.getNumber() };
-		tableModel.addRow(data);
+		courseTableModel.addRow(data);
 	}
 
 	private void setupBack() {
-		back = new JButton("Back");
+		JButton back = new JButton("Back");
 		setButtonSize(back);
 
 		back.addActionListener((ActionEvent e) -> {
 			changeView("login");
 		});
+		
 		toolBar.add(back);
 	}
 
@@ -244,15 +241,16 @@ public class AdminPanel extends Panel {
 
 	private void setupTextArea() {
 		courseInfo = new JTextPane();
-		courseInfo.setEditable(false);
 		JScrollPane jsp = new JScrollPane(courseInfo);
+		jsp.setPreferredSize(new Dimension(350, 175));
+		courseInfo.setEditable(false);
 		display.add(jsp);
 	}
 
 	private void setupTable() {
 		String[] columns = { "Course Name", "Course Number" };
 
-		tableModel = new DefaultTableModel(null, columns) {
+		courseTableModel = new DefaultTableModel(null, columns) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -261,22 +259,22 @@ public class AdminPanel extends Panel {
 			}
 		};
 
-		table = new JTable(tableModel);
-		table.setColumnSelectionAllowed(false);
-		table.setRowSelectionAllowed(true);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		courseTable = new JTable(courseTableModel);
+		courseTable.setColumnSelectionAllowed(false);
+		courseTable.setRowSelectionAllowed(true);
+		courseTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		courseTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
-				if (table.getSelectedRow() >= 0) {
-					String name = table.getValueAt(table.getSelectedRow(), 0).toString();
-					int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
+				if (courseTable.getSelectedRow() >= 0) {
+					String name = courseTable.getValueAt(courseTable.getSelectedRow(), 0).toString();
+					int num = Integer.parseInt(courseTable.getValueAt(courseTable.getSelectedRow(), 1).toString());
 					updateTextArea((Course) adCon.search(name, num));
 				}
 			}
 		});
 
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane scrollPane = new JScrollPane(courseTable);
 		scrollPane.setPreferredSize(new Dimension(350, 175));
 		display.add(scrollPane);
 	}
@@ -311,17 +309,30 @@ public class AdminPanel extends Panel {
 		}
 
 		courseInfo.setText(info);
+		
 	}
 
 	private void setupPanels() {
-		title = new JPanel();
-		display = new JPanel(new GridLayout());
-		buttons = new JPanel(new GridBagLayout());
-		c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		buttons.add(toolBar, c);
-		this.add(title, BorderLayout.NORTH);
-		this.add(display, BorderLayout.CENTER);
-		this.add(buttons, BorderLayout.EAST);
+		tabs = new JTabbedPane();
+		
+		setupCoursePanel();
+		setupStudentPanel();
+		
+		add(tabs, BorderLayout.CENTER);
+	}
+	
+	private void setupCoursePanel() {
+		coursePanel = new JPanel();
+		display = new JPanel();
+		coursePanel.add(display, BorderLayout.CENTER);
+		coursePanel.add(toolBar, BorderLayout.EAST);
+		
+		tabs.addTab("Courses", coursePanel);
+	}
+	
+	private void setupStudentPanel() {
+		studentPanel = new JPanel();
+		
+		tabs.addTab("Students", studentPanel);
 	}
 }
