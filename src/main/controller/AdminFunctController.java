@@ -38,8 +38,8 @@ public class AdminFunctController {
 		comCon.makeRequest("student.create", new Object[] { name, id });
 	}
 	
-	public boolean removeCourse(int courseId) {
-		return (boolean) comCon.makeRequest("course.remove", courseId);
+	public void removeCourse(int courseId) {
+		comCon.makeRequest("course.remove", courseId);
 	}
 
 	public void createCourse(String name, int id) {
