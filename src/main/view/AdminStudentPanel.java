@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 import main.controller.AdminFunctController;
 import main.controller.PanelController;
 import main.model.Course;
+import main.model.CourseOffering;
+import main.model.Registration;
 import main.model.Student;
 
 public class AdminStudentPanel extends Panel {
@@ -35,34 +37,34 @@ public class AdminStudentPanel extends Panel {
 	private JPanel display;
 	private JTable table;
 	private DefaultTableModel tableModel;
-	
+
 	public AdminStudentPanel(PanelController panMan, AdminFunctController adCon) {
 		super(panMan);
 		this.adCon = adCon;
-		
+
 		setLayout(new BorderLayout());
 		display = new JPanel();
-		
+
 		setupToolBar();
 		setupButtons();
 		setupTable();
 		setupTextArea();
-		
+
 		add(display, BorderLayout.CENTER);
 	}
-	
+
 	@Override
 	public void onViewChanged(JFrame frame) {
-		notUpdateCoursesButInsteadUpdateSTUDENTS();
+		updateStudentTable();
 	}
-	
+
 	private void setupToolBar() {
 		toolBar = new JToolBar("Buttons");
 		toolBar.setFloatable(false);
 		toolBar.setOrientation(SwingConstants.VERTICAL);
 		add(toolBar, BorderLayout.EAST);
 	}
-	
+
 	private JButton makeButton(String name, ActionListener listener) {
 		JButton btn = new JButton(name);
 		Dimension d = new Dimension(175, 25);
@@ -71,22 +73,22 @@ public class AdminStudentPanel extends Panel {
 		btn.setMaximumSize(d);
 		btn.addActionListener(listener);
 		toolBar.add(btn);
-		
+
 		return btn;
 	}
-	
+
 	private void setupButtons() {
 		setupBack();
 		setupCreateStudent();
 		setupRemoveStudent();
 	}
-	
+
 	private void setupBack() {
 		makeButton("Back", (ActionEvent e) -> {
 			changeView("login");
 		});
 	}
-	
+
 	private void setupCreateStudent() {
 		makeButton("Create Student", (ActionEvent e) -> {
 			try {
@@ -99,9 +101,10 @@ public class AdminStudentPanel extends Panel {
 			} catch (NumberFormatException ex) {
 				JOptionPane.showConfirmDialog(getRootPane(), "Error, must enter a number");
 			}
+			updateStudentTable();
 		});
 	}
-	
+
 	private void setupRemoveStudent() {
 		makeButton("Remove Student", (ActionEvent e) -> {
 			try {
@@ -114,19 +117,21 @@ public class AdminStudentPanel extends Panel {
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(getRootPane(), "ID must be a number", "Error", JOptionPane.OK_OPTION);
 			}
+			updateStudentTable();
 		});
 	}
-	
-	private void notUpdateCoursesButInsteadUpdateSTUDENTS() {
-		// TODO: alexa pls fix!!!!
-		ArrayList<Student> results = new ArrayList<Student>();
 
-		if (results == null)
+	private void updateStudentTable() {
+		// TODO: alexa pls fix!!!!
+
+		ArrayList<Student> students = adCon.getStudentList();
+
+		if (students == null)
 			return;
 
 		clearTable();
 
-		for (Student s : results) {
+		for (Student s : students) {
 			addTableData(s);
 		}
 	}
@@ -168,7 +173,8 @@ public class AdminStudentPanel extends Panel {
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				if (table.getSelectedRow() >= 0) {
-					
+					int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+					updateTextArea(adCon.searchStudent(num));
 				}
 			}
 		});
@@ -178,9 +184,24 @@ public class AdminStudentPanel extends Panel {
 		display.add(scrollPane);
 	}
 
-	private void updateTextArea(Student student) {
-		String info = "STUDENT Info: \n\n";
+	private void updateTextArea(Student s) {
+		String info = "Student Info: \n\n";
 
+		info += "Name: " + s.getName() + "\n";
+		info += "Course ID: " + s.getId() + "\n";
+
+		info += "\n";
+
+		info += "Enrolled courses: \n";
+		ArrayList<Registration> regs = adCon.getRegs(s.getId());
+		if (regs.size() == 0) {
+			info += "This student is in no courses.\n";
+		} else {
+			for (int i = 0; i < regs.size(); i++) {
+				info += regs.get(i).toString() + "\n";
+			}
+		}
+		
 		studentInfo.setText(info);
 	}
 }
