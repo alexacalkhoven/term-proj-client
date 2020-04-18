@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -18,7 +19,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import main.controller.CommunicationController;
@@ -39,11 +39,6 @@ public class StudentPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
 	private StudentFunctController stuCon;
-	private JButton searchCourseCatalogue;
-	private JButton registerForCourse;
-	private JButton dropCourse;
-	private JButton back;
-
 	private GridBagConstraints c;
 	private JToolBar toolBar;
 	private JPanel title;
@@ -63,7 +58,8 @@ public class StudentPanel extends Panel {
 		setupToolbar();
 		setupButtons();
 		setupPanels();
-		setupDisplay();
+		setupCourseTable();
+		setupOfferingTable();
 	}
 
 	@Override
@@ -124,19 +120,27 @@ public class StudentPanel extends Panel {
 			addTableData(c, checkEnrollment(c, reg));
 		}
 	}
-
-	private void setButtonSize(JButton b) {
+	
+	private JButton makeButton(String name, ActionListener listener) {
+		JButton btn = new JButton(name);
 		Dimension d = new Dimension(175, 25);
-		b.setPreferredSize(d);
-		b.setMinimumSize(d);
-		b.setMaximumSize(d);
+		btn.setPreferredSize(d);
+		btn.setMinimumSize(d);
+		btn.setMaximumSize(d);
+		btn.addActionListener(listener);
+		toolBar.add(btn);
+		
+		return btn;
 	}
 
+	private void setupBack() {
+		makeButton("Back", (ActionEvent e) -> {
+			changeView("login");
+		});
+	}
+	
 	private void setupDrop() {
-		dropCourse = new JButton("Drop Course");
-		setButtonSize(dropCourse);
-
-		dropCourse.addActionListener((ActionEvent e) -> {
+		makeButton("Drop Course", (ActionEvent e) -> {
 			try {
 				int row = offeringTable.getSelectedRow();
 
@@ -153,14 +157,10 @@ public class StudentPanel extends Panel {
 			}
 			updateTables();
 		});
-		toolBar.add(dropCourse);
 	}
 
 	private void setupRegForCourse() {
-		registerForCourse = new JButton("Register For Course");
-		setButtonSize(registerForCourse);
-
-		registerForCourse.addActionListener((ActionEvent e) -> {
+		makeButton("Register For Course", (ActionEvent e) -> {
 			int row = offeringTable.getSelectedRow();
 
 			if (row < 0) {
@@ -174,25 +174,20 @@ public class StudentPanel extends Panel {
 			} catch (IndexOutOfBoundsException err) {
 				JOptionPane.showMessageDialog(getRootPane(), "No offerings available.", "Error", JOptionPane.OK_OPTION);
 			}
+			
 			updateTables();
 		});
-		toolBar.add(registerForCourse);
 	}
 
 	private void setupSearch() {
-		searchCourseCatalogue = new JButton("Search Course Catalogue");
-		setButtonSize(searchCourseCatalogue);
-
-		searchCourseCatalogue.addActionListener((ActionEvent e) -> {
+		makeButton("Search Course Catalogue", (ActionEvent e) -> {
 			try {
 				String[] userIn = getInputs(new String[] { "Course name: ", "Course number: " });
 				if (userIn == null)
 					return;
 
 				int num = Integer.parseInt(userIn[1]);
-
 				Course result = stuCon.search(userIn[0], num);
-
 				String resultText;
 
 				if (result == null) {
@@ -208,7 +203,6 @@ public class StudentPanel extends Panel {
 						JOptionPane.OK_OPTION);
 			}
 		});
-		toolBar.add(searchCourseCatalogue);
 	}
 
 	private int checkEnrollment(Course c, ArrayList<Registration> regs) {
@@ -223,22 +217,6 @@ public class StudentPanel extends Panel {
 		}
 
 		return -1;
-	}
-
-	private void setupBack() {
-		back = new JButton("Back");
-		setButtonSize(back);
-
-		back.addActionListener((ActionEvent e) -> {
-			changeView("login");
-		});
-		toolBar.add(back);
-	}
-
-	private void setupDisplay() {
-		setupCourseTable();
-		setupOfferingTable();
-
 	}
 
 	private void setupOfferingTable() {
@@ -281,15 +259,13 @@ public class StudentPanel extends Panel {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		// how to make this not occur on select and release?
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent event) {
-				// do some actions here, for example
-				// print first column value from selected row
-				int row = table.getSelectedRow();
+		table.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+			// do some actions here, for example
+			// print first column value from selected row
+			int row = table.getSelectedRow();
 
-				if (row >= 0) {
-					displaySections(stuCon.getCourseIdFromRow(row));
-				}
+			if (row >= 0) {
+				displaySections(stuCon.getCourseIdFromRow(row));
 			}
 		});
 
@@ -323,9 +299,9 @@ public class StudentPanel extends Panel {
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		buttons.add(toolBar, c);
-		this.add(title, BorderLayout.NORTH);
-		this.add(display, BorderLayout.CENTER);
-		this.add(buttons, BorderLayout.EAST);
+		add(title, BorderLayout.NORTH);
+		add(display, BorderLayout.CENTER);
+		add(buttons, BorderLayout.EAST);
 	}
 
 	private void clearTable() {
@@ -337,12 +313,12 @@ public class StudentPanel extends Panel {
 	}
 
 	private void addTableData(Course course, int secNum) {
-		String enrollCol = "";
-		if (secNum == -1) {
-			enrollCol += "N";
-		} else {
-			enrollCol += "Y - section " + secNum;
+		String enrollCol = "n";
+		
+		if (secNum >=  0) {
+			enrollCol = "Y - section " + secNum;
 		}
+		
 		Object[] data = new Object[] { course.getName(), course.getNumber(), enrollCol };
 		tableModel.addRow(data);
 	}

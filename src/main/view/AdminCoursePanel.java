@@ -17,7 +17,6 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import main.controller.AdminFunctController;
@@ -199,13 +198,11 @@ public class AdminCoursePanel extends Panel {
 		table.setRowSelectionAllowed(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent event) {
-				if (table.getSelectedRow() >= 0) {
-					String name = table.getValueAt(table.getSelectedRow(), 0).toString();
-					int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
-					updateTextArea((Course) adCon.search(name, num));
-				}
+		table.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+			if (table.getSelectedRow() >= 0) {
+				String name = table.getValueAt(table.getSelectedRow(), 0).toString();
+				int num = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString());
+				updateTextArea((Course) adCon.search(name, num));
 			}
 		});
 
