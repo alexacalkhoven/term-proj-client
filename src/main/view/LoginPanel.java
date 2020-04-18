@@ -37,29 +37,39 @@ public class LoginPanel extends Panel {
 		setupButtons();
 		setupPanels();
 	}
-	
+	/**
+	 * when teh view is changed, the frame size is set to 350,100
+	 */
 	@Override
 	public void onViewChanged(JFrame frame) {
 		frame.setSize(350, 100);
 	}
-
+	/**
+	 * sets up the buttons
+	 */
 	private void setupButtons() {
 		setupStudent();
 		setupAdmin();
 		setupQuit();
 	}
-	
+	/**
+	 * sets up the panels
+	 */
 	private void setupPanels() {
 		setupTitlePanel();
 		setupButtonPanel();
 	}
-
+	/**
+	 * sets up the button panel
+	 */
 	private void setupButtonPanel() {
 		buttons = new JPanel();
 		addButtons();
 		this.add(buttons, BorderLayout.SOUTH);
 	}
-
+	/**
+	 * sets up the title panel
+	 */
 	//How to make this actual large header text?
 	private void setupTitlePanel() {
 		title = new JPanel();
@@ -68,27 +78,35 @@ public class LoginPanel extends Panel {
 		title.add(titleText);
 		add(title, BorderLayout.NORTH);
 	}
-
+	/**
+	 * adds the buttons
+	 */
 	private void addButtons() {
 		buttons.add(loginStudent);
 		buttons.add(loginAdmin);
 		buttons.add(quit);
 	}
-
+	/**
+	 * sets up the quit button
+	 */
 	private void setupQuit() {
 		quit = new JButton("Quit");
 		quit.addActionListener((ActionEvent e) -> {
 			System.exit(0);
 		});
 	}
-
+	/**
+	 * sets up the admin button
+	 */
 	private void setupAdmin() {
 		loginAdmin = new JButton("Admin");
 		loginAdmin.addActionListener((ActionEvent e) -> {
 			changeView("admin");
 		});
 	}
-
+	/**
+	 * sets up the student button
+	 */
 	private void setupStudent() {
 		loginStudent = new JButton("Student");
 		loginStudent.addActionListener((ActionEvent e) -> {
