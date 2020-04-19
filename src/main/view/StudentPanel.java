@@ -31,6 +31,7 @@ import main.model.CourseOffering;
 import main.model.Registration;
 
 /**
+ * Controls and holds info for the student view.
  * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
@@ -66,6 +67,7 @@ public class StudentPanel extends Panel {
 		setupOfferingTable();
 		setupHeader();
 	}
+
 	/**
 	 * Sets up the header
 	 */
@@ -78,6 +80,7 @@ public class StudentPanel extends Panel {
 		headerPanel.add(titleText);
 		add(headerPanel, BorderLayout.NORTH);
 	}
+
 	/**
 	 * Updates the header after student has logged in
 	 */
@@ -167,7 +170,6 @@ public class StudentPanel extends Panel {
 	/**
 	 * Makes a button
 	 * 
-	 * 
 	 * @param name     the name of the button
 	 * @param listener the listener of the button
 	 * @return returns a JButton
@@ -188,7 +190,7 @@ public class StudentPanel extends Panel {
 	 * sets up the back button
 	 */
 	private void setupBack() {
-		makeButton("Back", (ActionEvent e) -> {
+		makeButton("Logout", (ActionEvent e) -> {
 			changeView("login");
 		});
 	}
@@ -202,7 +204,8 @@ public class StudentPanel extends Panel {
 				int row = offeringTable.getSelectedRow();
 
 				if (row < 0) {
-					JOptionPane.showMessageDialog(getRootPane(), "Please select a course", "Error", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a course", "Error",
+							JOptionPane.OK_OPTION);
 					return;
 				}
 

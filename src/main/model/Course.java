@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
+ * Manages all information associated with a Course.
  * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
@@ -19,6 +20,11 @@ public class Course implements Serializable {
 	private ArrayList<Course> preReq;
 	private ArrayList<CourseOffering> offeringList;
 
+	/**
+	 * Gets a course offering for the course.
+	 * @param section Section number.
+	 * @return CourseOffering found.
+	 */
 	public CourseOffering getCourseOffering(int section) {
 		for (CourseOffering o : offeringList) {
 			if (o.getSecNum() == section)

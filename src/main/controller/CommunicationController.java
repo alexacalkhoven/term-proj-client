@@ -8,7 +8,8 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 /**
- * Controlls the communication between the client and server
+ * Controls the communication between the client and server.
+ * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
  * @author Jordan Kwan

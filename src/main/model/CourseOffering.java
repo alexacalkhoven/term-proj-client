@@ -1,9 +1,10 @@
 package main.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
+ * 
+ * Manages and holds information associated with a CourseOffering.
  * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
@@ -18,10 +19,8 @@ public class CourseOffering implements Serializable {
 	private int secCap;
 	private int studentAmount;
 	private Course course;
-	private ArrayList<Registration> registrationList;
 
 	public CourseOffering(int secNum, int secCap) {
-		registrationList = new ArrayList<Registration>();
 		setStudentAmount(0);
 		setSecNum(secNum);
 		setSecCap(secCap);
@@ -34,16 +33,6 @@ public class CourseOffering implements Serializable {
 	public void setOfferingId(int offeringId) {
 		this.offeringId = offeringId;
 	}
-
-//	public void addRegistration(Registration registration) {
-//		registrationList.add(registration);
-//		setStudentAmount(getStudentAmount() + 1);
-//	}
-//
-//	public void removeRegistration(Registration registration) {
-//		registrationList.remove(registration);
-//		setStudentAmount(getStudentAmount() - 1);
-//	}
 
 	public int getSecNum() {
 		return secNum;

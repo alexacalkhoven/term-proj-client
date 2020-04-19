@@ -14,6 +14,7 @@ import main.controller.LoginFunctController;
 import main.controller.PanelController;
 
 /**
+ * Holds the login view panel information.
  * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
@@ -29,14 +30,15 @@ public class LoginPanel extends Panel {
 	private JPanel title;
 	private JPanel buttons;
 	private LoginFunctController loginCon;
-	
-	public LoginPanel(PanelController panMan, CommunicationController comCon){
+
+	public LoginPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
 		loginCon = new LoginFunctController(comCon);
 		setLayout(new BorderLayout());
 		setupButtons();
 		setupPanels();
 	}
+
 	/**
 	 * when the view is changed, the frame size is set to 350,100
 	 */
@@ -44,6 +46,7 @@ public class LoginPanel extends Panel {
 	public void onViewChanged(JFrame frame) {
 		frame.setSize(350, 100);
 	}
+
 	/**
 	 * sets up the buttons
 	 */
@@ -52,6 +55,7 @@ public class LoginPanel extends Panel {
 		setupAdmin();
 		setupQuit();
 	}
+
 	/**
 	 * sets up the panels
 	 */
@@ -59,6 +63,7 @@ public class LoginPanel extends Panel {
 		setupTitlePanel();
 		setupButtonPanel();
 	}
+
 	/**
 	 * sets up the button panel
 	 */
@@ -67,10 +72,10 @@ public class LoginPanel extends Panel {
 		addButtons();
 		this.add(buttons, BorderLayout.SOUTH);
 	}
+
 	/**
 	 * sets up the title panel
 	 */
-	//How to make this actual large header text?
 	private void setupTitlePanel() {
 		title = new JPanel();
 		JTextField titleText = new JTextField(TITLE_TEXT);
@@ -78,6 +83,7 @@ public class LoginPanel extends Panel {
 		title.add(titleText);
 		add(title, BorderLayout.NORTH);
 	}
+
 	/**
 	 * adds the buttons
 	 */
@@ -86,6 +92,7 @@ public class LoginPanel extends Panel {
 		buttons.add(loginAdmin);
 		buttons.add(quit);
 	}
+
 	/**
 	 * sets up the quit button
 	 */
@@ -95,6 +102,7 @@ public class LoginPanel extends Panel {
 			System.exit(0);
 		});
 	}
+
 	/**
 	 * sets up the admin button
 	 */
@@ -104,6 +112,7 @@ public class LoginPanel extends Panel {
 			changeView("admin");
 		});
 	}
+
 	/**
 	 * sets up the student button
 	 */
@@ -111,20 +120,21 @@ public class LoginPanel extends Panel {
 		loginStudent = new JButton("Student");
 		loginStudent.addActionListener((ActionEvent e) -> {
 			try {
-				String[] labels = {"ID: "};
+				String[] labels = { "ID: " };
 				String[] inputs = getInputs(labels);
-				
-				if(inputs == null) {
+
+				if (inputs == null) {
 					return;
 				}
-				
+
 				int id = Integer.parseInt(inputs[0]);
-				
+
 				if (loginCon.loginStudent(id)) {
 					changeView("student");
 				}
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(getRootPane(), "Student ID must be a number", "Error", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(getRootPane(), "Student ID must be a number", "Error",
+						JOptionPane.OK_OPTION);
 			}
 		});
 	}

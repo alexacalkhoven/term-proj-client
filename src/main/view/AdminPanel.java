@@ -1,7 +1,6 @@
 package main.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -15,6 +14,7 @@ import main.controller.CommunicationController;
 import main.controller.PanelController;
 
 /**
+ * Manages the admin view.
  * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
@@ -64,12 +64,14 @@ public class AdminPanel extends Panel {
 		add(tabs, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Sets up the welcome header.
+	 */
 	private void setupHeader() {
 		headerPanel = new JPanel(new GridLayout(1, 0));
 		headerPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 		
 		titleText = new JTextField("Welcome, Admin!");
-//		titleText.setMaximumSize(new Dimension(Integer.MAX_VALUE, titleText.getPreferredSize().height));
 		titleText.setEditable(false);
 		headerPanel.add(titleText);
 		

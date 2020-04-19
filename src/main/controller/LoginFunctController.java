@@ -5,7 +5,8 @@ import javax.swing.JOptionPane;
 import main.model.Student;
 
 /**
- * The login function controller
+ * The login function controller.
+ * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
  * @author Jordan Kwan
@@ -13,6 +14,7 @@ import main.model.Student;
  */
 public class LoginFunctController {
 	private CommunicationController comCon;
+	
 	/**
 	 * The constructor for LoginFunctController
 	 * @param comCon the communication controller
@@ -20,6 +22,7 @@ public class LoginFunctController {
 	public LoginFunctController(CommunicationController comCon) {
 		this.comCon = comCon;
 	}
+	
 	/**
 	 * Logs into a student account using a student id
 	 * @param id the students id

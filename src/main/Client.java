@@ -3,6 +3,7 @@ package main;
 import main.controller.*;
 
 /**
+ * Controls the interactions for the client.
  * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu

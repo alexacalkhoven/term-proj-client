@@ -9,7 +9,8 @@ import main.view.Panel;
 import main.view.StudentPanel;
 
 /**
- * A panel controller
+ * Controls the panels and switches between them.
+ * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
  * @author Jordan Kwan
@@ -19,6 +20,7 @@ public class PanelController {
 
 	Frame theFrame;
 	HashMap<String, Panel> thePanels;
+	
 	/**
 	 * Constructor for panel controller
 	 * @param comCon the communication controller used by the panel controller
@@ -31,6 +33,7 @@ public class PanelController {
 		thePanels.put("admin", new AdminPanel(this, comCon));
 		switchTo("login");
 	}
+	
 	/**
 	 * switches to a different panel based on the key.
 	 * @param key the desired panel to switch to.

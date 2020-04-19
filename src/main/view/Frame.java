@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 /**
  * Holds the various views
+ * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
  * @author Jordan Kwan
@@ -25,6 +26,7 @@ public class Frame extends JFrame {
 		setResizable(false);
 		center();
 	}
+	
 	/**
 	 * Sets the panel and 
 	 * @param p the JPanel
@@ -33,6 +35,7 @@ public class Frame extends JFrame {
 		setContentPane(p);
 		pack();
 	}
+	
 	/**
 	 * Centers the GUI
 	 */

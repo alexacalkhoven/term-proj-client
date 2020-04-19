@@ -3,7 +3,8 @@ package main.controller;
 import java.io.Serializable;
 
 /**
- * A request to the server
+ * A request to send to the server.
+ * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
  * @author Jordan Kwan

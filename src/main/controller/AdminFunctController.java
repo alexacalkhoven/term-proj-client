@@ -7,6 +7,7 @@ import main.model.Registration;
 import main.model.Student;
 
 /**
+ * Provides functionality for the buttons on the admin side of the UI.
  * 
  * @author Alexa Calkhoven
  * @author Radu Schirliu
@@ -15,6 +16,7 @@ import main.model.Student;
  */
 @SuppressWarnings("unchecked")
 public class AdminFunctController {
+	
 	private CommunicationController comCon;
 	private ArrayList<Course> courseList;
 	private ArrayList<Student> studentList;
@@ -125,39 +127,79 @@ public class AdminFunctController {
 		return result;
 	}
 	
+	/**
+	 * Gets StudentList from sever.
+	 * @return Student list.
+	 */
 	public ArrayList<Student> getStudentList() {
 		ArrayList<Student> result = (ArrayList<Student>) comCon.makeRequest("student.getAll");
 		studentList = result;
 		return result;
 	}
 	
+	/**
+	 * Gets list of registrations for a certain student.
+	 * @param id Student Id of student in question.
+	 * @return Registration list.
+	 */
 	public ArrayList<Registration> getRegs(Integer id) {
 		ArrayList<Registration> result = (ArrayList<Registration>) comCon.makeRequest("student.getRegFor", id);
 		return result;
 	}
 	
+	/**
+	 * Search student based on a student Id.
+	 * @param id Student id.
+	 * @return Matching Student, null if no result.
+	 */
 	public Student searchStudent(Integer id) {
 		Student result = (Student) comCon.makeRequest("student.search", id);
 		return result;
 	}
 
+	/**
+	 * Gets offering ID based on courseID and section number.
+	 * 
+	 * @param courseId ID of course.
+	 * @param secNum SEciton number of offering.
+	 * @return Integer representing the offering Id.
+	 */
 	public int getOfferingId(int courseId, int secNum) {
 		Integer result = (Integer) comCon.makeRequest("course.getOfferingId", new Object [] {courseId, secNum});
 		return result;
 	}
 
+	/**
+	 * Removes offering based on a offeringId.
+	 * @param offeringId ID of the offering to remove.
+	 */
 	public void removeOffering(int offeringId) {
 		comCon.makeRequest("course.removeOffering", offeringId);
 	}
 
+	/**
+	 * Searches a course based on courseId.
+	 * @param courseId Id to search
+	 * @return Course match.
+	 */
 	public Course searchCourseById(int courseId) {
 		return (Course) comCon.makeRequest("course.searchById", courseId);
 	}
 
+	/**
+	 * Add a pre req to a certain course.
+	 * @param parentCourseId Course to get the pre req.
+	 * @param childCourseId Course that is the pre req.
+	 */
 	public void addPreReq(int parentCourseId, int childCourseId) {
 		comCon.makeRequest("course.addPreReq", new Object [] {parentCourseId, childCourseId});
 	}
 
+	/**
+	 * Removes a certain pre req.
+	 * @param parentCourseId Course to get pre req removed.
+	 * @param childCourseId Pre req to be removed.
+	 */
 	public void removePreReq(Integer parentCourseId, Integer childCourseId) {
 		comCon.makeRequest("course.removePreReq", new Object [] {parentCourseId, childCourseId});
 	}

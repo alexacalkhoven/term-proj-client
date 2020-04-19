@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,11 +24,17 @@ import javax.swing.table.DefaultTableModel;
 
 import main.controller.AdminFunctController;
 import main.controller.PanelController;
-import main.model.Course;
-import main.model.CourseOffering;
 import main.model.Registration;
 import main.model.Student;
 
+/**
+ * Controls the Admin panel view where students can be managed.
+ * 
+ * @author Alexa Calkhoven
+ * @author Radu Schirliu
+ * @author Jordan Kwan
+ *
+ */
 public class AdminStudentPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
@@ -56,11 +61,17 @@ public class AdminStudentPanel extends Panel {
 		add(display, BorderLayout.CENTER);
 	}
 
+	/**
+	 * When view is changed, the tables will be updated.
+	 */
 	@Override
 	public void onViewChanged(JFrame frame) {
 		updateStudentTable();
 	}
 
+	/**
+	 * Sets up the button bar.
+	 */
 	private void setupToolBar() {
 		JPanel buttons = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -72,6 +83,13 @@ public class AdminStudentPanel extends Panel {
 		add(buttons, BorderLayout.EAST);
 	}
 
+	/**
+	 * Creates a button.
+	 * 
+	 * @param name Name for the button.
+	 * @param listener Contains the button functionality.
+	 * @return The button.
+	 */
 	private JButton makeButton(String name, ActionListener listener) {
 		JButton btn = new JButton(name);
 		Dimension d = new Dimension(175, 25);
@@ -84,18 +102,27 @@ public class AdminStudentPanel extends Panel {
 		return btn;
 	}
 
+	/**
+	 * Sets up the buttons.
+	 */
 	private void setupButtons() {
 		setupCreateStudent();
 		setupRemoveStudent();
 		setupBack();
 	}
 
+	/**
+	 * Sets up the back button.
+	 */
 	private void setupBack() {
 		makeButton("Back", (ActionEvent e) -> {
 			changeView("login");
 		});
 	}
 
+	/**
+	 * Sets up the create student button.
+	 */
 	private void setupCreateStudent() {
 		makeButton("Create Student", (ActionEvent e) -> {
 			try {
@@ -112,6 +139,9 @@ public class AdminStudentPanel extends Panel {
 		});
 	}
 
+	/**
+	 * sets up the remove student button.
+	 */
 	private void setupRemoveStudent() {
 		makeButton("Remove Student", (ActionEvent e) -> {
 			try {
@@ -132,6 +162,9 @@ public class AdminStudentPanel extends Panel {
 		});
 	}
 
+	/**
+	 * Updates the student table.
+	 */
 	private void updateStudentTable() {
 		ArrayList<Student> students = adCon.getStudentList();
 
@@ -145,15 +178,25 @@ public class AdminStudentPanel extends Panel {
 		}
 	}
 
+	/**
+	 * Clears the table.
+	 */
 	private void clearTable() {
 		tableModel.setRowCount(0);
 	}
 
+	/** 
+	 * Adds data to the table from a student.
+	 * @param student Student to display data on.
+	 */
 	private void addTableData(Student student) {
 		Object[] data = new Object[] { student.getId(), student.getName() };
 		tableModel.addRow(data);
 	}
 
+	/**
+	 * Sets up the display area.
+	 */
 	private void setupTextArea() {
 		studentInfo = new JTextPane();
 		infoScrollPane = new JScrollPane(studentInfo);
@@ -162,6 +205,9 @@ public class AdminStudentPanel extends Panel {
 		display.add(infoScrollPane);
 	}
 
+	/**
+	 * Creates the student table.
+	 */
 	private void setupTable() {
 		String[] columns = { "Student ID", "Student Name" };
 
@@ -193,6 +239,10 @@ public class AdminStudentPanel extends Panel {
 		display.add(scrollPane);
 	}
 
+	/**
+	 * Updates the text display area with student information.
+	 * @param s Student to show info on.
+	 */
 	private void updateTextArea(Student s) {
 		String info = "Student Info: \n\n";
 
