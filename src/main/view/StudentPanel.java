@@ -66,7 +66,9 @@ public class StudentPanel extends Panel {
 		setupOfferingTable();
 		setupHeader();
 	}
-
+	/**
+	 * Sets up the header
+	 */
 	private void setupHeader() {
 		headerPanel = new JPanel(new GridLayout(1, 0));
 		headerPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
@@ -76,7 +78,9 @@ public class StudentPanel extends Panel {
 		headerPanel.add(titleText);
 		add(headerPanel, BorderLayout.NORTH);
 	}
-	
+	/**
+	 * Updates the header after student has logged in
+	 */
 	private void updateHeader() {
 		String studentName = stuCon.getStudent().getName();
 		titleText.setText("Welcome, " + studentName + "!");
@@ -92,7 +96,7 @@ public class StudentPanel extends Panel {
 	}
 
 	/**
-	 * Sets up the toolbar
+	 * Sets up the tool bar
 	 */
 	private void setupToolbar() {
 		toolBar = new JToolBar();
@@ -101,7 +105,7 @@ public class StudentPanel extends Panel {
 	}
 
 	/**
-	 * sets up the buttons
+	 * Sets up the buttons
 	 */
 	private void setupButtons() {
 		setupSearch();
@@ -111,7 +115,7 @@ public class StudentPanel extends Panel {
 	}
 
 	/**
-	 * updates the tables
+	 * Updates the tables
 	 */
 	private void updateTables() {
 		updateOfferings();
@@ -119,7 +123,7 @@ public class StudentPanel extends Panel {
 	}
 
 	/**
-	 * updates the offerings
+	 * Updates the offerings
 	 */
 	private void updateOfferings() {
 		int row = table.getSelectedRow();
@@ -143,7 +147,7 @@ public class StudentPanel extends Panel {
 	}
 
 	/**
-	 * updates the courses
+	 * Updates the courses
 	 */
 	private void updateCourses() {
 		ArrayList<Course> results = stuCon.viewCourses();
@@ -161,7 +165,8 @@ public class StudentPanel extends Panel {
 	}
 
 	/**
-	 * makes a button
+	 * Makes a button
+	 * 
 	 * 
 	 * @param name     the name of the button
 	 * @param listener the listener of the button
