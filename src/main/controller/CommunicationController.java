@@ -50,6 +50,7 @@ public class CommunicationController {
 			Response res = (Response) socketIn.readObject();
 			
 			if (res.getError() != null) {
+				JOptionPane.showMessageDialog(null, res.getError(), "Error", JOptionPane.OK_OPTION);
 				System.err.println("Request error for '" + res.getCommand() + "': " + res.getError());
 			}
 			

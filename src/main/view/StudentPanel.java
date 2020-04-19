@@ -203,7 +203,7 @@ public class StudentPanel extends Panel {
 				int row = offeringTable.getSelectedRow();
 
 				if (row < 0) {
-					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a course", "Error", JOptionPane.OK_OPTION);
 					return;
 				}
 
@@ -225,7 +225,7 @@ public class StudentPanel extends Panel {
 			int row = offeringTable.getSelectedRow();
 
 			if (row < 0) {
-				JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(getRootPane(), "Please select a section", "Error", JOptionPane.OK_OPTION);
 				return;
 			}
 
