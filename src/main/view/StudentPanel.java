@@ -255,11 +255,12 @@ public class StudentPanel extends Panel {
 				int num = Integer.parseInt(userIn[1]);
 				Course result = stuCon.search(userIn[0], num);
 				String resultText;
-
+				
 				if (result == null) {
 					resultText = "Course not found.";
 				} else {
-					resultText = result.toString();
+					ArrayList<CourseOffering> theOfferings = stuCon.getOfferings(result.getCourseId());
+					resultText = result.toString(theOfferings);
 				}
 
 				JOptionPane.showMessageDialog(getRootPane(), resultText, resultText, JOptionPane.PLAIN_MESSAGE);

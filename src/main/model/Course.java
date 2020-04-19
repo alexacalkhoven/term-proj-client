@@ -71,11 +71,12 @@ public class Course implements Serializable {
 		return getName() + " " + getNumber();
 	}
 
-	@Override
-	public String toString() {
+	public String toString(ArrayList<CourseOffering> offeringListForCourse) {
 		String s = String.format("Course: %s\nAll course sections:", getFullName());
 
-		for (CourseOffering c : offeringList) {
+		s += "\n";
+		
+		for (CourseOffering c : offeringListForCourse) {
 			s += c + "\n";
 		}
 

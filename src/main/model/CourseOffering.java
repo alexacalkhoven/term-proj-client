@@ -72,7 +72,7 @@ public class CourseOffering implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("ID: %d, Section: %d, Spots: %d/%d", getOfferingId(), getSecNum(), getStudentAmount(),
+		return String.format("Offering ID: %d, Section: %d, Spots: %d/%d", getOfferingId(), getSecNum(), getStudentAmount(),
 				getSecCap());
 	}
 }
