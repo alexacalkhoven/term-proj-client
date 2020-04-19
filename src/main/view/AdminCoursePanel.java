@@ -102,7 +102,7 @@ public class AdminCoursePanel extends Panel {
 				int row = table.getSelectedRow();
 				
 				if (row < 0) {
-					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a course", "Error", JOptionPane.OK_OPTION);
 					return;
 				}
 
@@ -130,7 +130,7 @@ public class AdminCoursePanel extends Panel {
 				int row = table.getSelectedRow();
 				
 				if (row < 0) {
-					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a course", "Error", JOptionPane.OK_OPTION);
 					return;
 				}
 
@@ -158,7 +158,7 @@ public class AdminCoursePanel extends Panel {
 				int row = table.getSelectedRow();
 				
 				if (row < 0) {
-					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a section", "Error", JOptionPane.OK_OPTION);
 					return;
 				}
 
@@ -179,6 +179,7 @@ public class AdminCoursePanel extends Panel {
 				JOptionPane.showMessageDialog(getRootPane(), "Section number must be a number", "Error",
 						JOptionPane.OK_OPTION);
 			}
+			
 			courseInfo.setText("Offering deleted.");
 		});
 	}
@@ -192,6 +193,7 @@ public class AdminCoursePanel extends Panel {
 			changeView("login");
 		});
 	}
+	
 	/**
 	 * sets up the Create Offering button
 	 */
@@ -201,7 +203,7 @@ public class AdminCoursePanel extends Panel {
 				int row = table.getSelectedRow();
 				
 				if (row < 0) {
-					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a course", "Error", JOptionPane.OK_OPTION);
 					return;
 				}
 
@@ -231,7 +233,7 @@ public class AdminCoursePanel extends Panel {
 				int row = table.getSelectedRow();
 
 				if (row < 0) {
-					JOptionPane.showMessageDialog(getRootPane(), "Please select a row", "Error", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(getRootPane(), "Please select a course", "Error", JOptionPane.OK_OPTION);
 					return;
 				}
 
@@ -264,6 +266,7 @@ public class AdminCoursePanel extends Panel {
 			}
 		});
 	}
+	
 	/**
 	 * updates the displayed courses
 	 */
@@ -279,12 +282,14 @@ public class AdminCoursePanel extends Panel {
 			addTableData(c);
 		}
 	}
+	
 	/**
 	 * clears the table
 	 */
 	private void clearTable() {
 		tableModel.setRowCount(0);
 	}
+	
 	/**
 	 * adds data to the table
 	 * @param course the course to be added
@@ -355,7 +360,7 @@ public class AdminCoursePanel extends Panel {
 			info += "None.\n";
 		} else {
 			for (int i = 0; i < offerings.size(); i++) {
-				info += offerings.get(i).toString() + "\n";
+				info += offerings.get(i) + "\n";
 			}
 		}
 

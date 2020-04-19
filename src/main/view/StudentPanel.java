@@ -54,6 +54,8 @@ public class StudentPanel extends Panel {
 	private JTable table;
 	private DefaultTableModel tableModel;
 	private JTextArea field;
+	private JPanel headerPanel;
+	private JTextField titleText;
 
 	private JTable offeringTable;
 	private DefaultTableModel offeringTableModel;
@@ -68,25 +70,22 @@ public class StudentPanel extends Panel {
 		setupPanels();
 		setupCourseTable();
 		setupOfferingTable();
+		setupHeader();
 	}
 
 	private void setupHeader() {
-		JPanel header = new JPanel(new GridLayout(1, 0));
-		header.setBorder(new EmptyBorder(10, 0, 10, 0));
-		JTextField titleText = new JTextField("Welcome, " + getName() + "!");
+		headerPanel = new JPanel(new GridLayout(1, 0));
+		headerPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
+		titleText = new JTextField();
 		titleText.setMaximumSize(new Dimension(Integer.MAX_VALUE, titleText.getPreferredSize().height));
 		titleText.setEditable(false);
-		header.add(titleText);
-		add(header, BorderLayout.NORTH);
+		headerPanel.add(titleText);
+		add(headerPanel, BorderLayout.NORTH);
 	}
-
-	/**
-	 * gets student name
-	 */
-	public String getName() {
-		Student s = stuCon.getStudent();
-		String string = s.getName();
-		return string;
+	
+	private void updateHeader() {
+		String studentName = stuCon.getStudent().getName();
+		titleText.setText("Welcome, " + studentName + "!");
 	}
 
 	/**
@@ -95,7 +94,7 @@ public class StudentPanel extends Panel {
 	@Override
 	public void onViewChanged(JFrame frame) {
 		updateCourses();
-		setupHeader();
+		updateHeader();
 	}
 
 	/**
@@ -123,7 +122,6 @@ public class StudentPanel extends Panel {
 	private void updateTables() {
 		updateOfferings();
 		updateCourses();
-
 	}
 
 	/**

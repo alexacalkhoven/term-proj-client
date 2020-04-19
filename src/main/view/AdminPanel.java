@@ -28,6 +28,8 @@ public class AdminPanel extends Panel {
 	private AdminCoursePanel coursePanel;
 	private AdminStudentPanel studentPanel;
 	private JTabbedPane tabs;
+	private JPanel headerPanel;
+	private JTextField titleText;
 
 	public AdminPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
@@ -35,6 +37,7 @@ public class AdminPanel extends Panel {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new BorderLayout());
 		setupPanels();
+		setupHeader();
 	}
 	
 	/**
@@ -44,7 +47,6 @@ public class AdminPanel extends Panel {
 	public void onViewChanged(JFrame frame) {
 		coursePanel.onViewChanged(frame);
 		studentPanel.onViewChanged(frame);
-		setupHeader();
 	}
 	
 	/**
@@ -63,12 +65,14 @@ public class AdminPanel extends Panel {
 	}
 	
 	private void setupHeader() {
-		JPanel header = new JPanel(new GridLayout(1, 0));
-		header.setBorder(new EmptyBorder(10, 0, 10, 0));
-		JTextField titleText = new JTextField("Welcome, Admin!");
+		headerPanel = new JPanel(new GridLayout(1, 0));
+		headerPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
+		
+		titleText = new JTextField("Welcome, Admin!");
 		titleText.setMaximumSize(new Dimension(Integer.MAX_VALUE, titleText.getPreferredSize().height));
 		titleText.setEditable(false);
-		header.add(titleText);
-		add(header, BorderLayout.NORTH);
+		headerPanel.add(titleText);
+		
+		add(headerPanel, BorderLayout.NORTH);
 	}
 }

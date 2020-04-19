@@ -64,9 +64,10 @@ public class Course implements Serializable {
 		return getName() + " " + getNumber();
 	}
 
+	@Override
 	public String toString() {
-		String s = "Course: " + getName() + " " + getNumber() + "\nAll course sections:\n";
-
+		String s = String.format("Course: %10s\nAll course sections:", getFullName());
+		
 		for (CourseOffering c : offeringList) {
 			s += c + "\n";
 		}

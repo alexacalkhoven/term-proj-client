@@ -73,15 +73,16 @@ public class CourseOffering implements Serializable {
 		return this.course;
 	}
 
-	public String toString() {
-		return "Section: " + getSecNum() + ", Spots: " + getStudentAmount() + " / " + getSecCap() + ", Offering ID: "  + getOfferingId();
-	}
-
 	public int getStudentAmount() {
 		return studentAmount;
 	}
 
 	public void setStudentAmount(int studentAmount) {
 		this.studentAmount = studentAmount;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("ID: %3d,    Section: %3d,    Spots: %3d/%3d", getOfferingId(), getSecNum(), getStudentAmount(), getSecCap());
 	}
 }
