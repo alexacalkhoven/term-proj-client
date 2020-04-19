@@ -15,15 +15,15 @@ import javax.swing.JOptionPane;
  *
  */
 public class CommunicationController {
-
 	private Socket aSocket;
 	private ObjectInputStream socketIn;
 	private ObjectOutputStream socketOut;
-/**
- * The constructor for CommunicationController
- * @param host the host 
- * @param port the port
- */
+	
+	/**
+	 * The constructor for CommunicationController
+	 * @param host the host 
+	 * @param port the port
+	 */
 	public CommunicationController(String host, int port) {
 		try {
 			aSocket = new Socket(host, port);
@@ -36,6 +36,7 @@ public class CommunicationController {
 			System.exit(0);
 		}
 	}
+	
 	/**
 	 * Makes a request to the server
 	 * @param name the name of the request
@@ -62,7 +63,12 @@ public class CommunicationController {
 		}
 		return null;
 	}
-	//Makes a request to the server with no arguments
+	
+	/**
+	 * Makes a request to the server with no arguments
+	 * @param name Request name
+	 * @return Data from request
+	 */
 	public Object makeRequest(String name) {
 		return makeRequest(name, null);
 	}

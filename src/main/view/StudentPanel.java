@@ -1,10 +1,7 @@
 package main.view;
 
 import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -18,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
@@ -33,7 +29,6 @@ import main.controller.StudentFunctController;
 import main.model.Course;
 import main.model.CourseOffering;
 import main.model.Registration;
-import main.model.Student;
 
 /**
  * 
@@ -53,7 +48,6 @@ public class StudentPanel extends Panel {
 	private JPanel buttons;
 	private JTable table;
 	private DefaultTableModel tableModel;
-	private JTextArea field;
 	private JPanel headerPanel;
 	private JTextField titleText;
 
