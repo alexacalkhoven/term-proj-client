@@ -76,11 +76,10 @@ public class Registration implements Serializable {
 		this.grade = grade;
 	}
 
+	@Override
 	public String toString() {
-		String s = "Course: " + offering.getCourse().getFullName() + ", ";
-		s += "section: " + offering.getSecNum() + ", ";
-		s += "grade: " + getGrade();
-
-		return s;
+		return String.format(
+				"Course: %15s,    Section: %3s,    Grade: %1s",
+				offering.getCourse().getFullName(), offering.getSecNum(), getGrade());
 	}
 }

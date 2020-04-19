@@ -69,7 +69,7 @@ public class AdminPanel extends Panel {
 		headerPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 		
 		titleText = new JTextField("Welcome, Admin!");
-		titleText.setMaximumSize(new Dimension(Integer.MAX_VALUE, titleText.getPreferredSize().height));
+//		titleText.setMaximumSize(new Dimension(Integer.MAX_VALUE, titleText.getPreferredSize().height));
 		titleText.setEditable(false);
 		headerPanel.add(titleText);
 		

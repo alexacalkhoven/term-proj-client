@@ -200,7 +200,7 @@ public class AdminStudentPanel extends Panel {
 			info += "This student is in no courses.\n";
 		} else {
 			for (int i = 0; i < regs.size(); i++) {
-				info += regs.get(i).toString() + "\n";
+				info += regs.get(i) + "\n";
 			}
 		}
 		
