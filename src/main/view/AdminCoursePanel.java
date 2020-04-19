@@ -2,6 +2,8 @@ package main.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -58,10 +60,14 @@ public class AdminCoursePanel extends Panel {
 	 * sets up the tool bar
 	 */
 	private void setupToolBar() {
+		JPanel buttons = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
 		toolBar = new JToolBar("Buttons");
 		toolBar.setFloatable(false);
 		toolBar.setOrientation(SwingConstants.VERTICAL);
-		add(toolBar, BorderLayout.EAST);
+		buttons.add(toolBar, c);
+		add(buttons, BorderLayout.EAST);
 	}
 	/**
 	 * sets up the buttons
@@ -371,7 +377,7 @@ public class AdminCoursePanel extends Panel {
 			info += "None.\n";
 		} else {
 			for (int i = 0; i < preReqs.size(); i++) {
-				info += String.format("ID %3d,    Name: %15s\n", preReqs.get(i).getCourseId(), preReqs.get(i).getFullName());
+				info += String.format("ID: %d, Name: %s\n", preReqs.get(i).getCourseId(), preReqs.get(i).getFullName());
 			}
 		}
 

@@ -2,11 +2,14 @@ package main.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -59,10 +62,14 @@ public class AdminStudentPanel extends Panel {
 	}
 
 	private void setupToolBar() {
+		JPanel buttons = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
 		toolBar = new JToolBar("Buttons");
 		toolBar.setFloatable(false);
 		toolBar.setOrientation(SwingConstants.VERTICAL);
-		add(toolBar, BorderLayout.EAST);
+		buttons.add(toolBar, c);
+		add(buttons, BorderLayout.EAST);
 	}
 
 	private JButton makeButton(String name, ActionListener listener) {

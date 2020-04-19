@@ -66,7 +66,7 @@ public class Course implements Serializable {
 
 	@Override
 	public String toString() {
-		String s = String.format("Course: %10s\nAll course sections:", getFullName());
+		String s = String.format("Course: %s\nAll course sections:", getFullName());
 		
 		for (CourseOffering c : offeringList) {
 			s += c + "\n";

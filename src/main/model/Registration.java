@@ -79,7 +79,7 @@ public class Registration implements Serializable {
 	@Override
 	public String toString() {
 		return String.format(
-				"Course: %15s,    Section: %3s,    Grade: %1s",
+				"Course: %s, Section: %s, Grade: %s",
 				offering.getCourse().getFullName(), offering.getSecNum(), getGrade());
 	}
 }
