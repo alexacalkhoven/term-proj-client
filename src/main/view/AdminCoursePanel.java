@@ -95,7 +95,6 @@ public class AdminCoursePanel extends Panel {
 		return btn;
 	}
 	
-	//THROWS AN ERROR! Not sure why
 	private void setupRemovePreReq() {
 		makeButton("Remove Pre-Requisite", (ActionEvent e) -> {
 			try {
@@ -372,7 +371,7 @@ public class AdminCoursePanel extends Panel {
 			info += "None.\n";
 		} else {
 			for (int i = 0; i < preReqs.size(); i++) {
-				info += preReqs.get(i).getFullName() + "\n";
+				info += String.format("ID %3d,    Name: %15s\n", preReqs.get(i).getCourseId(), preReqs.get(i).getFullName());
 			}
 		}
 

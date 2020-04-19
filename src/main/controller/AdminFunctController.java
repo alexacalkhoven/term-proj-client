@@ -100,7 +100,7 @@ public class AdminFunctController {
 	 * @param num the course number
 	 * @return the target course
 	 */
-	public Object search(String name, int num) {
+	public Course search(String name, int num) {
 		Course result = (Course) comCon.makeRequest("course.search", new Object[] { name, num });
 		return result;
 	}
