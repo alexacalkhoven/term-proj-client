@@ -122,4 +122,15 @@ public class StudentFunctController {
 		}
 		return offeringList.get(row).getOfferingId();
 	}
+
+	/**
+	 * gets the prerequisites
+	 * 
+	 * @param courseId the courseId of the course
+	 * @return returns an array list of the prerequisites.
+	 */
+	public ArrayList<Course> getPrereqs(Integer courseId) {
+		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.getPreReqs", courseId);
+		return result;
+	}
 }

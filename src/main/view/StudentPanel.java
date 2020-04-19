@@ -260,7 +260,8 @@ public class StudentPanel extends Panel {
 					resultText = "Course not found.";
 				} else {
 					ArrayList<CourseOffering> theOfferings = stuCon.getOfferings(result.getCourseId());
-					resultText = result.toString(theOfferings);
+					ArrayList<Course> thePreReqs = stuCon.getPrereqs(result.getCourseId());
+					resultText = result.toString(theOfferings, thePreReqs);
 				}
 
 				JOptionPane.showMessageDialog(getRootPane(), resultText, resultText, JOptionPane.PLAIN_MESSAGE);

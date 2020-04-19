@@ -18,22 +18,6 @@ public class Course implements Serializable {
 	private String name;
 	private int number;
 	private ArrayList<Course> preReq;
-	private ArrayList<CourseOffering> offeringList;
-
-	/**
-	 * Gets a course offering for the course.
-	 * 
-	 * @param section Section number.
-	 * @return CourseOffering found.
-	 */
-	public CourseOffering getCourseOffering(int section) {
-		for (CourseOffering o : offeringList) {
-			if (o.getSecNum() == section)
-				return o;
-		}
-
-		return null;
-	}
 
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
@@ -55,10 +39,6 @@ public class Course implements Serializable {
 		return number;
 	}
 
-	public ArrayList<CourseOffering> getOfferingList() {
-		return offeringList;
-	}
-
 	public ArrayList<Course> getPreReq() {
 		return preReq;
 	}
@@ -71,13 +51,29 @@ public class Course implements Serializable {
 		return getName() + " " + getNumber();
 	}
 
-	public String toString(ArrayList<CourseOffering> offeringListForCourse) {
-		String s = String.format("Course: %s\nAll course sections:", getFullName());
+	public String toString(ArrayList<CourseOffering> offeringListForCourse, ArrayList<Course> preReqList) {
+		String s = String.format("Course: %s\n\nAll course sections:", getFullName());
 
 		s += "\n";
-		
-		for (CourseOffering c : offeringListForCourse) {
-			s += c + "\n";
+
+		if (offeringListForCourse.size() == 0) {
+			s += "No offerings.\n";
+		} else {
+			for (CourseOffering c : offeringListForCourse) {
+				s += c + "\n";
+			}
+		}
+
+		s += "\nAll pre-requisites:";
+
+		s += "\n";
+
+		if (preReqList.size() == 0) {
+			s += "No pre-reqs.\n";
+		} else {
+			for (Course c : preReqList) {
+				s += c.getFullName() + "\n";
+			}
 		}
 
 		return s;
