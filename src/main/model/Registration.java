@@ -12,12 +12,12 @@ import java.io.Serializable;
  */
 public class Registration implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private int registrationId;
 	private Student student;
 	private CourseOffering offering;
 	private char grade;
-	
+
 	public int getRegistrationId() {
 		return registrationId;
 	}
@@ -52,8 +52,7 @@ public class Registration implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format(
-				"Course: %s, Section: %s, Grade: %s",
-				offering.getCourse().getFullName(), offering.getSecNum(), getGrade());
+		return String.format("Course: %s, Section: %s, Grade: %s", offering.getCourse().getFullName(),
+				offering.getSecNum(), getGrade());
 	}
 }

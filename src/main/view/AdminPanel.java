@@ -33,13 +33,13 @@ public class AdminPanel extends Panel {
 
 	public AdminPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
-		adCon = new AdminFunctController(comCon);	
+		adCon = new AdminFunctController(comCon);
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new BorderLayout());
 		setupPanels();
 		setupHeader();
 	}
-	
+
 	/**
 	 * when the view is changed, the coursePanel and studentPanel are updated
 	 */
@@ -48,33 +48,33 @@ public class AdminPanel extends Panel {
 		coursePanel.onViewChanged(frame);
 		studentPanel.onViewChanged(frame);
 	}
-	
+
 	/**
 	 * sets up the panels
 	 */
 	private void setupPanels() {
 		tabs = new JTabbedPane();
-		
+
 		coursePanel = new AdminCoursePanel(panMan, adCon);
 		tabs.addTab("Courses", coursePanel);
-		
+
 		studentPanel = new AdminStudentPanel(panMan, adCon);
 		tabs.addTab("Students", studentPanel);
-		
+
 		add(tabs, BorderLayout.CENTER);
 	}
-	
+
 	/**
 	 * Sets up the welcome header.
 	 */
 	private void setupHeader() {
 		headerPanel = new JPanel(new GridLayout(1, 0));
 		headerPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
-		
+
 		titleText = new JTextField("Welcome, Admin!");
 		titleText.setEditable(false);
 		headerPanel.add(titleText);
-		
+
 		add(headerPanel, BorderLayout.NORTH);
 	}
 }

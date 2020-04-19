@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class CourseOffering implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private int offeringId;
 	private int secNum;
 	private int secCap;
@@ -25,7 +25,7 @@ public class CourseOffering implements Serializable {
 		setSecNum(secNum);
 		setSecCap(secCap);
 	}
-	
+
 	public int getOfferingId() {
 		return offeringId;
 	}
@@ -69,9 +69,10 @@ public class CourseOffering implements Serializable {
 	public void setStudentAmount(int studentAmount) {
 		this.studentAmount = studentAmount;
 	}
-	
+
 	@Override
 	public String toString() {
-		return String.format("ID: %d, Section: %d, Spots: %d/%d", getOfferingId(), getSecNum(), getStudentAmount(), getSecCap());
+		return String.format("ID: %d, Section: %d, Spots: %d/%d", getOfferingId(), getSecNum(), getStudentAmount(),
+				getSecCap());
 	}
 }

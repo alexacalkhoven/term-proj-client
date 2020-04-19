@@ -86,7 +86,7 @@ public class AdminStudentPanel extends Panel {
 	/**
 	 * Creates a button.
 	 * 
-	 * @param name Name for the button.
+	 * @param name     Name for the button.
 	 * @param listener Contains the button functionality.
 	 * @return The button.
 	 */
@@ -185,8 +185,9 @@ public class AdminStudentPanel extends Panel {
 		tableModel.setRowCount(0);
 	}
 
-	/** 
+	/**
 	 * Adds data to the table from a student.
+	 * 
 	 * @param student Student to display data on.
 	 */
 	private void addTableData(Student student) {
@@ -241,6 +242,7 @@ public class AdminStudentPanel extends Panel {
 
 	/**
 	 * Updates the text display area with student information.
+	 * 
 	 * @param s Student to show info on.
 	 */
 	private void updateTextArea(Student s) {
@@ -260,7 +262,7 @@ public class AdminStudentPanel extends Panel {
 				info += regs.get(i) + "\n";
 			}
 		}
-		
+
 		studentInfo.setText(info);
 	}
 }

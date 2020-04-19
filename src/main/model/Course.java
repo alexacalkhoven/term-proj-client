@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Course implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private int courseId;
 	private String name;
 	private int number;
@@ -22,6 +22,7 @@ public class Course implements Serializable {
 
 	/**
 	 * Gets a course offering for the course.
+	 * 
 	 * @param section Section number.
 	 * @return CourseOffering found.
 	 */
@@ -33,11 +34,11 @@ public class Course implements Serializable {
 
 		return null;
 	}
-	
+
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
-	
+
 	public int getCourseId() {
 		return courseId;
 	}
@@ -53,11 +54,11 @@ public class Course implements Serializable {
 	public int getNumber() {
 		return number;
 	}
-	
+
 	public ArrayList<CourseOffering> getOfferingList() {
 		return offeringList;
 	}
-	
+
 	public ArrayList<Course> getPreReq() {
 		return preReq;
 	}
@@ -73,7 +74,7 @@ public class Course implements Serializable {
 	@Override
 	public String toString() {
 		String s = String.format("Course: %s\nAll course sections:", getFullName());
-		
+
 		for (CourseOffering c : offeringList) {
 			s += c + "\n";
 		}
