@@ -35,7 +35,7 @@ public class AdminPanel extends Panel {
 	 * Creates a new AdminPanel
 	 * 
 	 * @param panMan Panel manager
-	 * @param adCon Admin function controller
+	 * @param comCon Communication controller
 	 */
 	public AdminPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);

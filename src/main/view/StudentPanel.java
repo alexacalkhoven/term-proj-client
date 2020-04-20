@@ -59,7 +59,7 @@ public class StudentPanel extends Panel {
 	 * Creates a new StudentPanel
 	 * 
 	 * @param panMan Panel manager
-	 * @param adCon Student function controller
+	 * @param comCon Communication controller
 	 */
 	public StudentPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
