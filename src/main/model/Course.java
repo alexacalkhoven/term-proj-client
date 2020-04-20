@@ -51,6 +51,13 @@ public class Course implements Serializable {
 		return getName() + " " + getNumber();
 	}
 
+	/**
+	 * Special toString function - creates a String for a course including offerings and prereqs.
+	 * 
+	 * @param offeringListForCourse Offerings for the course.
+	 * @param preReqList Pre-reqs for the course.
+	 * @return
+	 */
 	public String toString(ArrayList<CourseOffering> offeringListForCourse, ArrayList<Course> preReqList) {
 		String s = String.format("Course: %s\n\nAll course sections:", getFullName());
 
