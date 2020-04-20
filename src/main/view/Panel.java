@@ -20,6 +20,11 @@ public abstract class Panel extends JPanel {
 
 	protected PanelController panMan;
 
+	/**
+	 * Creates a new Panel
+	 * 
+	 * @param panMan Panel controller
+	 */
 	public Panel(PanelController panMan) {
 		this.panMan = panMan;
 	}
@@ -39,6 +44,7 @@ public abstract class Panel extends JPanel {
 	 * @param frame Frame to change
 	 */
 	public void onViewChanged(JFrame frame) {
+		// To be overridden if needed
 	}
 
 	/**

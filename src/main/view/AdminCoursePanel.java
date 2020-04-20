@@ -45,6 +45,12 @@ public class AdminCoursePanel extends Panel {
 	private JTable table;
 	private DefaultTableModel tableModel;
 
+	/**
+	 * Initializes a new AdminCoursePanel
+	 * 
+	 * @param panMan Panel manager
+	 * @param adCon Admin panel function controller
+	 */
 	public AdminCoursePanel(PanelController panMan, AdminFunctController adCon) {
 		super(panMan);
 		this.adCon = adCon;
@@ -60,6 +66,11 @@ public class AdminCoursePanel extends Panel {
 		add(display, BorderLayout.CENTER);
 	}
 
+	/**
+	 * Method called when the view is changed to this panel
+	 * 
+	 * @param frame The host frame
+	 */
 	@Override
 	public void onViewChanged(JFrame frame) {
 		updateCourses();

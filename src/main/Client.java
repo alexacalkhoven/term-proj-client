@@ -15,11 +15,21 @@ public class Client {
 	private PanelController panMan;
 	private CommunicationController comController;
 
+	/**
+	 * Constructs a new client that will connect to given host and port
+	 * 
+	 * @param host Server host
+	 * @param port Server port
+	 */
 	public Client(String host, int port) {
 		comController = new CommunicationController(host, port);
 		panMan = new PanelController(comController);
 	}
 
+	/**
+	 * Program entrypoint
+	 * @param args Command line arguments
+	 */
 	public static void main(String[] args) {
 		String host = "localhost";
 		int port = 4200;

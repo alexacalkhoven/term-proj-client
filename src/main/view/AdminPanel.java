@@ -31,6 +31,12 @@ public class AdminPanel extends Panel {
 	private JPanel headerPanel;
 	private JTextField titleText;
 
+	/**
+	 * Creates a new AdminPanel
+	 * 
+	 * @param panMan Panel manager
+	 * @param adCon Admin function controller
+	 */
 	public AdminPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
 		adCon = new AdminFunctController(comCon);

@@ -56,7 +56,7 @@ public class Course implements Serializable {
 	 * 
 	 * @param offeringListForCourse Offerings for the course.
 	 * @param preReqList Pre-reqs for the course.
-	 * @return
+	 * @return Stringified version of the course
 	 */
 	public String toString(ArrayList<CourseOffering> offeringListForCourse, ArrayList<Course> preReqList) {
 		String s = String.format("Course: %s\n\nAll course sections:", getFullName());

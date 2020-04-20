@@ -55,6 +55,12 @@ public class StudentPanel extends Panel {
 	private JTable offeringTable;
 	private DefaultTableModel offeringTableModel;
 
+	/**
+	 * Creates a new StudentPanel
+	 * 
+	 * @param panMan Panel manager
+	 * @param adCon Student function controller
+	 */
 	public StudentPanel(PanelController panMan, CommunicationController comCon) {
 		super(panMan);
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));

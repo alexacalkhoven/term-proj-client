@@ -20,6 +20,12 @@ public class CourseOffering implements Serializable {
 	private int studentAmount;
 	private Course course;
 
+	/**
+	 * Creates a new course offering with given section number and section capacity
+	 * 
+	 * @param secNum Section number
+	 * @param secCap Section capacity
+	 */
 	public CourseOffering(int secNum, int secCap) {
 		setStudentAmount(0);
 		setSecNum(secNum);

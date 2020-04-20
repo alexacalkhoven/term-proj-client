@@ -46,6 +46,12 @@ public class AdminStudentPanel extends Panel {
 	private JTable table;
 	private DefaultTableModel tableModel;
 
+	/**
+	 * Creates a new AdminStudentPanel
+	 * 
+	 * @param panMan Panel manager
+	 * @param adCon Admin function controller
+	 */
 	public AdminStudentPanel(PanelController panMan, AdminFunctController adCon) {
 		super(panMan);
 		this.adCon = adCon;

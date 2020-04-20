@@ -21,6 +21,11 @@ public class AdminFunctController {
 	private ArrayList<Course> courseList;
 	private ArrayList<Student> studentList;
 
+	/**
+	 * Initializes a new AdminFunctController
+	 * 
+	 * @param comCon Communication controller for the application
+	 */
 	public AdminFunctController(CommunicationController comCon) {
 		this.comCon = comCon;
 	}

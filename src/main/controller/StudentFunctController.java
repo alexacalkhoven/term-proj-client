@@ -21,6 +21,19 @@ public class StudentFunctController {
 	private ArrayList<Course> courseList;
 	private ArrayList<CourseOffering> offeringList;
 
+	/**
+	 * Initializes a new StudentFunctController
+	 * 
+	 * @param comCon Communication controller for the application
+	 */
+	public StudentFunctController(CommunicationController comCon) {
+		this.comCon = comCon;
+	}
+
+	/**
+	 * Gets a list of all courses from the server
+	 * @return A list of all courses
+	 */
 	public ArrayList<Course> viewCourses() {
 		ArrayList<Course> result = (ArrayList<Course>) comCon.makeRequest("course.get");
 		courseList = result;
@@ -31,16 +44,16 @@ public class StudentFunctController {
 	 * gets the courseId from the selected row
 	 * 
 	 * @param row the selected row
-	 * @return
+	 * @return The ID of the course on given row number
 	 */
 	public int getCourseIdFromRow(int row) {
 		return courseList.get(row).getCourseId();
 	}
 
-	public StudentFunctController(CommunicationController comCon) {
-		this.comCon = comCon;
-	}
-
+	/**
+	 * Gets the current logged in student
+	 * @return Logged in student
+	 */
 	public Student getStudent() {
 		Student result = (Student) comCon.makeRequest("student.getStudent");
 		return result;

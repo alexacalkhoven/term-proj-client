@@ -17,6 +17,11 @@ import javax.swing.JPanel;
 public class Frame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Creates a new Frame
+	 * 
+	 * @param s Title
+	 */
 	public Frame(String s) {
 		super(s);
 		setTitle("Course Registration System");

@@ -16,6 +16,12 @@ public class Request implements Serializable {
 	private String command;
 	private Object data;
 
+	/**
+	 * Creates a new network request object with given command and data
+	 * 
+	 * @param command Network command
+	 * @param data Network data
+	 */
 	public Request(String command, Object data) {
 		this.command = command;
 		this.data = data;

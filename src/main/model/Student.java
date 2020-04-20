@@ -18,6 +18,12 @@ public class Student implements Serializable {
 	private int id;
 	private ArrayList<Registration> registrationList;
 
+	/**
+	 * Creates a new student with given name and ID
+	 * 
+	 * @param name Student name
+	 * @param id Student ID
+	 */
 	public Student(String name, int id) {
 		registrationList = new ArrayList<Registration>();
 		setName(name);
